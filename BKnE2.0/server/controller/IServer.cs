@@ -11,6 +11,8 @@ namespace BKnE2._0.server.controller
     interface IObserver
     {
 
+        string host { get; }
+
         void receiveClient(Client client);
     }
 }

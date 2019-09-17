@@ -8,5 +8,15 @@ namespace BKnE2._0.server.model.entity
 {
     class Pin
     {
+
+        public uint x { get; }
+        public uint y { get; }
+
+        public Pin (uint x, uint y)
+        {
+
+            this.x = x;
+            this.y = y;
+        }
     }
 }
