@@ -1,7 +1,5 @@
-﻿using BKnE2._0.server.controller.interfaces;
-using BKnE2._0.server.model;
-using BKnE2._0.server.model.client;
-using BKnE2._0.server.model.game;
+﻿using BKnE2Server.server.model.client;
+using BKnE2Server.server.model.game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BKnE2._0.server.controller
+namespace BKnE2Server.server.controller
 {
 
     class Server
@@ -19,7 +17,7 @@ namespace BKnE2._0.server.controller
 
         private List<Game> games;
         
-        public Server()
+        public void startServer()
         {
 
             this.games = new List<Game>();
@@ -27,7 +25,7 @@ namespace BKnE2._0.server.controller
             new Thread(new ThreadStart(catchClients)).Start();
         }
 
-        public void catchClients()
+        private void catchClients()
         {
 
             try
