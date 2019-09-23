@@ -15,8 +15,10 @@ namespace BKnE2Server.server.controller
     class Server
     {
 
+        // attributes
         private List<Game> games;
         
+        // constructor
         public void startServer()
         {
 
@@ -25,6 +27,7 @@ namespace BKnE2Server.server.controller
             new Thread(new ThreadStart(catchClients)).Start();
         }
 
+        // connection
         private void catchClients()
         {
 
@@ -41,7 +44,13 @@ namespace BKnE2Server.server.controller
                 while (true)
                 {
 
-                    this.receiveClient(new Client(listener));
+                    TcpClient tcpClient = listener.AcceptTcpClient();
+
+                    Client client = new Client(this, tcpClient);
+                    Game game = this.findGame();
+
+                    game.addClient(client);
+                    client.game = game;
                 }
             }
             catch (Exception e)
@@ -53,12 +62,30 @@ namespace BKnE2Server.server.controller
             }
         }
 
-        public void receiveClient(Client client)
+        // messaging
+        public void receiveMessage(Client client, string receivedMessage)
         {
 
-            this.findGame().addClient(client);
+            string preset = receivedMessage.Substring(0, 1);
+            string message = receivedMessage.Substring(1);
+
+            switch (preset)
+            {
+
+                case Config.loginPreset:   client.login(message);             break;
+                case Config.startPreset:   client.game.startGame();           break;
+                case Config.pinPreset:     client.game.receivePin(message);   break;
+                case Config.messagePreset: this.sendMessage(client, message); break;
+            } 
         }
 
+        public void sendMessage(Client client, string message)
+        {
+
+            client.game.sendAll(Config.messagePreset + message);
+        }
+
+        // game
         private Game findGame()
         {
 
