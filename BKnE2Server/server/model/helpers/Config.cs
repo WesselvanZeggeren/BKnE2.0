@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BKnE2Server.server.controller
+namespace BKnE2Server.server.model.helpers
 {
 
     static class Config
@@ -17,10 +17,14 @@ namespace BKnE2Server.server.controller
         // game
         public const int maxPlayersInGame = 2;
 
+        // paths
+        public const string jsonpath      = @"C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\server\model\json";
+
         // message presets
-        public const string loginPreset   = "L";    // format: L[name]:[password]
-        public const string messagePreset = "M";    // format: M[message]
-        public const string startPreset   = "S";    // format: S
-        public const string pinPreset     = "P";    // format: P[x]:[y]
+        public const string loginPreset   = "L";    // format server: L[name]:[password]
+        public const string startPreset   = "S";    // format server: S
+        public const string messagePreset = "M";    // format server: M[message]            format client: M[message]
+        public const string pinPreset     = "P";    // format server: P[x]:[y]              format client: P[x]:[y]:[r,g,b]
+        public const string gamePreset    = "G";    //                                      format client: G[name1]:[name2]:*   
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BKnE2Server.server.model.game;
 using BKnE2Server.server.controller;
 using BKnE2Server.server.model.helpers;
+using BKnE2Server.server.model.json;
 
 namespace BKnE2Server.server.model.client
 {
@@ -58,13 +59,17 @@ namespace BKnE2Server.server.model.client
         public void login(string login)
         {
 
-            this.data = JSONHelper.login();
+            string[] credentials = login.Split(':');
+
+            if (credentials.Length == 2)
+                this.data = JSONHelper.login(credentials[0], credentials[1]);
         }
 
         public void save()
         {
 
-            JSONHelper.save(this.data);
+            if (this.data != null)
+                JSONHelper.save(this.data);
         }
     }
 }
