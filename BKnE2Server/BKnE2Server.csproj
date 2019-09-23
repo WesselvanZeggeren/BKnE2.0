@@ -45,13 +45,14 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="server\controller\Config.cs" />
+    <Compile Include="server\model\client\ClientData.cs" />
+    <Compile Include="server\model\helpers\Config.cs" />
     <Compile Include="server\controller\Server.cs" />
     <Compile Include="server\model\client\Client.cs" />
     <Compile Include="server\model\game\Game.cs" />
     <Compile Include="server\model\game\Pin.cs" />
     <Compile Include="server\model\helpers\TCPHelper.cs" />
-    <Compile Include="server\model\json\JsonManager.cs" />
+    <Compile Include="server\model\helpers\JSONHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -17,12 +17,12 @@ namespace BKnE2Server.server.model.client
     {
 
         // attributes
-        public int id { get; set; }
-        public Game game { get; set; }
-        public string name { get; set; }
-        public List<Pin> pins { get; }
+        public Game game;
+        private List<Pin> pins;
+        private ClientData data;
 
         private Server server;
+
         private Thread thread;
         private TcpClient client;
         private NetworkStream stream;
@@ -45,16 +45,26 @@ namespace BKnE2Server.server.model.client
             this.stream = client.GetStream();
 
             while (true)
-            {
-
                 this.server.receiveMessage(this, TCPHelper.readText(this.stream));
-            }
         }
 
         public void sendMessage(string message)
         {
 
             TCPHelper.sendText(this.stream, message);
+        }
+
+        // account
+        public void login(string login)
+        {
+
+            this.data = JSONHelper.login();
+        }
+
+        public void save()
+        {
+
+            JSONHelper.save(this.data);
         }
     }
 }

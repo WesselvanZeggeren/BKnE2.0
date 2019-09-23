@@ -17,10 +17,10 @@ namespace BKnE2Server.server.controller
         // game
         public const int maxPlayersInGame = 2;
 
-        // presets
-        public const string loginPreset   = "L";
-        public const string messagePreset = "M";
-        public const string startPreset   = "S";
-        public const string pinPreset     = "P";
+        // message presets
+        public const string loginPreset   = "L";    // format: L[name]:[password]
+        public const string messagePreset = "M";    // format: M[message]
+        public const string startPreset   = "S";    // format: S
+        public const string pinPreset     = "P";    // format: P[x]:[y]
     }
 }
