@@ -7,34 +7,54 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using BKnE2Server.server.model.game;
+using BKnE2Server.server.controller;
+using BKnE2Server.server.model.helpers;
 
 namespace BKnE2Server.server.model.client
 {
 
-    class Client 
+    class Client
     {
 
-        public int id;
-        public string name;
-        public List<Pin> pins;
+        // attributes
+        public int id { get; set; }
+        public Game game { get; set; }
+        public string name { get; set; }
+        public List<Pin> pins { get; }
 
-        private TcpListener listener;
-        private TcpClient client;
+        private Server server;
         private Thread thread;
+        private TcpClient client;
+        private NetworkStream stream;
 
-        public Client(TcpListener listener)
+        // constructor
+        public Client(Server server, TcpClient client)
         {
 
-            this.listener = listener;
+            this.server = server;
 
-            this.thread = new Thread(new ThreadStart(handleClientConnection));
-            this.thread.Start();
+            this.thread = new Thread(handleClientConnection);
+            this.thread.Start(client);
         }
 
-        public void handleClientConnection()
+        // connection
+        private void handleClientConnection(object obj)
         {
 
+            this.client = obj as TcpClient;
+            this.stream = client.GetStream();
 
+            while (true)
+            {
+
+                this.server.receiveMessage(this, TCPHelper.readText(this.stream));
+            }
+        }
+
+        public void sendMessage(string message)
+        {
+
+            TCPHelper.sendText(this.stream, message);
         }
     }
 }

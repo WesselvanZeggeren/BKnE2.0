@@ -13,32 +13,51 @@ namespace BKnE2Server.server.model.game
     class Game
     {
 
-        private Thread thread;
-        private Server server;
-        private List<Client> clients;
+        // attributes
         private List<Pin> pins;
+        private List<Client> clients;
+        private bool running = false;
 
+        private Server server;
+
+        // constructor
         public Game(Server server)
         {
 
             this.server = server;
         }
 
-        private void startGame()
+        // game
+        public void startGame()
         {
 
-        }
-
-        public void addClient(Client client)
-        {
-
-            this.clients.Add(client);
+            this.running = true;
         }
 
         public bool isRunning()
         {
 
-            return false;
+            return this.running;
+        }
+
+        // clients
+        public void addClient(Client client)
+        {
+
+            this.clients.Add(client);
+
+            if (this.clients.Count() >= Config.maxPlayersInGame)
+                this.startGame();
+        }
+
+        public void sendAll(string message)
+        {
+
+            foreach (Client client in this.clients)
+            {
+
+                client.sendMessage();
+            }
         }
     }
 }
