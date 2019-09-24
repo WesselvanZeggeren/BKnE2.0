@@ -64,26 +64,14 @@ namespace BKnE2Server.server.model.json
         {
 
             if (File.Exists(Config.jsonPath) && clients.Count() != 0)
-            {
-
                 File.WriteAllText(Config.jsonPath, JsonConvert.SerializeObject(clients));
-            }
         }
 
         private static void load()
         {
 
             if (File.Exists(Config.jsonPath) && clients.Count() == 0)
-            {
-
-                Console.WriteLine(clients.Count());
-                Console.ReadLine();
-
                 clients = JsonConvert.DeserializeObject<List<ClientData>>(File.ReadAllText(Config.jsonPath));
-
-                Console.WriteLine(clients.Count());
-                Console.ReadLine();
-            }
         }
     }
 }

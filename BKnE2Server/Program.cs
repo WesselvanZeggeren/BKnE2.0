@@ -14,19 +14,8 @@ namespace BKnE2Server
         static void Main(string[] args)
         {
 
-            //Server server = new Server();
-            //server.startServer();
-
-            Console.WriteLine("start");
-
-            ClientData client = AccountManager.login("wessel", "0000", true );
-            AccountManager.writeClients();
-            client.color = ClientColor.newColor(10, 10, 10);
-            AccountManager.save();
-
-            Console.ReadLine();
-            Console.WriteLine(client);
-            Console.ReadLine();
+            Server server = new Server();
+            server.startServer();
         }
     }
 }
