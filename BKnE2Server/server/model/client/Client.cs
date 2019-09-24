@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BKnE2Server.server.model.game;
 using BKnE2Server.server.controller;
 using BKnE2Server.server.model.helpers;
+using BKnE2Server.server.model.json;
 
 namespace BKnE2Server.server.model.client
 {
@@ -17,12 +18,12 @@ namespace BKnE2Server.server.model.client
     {
 
         // attributes
-        public int id { get; set; }
-        public Game game { get; set; }
-        public string name { get; set; }
-        public List<Pin> pins { get; }
+        public Game game;
+        private List<Pin> pins;
+        private ClientData data = null;
 
         private Server server;
+
         private Thread thread;
         private TcpClient client;
         private NetworkStream stream;
@@ -48,6 +49,8 @@ namespace BKnE2Server.server.model.client
             {
 
                 this.server.receiveMessage(this, TCPHelper.readText(this.stream));
+
+                Thread.Sleep(10);
             }
         }
 
@@ -55,6 +58,25 @@ namespace BKnE2Server.server.model.client
         {
 
             TCPHelper.sendText(this.stream, message);
+        }
+
+        // account
+        public void login(string credentialString)
+        {
+
+            string[] credentials = credentialString.Split(':');
+
+            if (credentials.Length == 3)
+                this.data = AccountManager.login(credentials[0], credentials[1], Convert.ToBoolean(credentials[2]));
+
+            this.sendMessage(Config.loginPreset + (this.data != null));
+        }
+
+        public void save()
+        {
+
+            if (this.data != null)
+                AccountManager.save();
         }
     }
 }
