@@ -18,7 +18,7 @@ namespace BKnE2Server.server.model.helpers
         public const int maxPlayersInGame  = 2;
 
         // paths
-        public const string jsonpath       = @"C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\server\model\json\";
+        public const string jsonPath       = "Accounts.txt";
 
         // message presets
         public const string startPreset    = "S";   // server: S

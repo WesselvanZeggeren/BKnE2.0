@@ -16,6 +16,8 @@ namespace BKnE2Server
             //Server server = new Server();
             //server.startServer();
 
+            Console.WriteLine("start");
+
             AccountManager.login("wessel", "0000", true);
             AccountManager.save();
         }

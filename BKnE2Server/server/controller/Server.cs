@@ -26,6 +26,8 @@ namespace BKnE2Server.server.controller
             this.games = new List<Game>();
 
             new Thread(new ThreadStart(catchClients)).Start();
+
+            Console.Read();
         }
 
         // connection
@@ -75,7 +77,7 @@ namespace BKnE2Server.server.controller
 
                 case Config.loginPreset:   client.login(message);             break;
                 case Config.startPreset:   client.game.startGame();           break;
-                case Config.pinPreset:     client.game.receivePin(message);   break;
+                //case Config.pinPreset:     client.game.receivePin(message);   break;
                 case Config.messagePreset: this.sendMessage(client, message); break;
             } 
         }

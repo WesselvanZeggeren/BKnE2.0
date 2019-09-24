@@ -14,8 +14,10 @@ namespace BKnE2Server.server.model.json
     static class AccountManager
     {
 
-        private static List<ClientData> clients = null;
+        // attributes
+        private static List<ClientData> clients = new List<ClientData>();
 
+        // login
         public static ClientData login(string name, string password, bool register = false)
         {
 
@@ -31,47 +33,6 @@ namespace BKnE2Server.server.model.json
             return null;
         }
 
-        // 
-        public static void save()
-        {
-
-            if (clients != null)
-            {
-
-                List<string> clientJson = new List<string>();
-
-                foreach (ClientData client in clients)
-                    clientJson.Add(JsonConvert.SerializeObject(client));
-
-                string json = JsonConvert.SerializeObject(clientJson);
-
-                File.WriteAllText(Config.jsonpath + "Accounts.txt", json);
-            }
-        }
-
-        private static void prepareClientData()
-        {
-
-            if (File.Exists(Config.jsonpath + "Accounts.txt") && clients == null)
-            {
-
-                clients = new List<ClientData>();
-
-                StreamReader reader = new StreamReader(Config.jsonpath);
-
-                string text = "";
-                string line;
-
-                while ((line = reader.ReadLine()) != null)
-                    text += line;
-
-                List<string> clientJson = JsonConvert.DeserializeObject<List<string>>(text);
-
-                foreach (string client in clientJson)
-                    clients.Add(JsonConvert.DeserializeObject<ClientData>(client));
-            }
-        }
-
         private static int generateId()
         {
 
@@ -82,6 +43,51 @@ namespace BKnE2Server.server.model.json
                     id = client.id;
 
             return (id + 1);
+        }
+
+        // file io
+        public static void save()
+        {
+
+            if (clients.Count() != 0)
+            {
+
+                List<string> clientJson = new List<string>();
+
+                foreach (ClientData client in clients)
+                    clientJson.Add(JsonConvert.SerializeObject(client));
+
+                string json = JsonConvert.SerializeObject(clientJson);
+
+                File.WriteAllText(Config.jsonPath, json);
+            }
+        }
+
+        private static void prepareClientData()
+        {
+
+            Console.Read();
+
+            if (File.Exists(Config.jsonPath) && clients.Count() == 0)
+            {
+
+                Console.WriteLine(clients.Count());
+                Console.Read();
+
+                StreamReader reader = new StreamReader(Config.jsonPath);
+
+                string text = "";
+                string line;
+
+                while ((line = reader.ReadLine()) != null)
+                    text += line;
+
+                  
+//                List<string> clientJson = JsonConvert.DeserializeObject<List<string>>(text);
+
+  //              foreach (string client in clientJson)
+    //                clients.Add(JsonConvert.DeserializeObject<ClientData>(client));
+            }
         }
     }
 }
