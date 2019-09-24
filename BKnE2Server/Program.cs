@@ -1,4 +1,5 @@
 ﻿using BKnE2Server.server.controller;
+using BKnE2Server.server.model.client;
 using BKnE2Server.server.model.json;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,14 @@ namespace BKnE2Server
 
             Console.WriteLine("start");
 
-            AccountManager.login("wessel", "0000", true);
+            ClientData client = AccountManager.login("wessel", "0000", true );
+            AccountManager.writeClients();
+            client.color = ClientColor.newColor(10, 10, 10);
             AccountManager.save();
+
+            Console.ReadLine();
+            Console.WriteLine(client);
+            Console.ReadLine();
         }
     }
 }

@@ -9,41 +9,34 @@ namespace BKnE2Server.server.model.client
     class ClientData
     {
 
-        public int id { get; }
-        public string name { get; }
-        public string password { get; }
+        public int id { get; set;  }
+        public string name { get; set; }
+        public string password { get; set; }
         public int wins { get; set; }
+        public int plays { get; set; }
         public int score { get; set; }
-        public Color color { get; set; }
+        public ClientColor color { get; set; }
 
-        public ClientData(int id, string name, string password)
+        public static ClientData newClient(int id, string name, string password)
         {
 
-            this.id = id;
-            this.name = name;
-            this.password = password;
+            ClientData client = new ClientData();
 
-            this.wins = 0;
-            this.score = 0;
-            this.color = new Color();
+            client.id = id;
+            client.name = name;
+            client.password = password;
+            client.color = ClientColor.generateColor();
+
+            return client;
         }
-    }
 
-    class Color
-    {
-
-        public int r { get; }
-        public int g { get; }
-        public int b { get; }
-
-        public Color()
+        public override string ToString()
         {
 
-            Random random = new Random();
-
-            this.r = random.Next(256);
-            this.g = random.Next(256);
-            this.b = random.Next(256);
+            return String.Format(
+                "id: {0}|name: {1}|password: {2}|wins: {3}|plays: {4}|score: {5}|color: {6}",
+                this.id, this.name, this.password, this.wins, this.plays, this.score, this.color
+            );
         }
     }
 }

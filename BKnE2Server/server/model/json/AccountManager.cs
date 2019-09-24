@@ -21,14 +21,18 @@ namespace BKnE2Server.server.model.json
         public static ClientData login(string name, string password, bool register = false)
         {
 
-            prepareClientData();
-
-            if (register)
-                clients.Add(new ClientData(generateId(), name, password));
+            load();
 
             foreach (ClientData client in clients)
                 if (client.name == name && client.password == password)
                     return client;
+
+            if (register)
+            {
+
+                clients.Add(ClientData.newClient(generateId(), name, password));
+                return login(name, password);
+            }
 
             return null;
         }
@@ -45,48 +49,40 @@ namespace BKnE2Server.server.model.json
             return (id + 1);
         }
 
+        public static void writeClients()
+        {
+
+            foreach (ClientData client in clients)
+            {
+
+                Console.WriteLine(client);
+            }
+        }
+
         // file io
         public static void save()
         {
 
-            if (clients.Count() != 0)
+            if (File.Exists(Config.jsonPath) && clients.Count() != 0)
             {
 
-                List<string> clientJson = new List<string>();
-
-                foreach (ClientData client in clients)
-                    clientJson.Add(JsonConvert.SerializeObject(client));
-
-                string json = JsonConvert.SerializeObject(clientJson);
-
-                File.WriteAllText(Config.jsonPath, json);
+                File.WriteAllText(Config.jsonPath, JsonConvert.SerializeObject(clients));
             }
         }
 
-        private static void prepareClientData()
+        private static void load()
         {
-
-            Console.Read();
 
             if (File.Exists(Config.jsonPath) && clients.Count() == 0)
             {
 
                 Console.WriteLine(clients.Count());
-                Console.Read();
+                Console.ReadLine();
 
-                StreamReader reader = new StreamReader(Config.jsonPath);
+                clients = JsonConvert.DeserializeObject<List<ClientData>>(File.ReadAllText(Config.jsonPath));
 
-                string text = "";
-                string line;
-
-                while ((line = reader.ReadLine()) != null)
-                    text += line;
-
-                  
-//                List<string> clientJson = JsonConvert.DeserializeObject<List<string>>(text);
-
-  //              foreach (string client in clientJson)
-    //                clients.Add(JsonConvert.DeserializeObject<ClientData>(client));
+                Console.WriteLine(clients.Count());
+                Console.ReadLine();
             }
         }
     }

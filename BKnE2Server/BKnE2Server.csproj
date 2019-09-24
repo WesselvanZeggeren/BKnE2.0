@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="server\model\client\ClientColor.cs" />
     <Compile Include="server\model\client\ClientData.cs" />
     <Compile Include="server\model\helpers\Config.cs" />
     <Compile Include="server\controller\Server.cs" />
@@ -60,7 +61,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <Content Include="server\model\json\Accounts.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
