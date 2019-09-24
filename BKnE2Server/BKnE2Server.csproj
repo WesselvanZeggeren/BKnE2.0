@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\BKnE2.0\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,11 +55,12 @@
     <Compile Include="server\model\game\Game.cs" />
     <Compile Include="server\model\game\Pin.cs" />
     <Compile Include="server\model\helpers\TCPHelper.cs" />
-    <Compile Include="server\model\helpers\JSONHelper.cs" />
+    <Compile Include="server\model\json\AccountManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="server\model\json\accounts.json" />
+    <None Include="packages.config" />
+    <Content Include="server\model\json\Accounts.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

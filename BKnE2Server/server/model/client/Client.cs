@@ -20,7 +20,7 @@ namespace BKnE2Server.server.model.client
         // attributes
         public Game game;
         private List<Pin> pins;
-        private ClientData data;
+        private ClientData data = null;
 
         private Server server;
 
@@ -46,7 +46,12 @@ namespace BKnE2Server.server.model.client
             this.stream = client.GetStream();
 
             while (true)
+            {
+
                 this.server.receiveMessage(this, TCPHelper.readText(this.stream));
+
+                Thread.Sleep(10);
+            }
         }
 
         public void sendMessage(string message)
@@ -56,20 +61,22 @@ namespace BKnE2Server.server.model.client
         }
 
         // account
-        public void login(string login)
+        public void login(string credentialString)
         {
 
-            string[] credentials = login.Split(':');
+            string[] credentials = credentialString.Split(':');
 
-            if (credentials.Length == 2)
-                this.data = JSONHelper.login(credentials[0], credentials[1]);
+            if (credentials.Length == 3)
+                this.data = AccountManager.login(credentials[0], credentials[1], Convert.ToBoolean(credentials[2]));
+
+            this.sendMessage(Config.loginPreset + (this.data != null));
         }
 
         public void save()
         {
 
             if (this.data != null)
-                JSONHelper.save(this.data);
+                AccountManager.save();
         }
     }
 }

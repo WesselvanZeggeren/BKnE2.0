@@ -1,5 +1,6 @@
 ﻿using BKnE2Server.server.controller;
 using BKnE2Server.server.model.client;
+using BKnE2Server.server.model.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,7 @@ namespace BKnE2Server.server.model.game
             foreach (Client client in this.clients)
             {
 
-                client.sendMessage();
+                client.sendMessage(message);
             }
         }
     }

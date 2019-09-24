@@ -1,4 +1,5 @@
 ﻿using BKnE2Server.server.controller;
+using BKnE2Server.server.model.json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,11 @@ namespace BKnE2Server
         static void Main(string[] args)
         {
 
-            Server server = new Server();
-            server.startServer();
+            //Server server = new Server();
+            //server.startServer();
+
+            AccountManager.login("wessel", "0000", true);
+            AccountManager.save();
         }
     }
 }
