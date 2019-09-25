@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BKnE2._0.server.model.entity
+namespace BKnE2._0.server.model.game
 {
     class Pin
     {

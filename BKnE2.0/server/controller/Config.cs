@@ -1,5 +1,4 @@
-﻿using BKnE2._0.server.model.entity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace BKnE2._0.server.controller
 {
-
-    interface IObserver
+    static class Config
     {
 
-        string host { get; }
-
-        void receiveClient(Client client);
+        public const string host = "127.0.0.1";
+        public const int port = 42069;
     }
 }

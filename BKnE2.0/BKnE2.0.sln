@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKnE2.0", "BKnE2.0.csproj", "{4B2DD7EF-F565-493C-BD3A-89B9E7C195EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKnE2Client", "..\BKnE2Client\BKnE2Client.csproj", "{55248FA5-19F4-4938-B147-55DB20BC8AB4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKnE2Server", "..\BKnE2Server\BKnE2Server.csproj", "{5D9520FE-C454-4E68-8D94-FA3575EC03AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4B2DD7EF-F565-493C-BD3A-89B9E7C195EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B2DD7EF-F565-493C-BD3A-89B9E7C195EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B2DD7EF-F565-493C-BD3A-89B9E7C195EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B2DD7EF-F565-493C-BD3A-89B9E7C195EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55248FA5-19F4-4938-B147-55DB20BC8AB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55248FA5-19F4-4938-B147-55DB20BC8AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55248FA5-19F4-4938-B147-55DB20BC8AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55248FA5-19F4-4938-B147-55DB20BC8AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D9520FE-C454-4E68-8D94-FA3575EC03AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D9520FE-C454-4E68-8D94-FA3575EC03AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D9520FE-C454-4E68-8D94-FA3575EC03AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D9520FE-C454-4E68-8D94-FA3575EC03AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

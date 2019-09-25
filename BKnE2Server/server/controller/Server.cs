@@ -1,7 +1,6 @@
-﻿using BKnE2._0.server.controller.interfaces;
-using BKnE2._0.server.model;
-using BKnE2._0.server.model.client;
-using BKnE2._0.server.model.game;
+﻿using BKnE2Server.server.model.client;
+using BKnE2Server.server.model.game;
+using BKnE2Server.server.model.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +10,28 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace BKnE2._0.server.controller
+namespace BKnE2Server.server.controller
 {
 
     class Server
     {
 
+        // attributes
         private List<Game> games;
         
-        public Server()
+        // constructor
+        public void startServer()
         {
 
             this.games = new List<Game>();
 
             new Thread(new ThreadStart(catchClients)).Start();
+
+            Console.Read();
         }
 
-        public void catchClients()
+        // connection
+        private void catchClients()
         {
 
             try
@@ -43,7 +47,13 @@ namespace BKnE2._0.server.controller
                 while (true)
                 {
 
-                    this.receiveClient(new Client(listener));
+                    TcpClient tcpClient = listener.AcceptTcpClient();
+
+                    Client client = new Client(this, tcpClient);
+                    Game game = this.findGame();
+
+                    game.addClient(client);
+                    client.game = game;
                 }
             }
             catch (Exception e)
@@ -55,12 +65,24 @@ namespace BKnE2._0.server.controller
             }
         }
 
-        public void receiveClient(Client client)
+        // messaging
+        public void receiveMessage(Client client, string receivedMessage)
         {
 
-            this.findGame().addClient(client);
+            string preset = receivedMessage.Substring(0, 1);
+            string message = receivedMessage.Substring(1);
+
+            switch (preset)
+            {
+
+                case Config.loginPreset:   client.login(message);             break;
+                case Config.startPreset:   client.game.startGame();           break;
+                case Config.pinPreset:     client.game.receivePin(message);   break;
+                case Config.messagePreset: client.game.sendAll(message);      break;
+            } 
         }
 
+        // game
         private Game findGame()
         {
 
