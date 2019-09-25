@@ -77,15 +77,9 @@ namespace BKnE2Server.server.controller
 
                 case Config.loginPreset:   client.login(message);             break;
                 case Config.startPreset:   client.game.startGame();           break;
-                //case Config.pinPreset:     client.game.receivePin(message);   break;
-                case Config.messagePreset: this.sendMessage(client, message); break;
+                case Config.pinPreset:     client.game.receivePin(message);   break;
+                case Config.messagePreset: client.game.sendAll(message);      break;
             } 
-        }
-
-        public void sendMessage(Client client, string message)
-        {
-
-            client.game.sendAll(Config.messagePreset + message);
         }
 
         // game

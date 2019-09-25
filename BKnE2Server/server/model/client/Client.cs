@@ -31,8 +31,9 @@ namespace BKnE2Server.server.model.client
         // constructor
         public Client(Server server, TcpClient client)
         {
-
             this.server = server;
+
+            this.pins = new List<Pin>();
 
             this.thread = new Thread(handleClientConnection);
             this.thread.Start(client);

@@ -26,6 +26,8 @@ namespace BKnE2Server.server.model.game
         {
 
             this.server = server;
+
+            this.pins = new List<Pin>();
         }
 
         // game
@@ -41,7 +43,18 @@ namespace BKnE2Server.server.model.game
             return this.running;
         }
 
-        // clients
+        // pin
+        public void receivePin(string receivedString)
+        {
+
+            string[] pinString = receivedString.Split(':');
+
+            Pin pin = new Pin(Convert.ToInt32(pinString[0]), Convert.ToInt32(pinString[1]));
+
+            Console.WriteLine(pin);
+        }
+
+        // client
         public void addClient(Client client)
         {
 
