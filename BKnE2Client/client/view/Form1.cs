@@ -15,6 +15,18 @@ namespace BKnE2Client
         public Form1()
         {
             InitializeComponent();
+            loginButton.Click += loginButtonPressed;
+            registerButton.Click += registerButtonPressed;
+        }
+
+        private void loginButtonPressed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void registerButtonPressed(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
