@@ -8,8 +8,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using BKnE2Server.server.model.game;
 using BKnE2Server.server.controller;
-using BKnE2Server.server.model.helpers;
 using BKnE2Server.server.model.json;
+using BKnE2Base;
+using Newtonsoft.Json;
 
 namespace BKnE2Server.server.model.client
 {
@@ -49,7 +50,7 @@ namespace BKnE2Server.server.model.client
             while (true)
             {
 
-                this.server.receiveMessage(this, TCPHelper.readText(this.stream));
+                this.server.receiveMessage(this, TCPHelper.read(this.stream));
 
                 Thread.Sleep(10);
             }
@@ -58,14 +59,14 @@ namespace BKnE2Server.server.model.client
         public void sendMessage(string message)
         {
 
-            TCPHelper.sendText(this.stream, message);
+            TCPHelper.send(this.stream, message);
         }
 
         // account
-        public void login(string credentialString)
+        public void login(string json)
         {
 
-            string[] credentials = credentialString.Split(':');
+            string[] credentials = JsonConvert.DeserializeObject<string[]>(json);
 
             if (credentials.Length == 3)
                 this.data = AccountManager.login(credentials[0], credentials[1], Convert.ToBoolean(credentials[2]));

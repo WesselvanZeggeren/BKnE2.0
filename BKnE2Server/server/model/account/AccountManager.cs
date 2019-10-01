@@ -1,5 +1,5 @@
-﻿using BKnE2Server.server.model.client;
-using BKnE2Server.server.model.helpers;
+﻿using BKnE2Base;
+using BKnE2Server.server.model.client;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace BKnE2Server.server.model.json
                 if (client.name == name && client.password == password)
                     return client;
 
-            if (register)
+            if (register && clients.Count() < 100)
             {
 
                 clients.Add(ClientData.newClient(generateId(), name, password));
@@ -63,15 +63,15 @@ namespace BKnE2Server.server.model.json
         public static void save()
         {
 
-            if (File.Exists(Config.jsonPath) && clients.Count() != 0)
-                File.WriteAllText(Config.jsonPath, JsonConvert.SerializeObject(clients));
+            if (File.Exists(Config.accountPath) && clients.Count() != 0)
+                File.WriteAllText(Config.accountPath, JsonConvert.SerializeObject(clients));
         }
 
         private static void load()
         {
 
-            if (File.Exists(Config.jsonPath) && clients.Count() == 0)
-                clients = JsonConvert.DeserializeObject<List<ClientData>>(File.ReadAllText(Config.jsonPath));
+            if (File.Exists(Config.accountPath) && clients.Count() == 0)
+                clients = JsonConvert.DeserializeObject<List<ClientData>>(File.ReadAllText(Config.accountPath));
         }
     }
 }

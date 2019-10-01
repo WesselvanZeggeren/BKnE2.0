@@ -7,7 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKnE2Client", "..\BKnE2Clie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BKnE2Server", "..\BKnE2Server\BKnE2Server.csproj", "{5D9520FE-C454-4E68-8D94-FA3575EC03AE}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "BKnE2Base", "BKnE2Base\BKnE2Base.shproj", "{6008014B-7AF4-489A-8BFA-4F876B801C86}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		BKnE2Base\BKnE2Base.projitems*{55248fa5-19f4-4938-b147-55db20bc8ab4}*SharedItemsImports = 4
+		BKnE2Base\BKnE2Base.projitems*{5d9520fe-c454-4e68-8d94-fa3575ec03ae}*SharedItemsImports = 4
+		BKnE2Base\BKnE2Base.projitems*{6008014b-7af4-489a-8bfa-4f876b801c86}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
