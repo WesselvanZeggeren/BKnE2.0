@@ -32,6 +32,7 @@ namespace BKnE2Server.server.model.client
         // constructor
         public Client(Server server, TcpClient client)
         {
+
             this.server = server;
 
             this.pins = new List<Pin>();
@@ -79,6 +80,30 @@ namespace BKnE2Server.server.model.client
 
             if (this.data != null)
                 AccountManager.save();
+        }
+
+        // pins
+        public bool threeInARow()
+        {
+
+            foreach (Pin p in this.pins)
+                if (this.containsPin(p.x    , p.y + 1) && this.containsPin(p.x    , p.y + 2) ||
+                    this.containsPin(p.x + 1, p.y + 1) && this.containsPin(p.x + 2, p.y + 2) ||
+                    this.containsPin(p.x + 1, p.y    ) && this.containsPin(p.x + 2, p.y    ) ||
+                    this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
+                    return true;
+
+            return false;
+        }
+
+        private bool containsPin(int x, int y)
+        {
+
+            foreach (Pin pin in this.pins)
+                if (pin.x == x && pin.y == y)
+                    return true;
+
+            return false;
         }
     }
 }

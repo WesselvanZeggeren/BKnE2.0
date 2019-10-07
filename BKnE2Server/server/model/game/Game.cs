@@ -34,6 +34,15 @@ namespace BKnE2Server.server.model.game
 
             this.running = true;
 
+            while (this.running)
+            {
+
+
+            }
+        }
+
+        public void turn()
+        {
 
         }
 
