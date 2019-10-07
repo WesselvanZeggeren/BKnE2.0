@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BKnE2Client.client.controller;
+using BKnE2Client.client.view;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,21 +14,32 @@ namespace BKnE2Client
 {
     public partial class Form1 : Form
     {
+        private Controller controller;
+
         public Form1()
         {
             InitializeComponent();
-            loginButton.Click += loginButtonPressed;
-            registerButton.Click += registerButtonPressed;
+            loginButton.Click += OnLoginButtonPressed;
+            registerButton.Click += OnRegisterButtonPressed;
+            this.controller = new Controller();
         }
 
-        private void loginButtonPressed(object sender, EventArgs e)
+        private void OnLoginButtonPressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            controller.Login(loginNameTB.Text, passwordTB.Text);
+            LoadLobby();
         }
 
-        private void registerButtonPressed(object sender, EventArgs e)
+        private void OnRegisterButtonPressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            controller.Register(loginNameTB.Text, passwordTB.Text);
+            LoadLobby();
+        }
+
+        private void LoadLobby()
+        {
+            Lobby lobby = new Lobby(controller);
+            lobby.Show();
         }
     }
 }

@@ -49,7 +49,6 @@
             this.playerListBox.Name = "playerListBox";
             this.playerListBox.Size = new System.Drawing.Size(300, 681);
             this.playerListBox.TabIndex = 0;
-            this.playerListBox.SelectedIndexChanged += new System.EventHandler(this.PlayerListBox_SelectedIndexChanged);
             // 
             // chatTextBox
             // 
@@ -58,7 +57,6 @@
             this.chatTextBox.Name = "chatTextBox";
             this.chatTextBox.Size = new System.Drawing.Size(300, 20);
             this.chatTextBox.TabIndex = 0;
-            this.chatTextBox.TextChanged += new System.EventHandler(this.ChatTextBox_TextChanged);
             // 
             // chatListBox
             // 
@@ -68,7 +66,6 @@
             this.chatListBox.Name = "chatListBox";
             this.chatListBox.Size = new System.Drawing.Size(300, 661);
             this.chatListBox.TabIndex = 1;
-            this.chatListBox.SelectedIndexChanged += new System.EventHandler(this.ListBox1_SelectedIndexChanged);
             // 
             // playButton
             // 
@@ -78,7 +75,6 @@
             this.playButton.TabIndex = 3;
             this.playButton.Text = "PLAY GAME";
             this.playButton.UseVisualStyleBackColor = true;
-            this.playButton.Click += new System.EventHandler(this.PlayButton_Click);
             // 
             // playerPanel
             // 

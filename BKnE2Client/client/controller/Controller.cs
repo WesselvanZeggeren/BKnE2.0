@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BKnE2Client.client.controller
 {
-    class Controller
+    public class Controller
     {
         private MessageHandler messageHandler;
         private NetworkConnection networkConnection;
@@ -16,12 +16,25 @@ namespace BKnE2Client.client.controller
         {
             this.messageHandler = new MessageHandler(this);
             this.networkConnection = new NetworkConnection(this);
-            this.networkConnection.Connect(ClientConfig.host, ClientConfig.port);
         }
 
         public void HandleMessage(string message)
         {
             messageHandler.Invoke(message);
+        }
+
+        //Connect and login
+        public void Login(string username, string password)
+        {
+            this.networkConnection.Connect(ClientConfig.host, ClientConfig.port);
+            //Login
+        }
+
+        //Connect and register
+        public void Register(string username, string password)
+        {
+            this.networkConnection.Connect(ClientConfig.host, ClientConfig.port);
+            //Register
         }
     }
 }
