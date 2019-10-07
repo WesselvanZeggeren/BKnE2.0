@@ -49,8 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="client\controller\Client.cs" />
-    <Compile Include="client\model\ServerFinder.cs" />
+    <Compile Include="ClientConfig.cs" />
+    <Compile Include="client\controller\Controller.cs" />
+    <Compile Include="client\controller\MessageHandler.cs" />
+    <Compile Include="client\model\NetworkConnection.cs" />
     <Compile Include="client\view\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
