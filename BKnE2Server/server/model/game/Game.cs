@@ -15,8 +15,8 @@ namespace BKnE2Server.server.model.game
     {
 
         // attributes
-        private List<Pin> pins;
-        private List<Client> clients;
+        private List<Pin> pins = new List<Pin>();
+        private List<Client> clients = new List<Client>();
         private bool running = false;
 
         private Server server;
@@ -25,9 +25,7 @@ namespace BKnE2Server.server.model.game
         public Game(Server server)
         {
 
-            this.server = server;
-
-            this.pins = new List<Pin>();
+            this.server = server;   
         }
 
         // game
@@ -35,6 +33,8 @@ namespace BKnE2Server.server.model.game
         {
 
             this.running = true;
+
+
         }
 
         public bool isRunning()
