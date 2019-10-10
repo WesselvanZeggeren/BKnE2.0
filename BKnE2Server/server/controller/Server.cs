@@ -1,11 +1,13 @@
-﻿using BKnE2Server.server.model.client;
+﻿using BKnE2Lib;
+using BKnE2Lib.data;
+using BKnE2Server.server.model.client;
 using BKnE2Server.server.model.game;
-using BKnE2Server.server.model.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,15 +19,30 @@ namespace BKnE2Server.server.controller
     {
 
         // attributes
+        public X509Certificate2 certificate;
+
         private List<Game> games;
         
         // constructor
         public void startServer()
         {
 
-            this.games = new List<Game>();
+            try
+            {
 
-            new Thread(new ThreadStart(catchClients)).Start();
+                this.certificate = new X509Certificate2(Config.certificatePath, Config.certificateKey);
+                this.games = new List<Game>();
+
+                new Thread(new ThreadStart(catchClients)).Start();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Couldn't authenticate: {0}", e.StackTrace);
+
+                if (e.InnerException != null)
+                    Console.WriteLine("Inner exception: {0}", e.InnerException.Message);
+            }
 
             Console.Read();
         }
@@ -43,17 +60,14 @@ namespace BKnE2Server.server.controller
                     throw new Exception();
 
                 TcpListener listener = new TcpListener(ip, Config.port);
+                listener.Start();
 
                 while (true)
                 {
 
-                    TcpClient tcpClient = listener.AcceptTcpClient();
+                    Client client = new Client(this, listener.AcceptTcpClient());
 
-                    Client client = new Client(this, tcpClient);
-                    Game game = this.findGame();
-
-                    game.addClient(client);
-                    client.game = game;
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception e)
@@ -66,20 +80,17 @@ namespace BKnE2Server.server.controller
         }
 
         // messaging
-        public void receiveMessage(Client client, string receivedMessage)
+        public void receiveRequest(Client client, Request request)
         {
 
-            string preset = receivedMessage.Substring(0, 1);
-            string message = receivedMessage.Substring(1);
-
-            switch (preset)
+            switch (request.type)
             {
 
-                case Config.loginPreset:   client.login(message);             break;
-                case Config.startPreset:   client.game.startGame();           break;
-                case Config.pinPreset:     client.game.receivePin(message);   break;
-                case Config.messagePreset: client.game.sendAll(message);      break;
-            } 
+                case Config.loginType:   client.login(request);                   break;
+                case Config.startType:   client.game.startGame();                 break;
+                case Config.pinType:     client.game.receivePin(client, request); break;
+                case Config.messageType: client.game.writeRequestToAll(request);  break;
+            }
         }
 
         // game
@@ -92,6 +103,15 @@ namespace BKnE2Server.server.controller
 
             this.games.Add(new Game(this));
             return this.findGame();
+        }
+
+        public void addClientToGame(Client client)
+        {
+
+            Game game = this.findGame();
+
+            game.addClient(client);
+            client.game = game;
         }
 
         public void stopGame(Game game)

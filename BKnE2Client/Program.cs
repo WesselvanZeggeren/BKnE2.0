@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BKnE2Client.client.controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,9 +17,14 @@ namespace BKnE2Client
         static void Main()
         {
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Form1());
+
+            Client client = new Client();
+            client.startClient();
+
+            Console.Read();
         }
     }
 }

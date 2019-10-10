@@ -1,6 +1,8 @@
-﻿using BKnE2Server.server.controller;
+﻿using BKnE2Lib;
+using BKnE2Lib.data;
+using BKnE2Server.server.controller;
 using BKnE2Server.server.model.client;
-using BKnE2Server.server.model.helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,11 @@ namespace BKnE2Server.server.model.game
     {
 
         // attributes
-        private List<Pin> pins;
-        private List<Client> clients;
+        private List<Pin> pins = new List<Pin>();
+        private List<Client> clients = new List<Client>();
+        private List<Client> nextRoundClients = new List<Client>();
         private bool running = false;
+        private int iterator = 0;
 
         private Server server;
 
@@ -25,9 +29,7 @@ namespace BKnE2Server.server.model.game
         public Game(Server server)
         {
 
-            this.server = server;
-
-            this.pins = new List<Pin>();
+            this.server = server;   
         }
 
         // game
@@ -35,6 +37,8 @@ namespace BKnE2Server.server.model.game
         {
 
             this.running = true;
+
+            this.writeRequestToAll(Request.newRequest(Config.startType));
         }
 
         public bool isRunning()
@@ -44,14 +48,10 @@ namespace BKnE2Server.server.model.game
         }
 
         // pin
-        public void receivePin(string receivedString)
+        public void receivePin(Client client, Request request)
         {
 
-            string[] pinString = receivedString.Split(':');
-
-            Pin pin = new Pin(Convert.ToInt32(pinString[0]), Convert.ToInt32(pinString[1]));
-
-            Console.WriteLine(pin);
+            Pin pin = new Pin(request.get("x"), request.get("y"));
         }
 
         // client
@@ -62,15 +62,20 @@ namespace BKnE2Server.server.model.game
 
             if (this.clients.Count() >= Config.maxPlayersInGame)
                 this.startGame();
+
+            Request request = Request.newRequest(Config.accountType);
+            //request.add("clients", this.getRequestClients());
+
+            this.writeRequestToAll(request);
         }
 
-        public void sendAll(string message)
+        public void writeRequestToAll(Request request)
         {
 
             foreach (Client client in this.clients)
             {
 
-                client.sendMessage(message);
+                client.writeRequest(request);
             }
         }
     }
