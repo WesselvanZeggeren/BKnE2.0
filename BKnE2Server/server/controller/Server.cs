@@ -30,10 +30,18 @@ namespace BKnE2Server.server.controller
             try
             {
 
-                this.certificate = new X509Certificate2(Config.certificatePath, Config.certificateKey)
+                this.certificate = new X509Certificate2(Config.certificatePath, Config.certificateKey);
                 this.games = new List<Game>();
 
                 new Thread(new ThreadStart(catchClients)).Start();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine("Couldn't authenticate: {0}", e.StackTrace);
+
+                if (e.InnerException != null)
+                    Console.WriteLine("Inner exception: {0}", e.InnerException.Message);
             }
 
             Console.Read();

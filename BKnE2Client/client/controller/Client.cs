@@ -1,4 +1,5 @@
 ﻿using BKnE2Client.client.model;
+using BKnE2Lib;
 using BKnE2Lib.data;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,31 @@ namespace BKnE2Client.client.controller
         {
 
             this.startConnection();
+
+            Request request = Request.newRequest(Config.loginType);
+            request.add("name", "admin");
+            request.add("password", "admin");
+            request.add("register", true);
+
+            this.writeRequest(request);
+
+            request = Request.newRequest(Config.messageType);
+            request.add("message", "Dit Werkt!");
+
+            this.writeRequest(request);
         }
 
         public override void receiveRequest(Request request)
         {
 
-            Console.WriteLine(request);
+            switch (request.type)
+            {
+
+                case Config.loginType: Console.WriteLine((request.get("successful")) ? "it logged in" : "it failed"); break;
+                case Config.messageType: Console.WriteLine(request.get("message")); break;
+                //case Config.startType: break;
+                //case Config.pinType: client.game.receivePin(client, request); break;
+            }
         }
     }
 }

@@ -8,3 +8,18 @@ C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.
 C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.exe
 C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.pdb
 C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.Form1.resources
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.csprojAssemblyReference.cache
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.Form1.resources
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.Properties.Resources.resources
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.csproj.GenerateResource.cache
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.csproj.CoreCompileInputs.cache
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.exe
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.pdb
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\bin\Debug\BKnE2Client.exe.config
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\bin\Debug\BKnE2Client.exe
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\bin\Debug\BKnE2Client.pdb
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\bin\Debug\BKnE2Lib.dll
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\bin\Debug\BKnE2Lib.pdb
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\bin\Debug\Newtonsoft.Json.xml
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.csproj.CopyComplete

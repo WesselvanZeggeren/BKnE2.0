@@ -100,8 +100,13 @@ namespace BKnE2Server.server.model.client
 
             this.data = AccountManager.login(request.get("name"), request.get("password"), request.get("register"));
 
+            bool successful = (this.data != null);
+
+            if (successful)
+                this.server.addClientToGame(this);
+
             request.clear();
-            request.add("successful", (this.data != null));
+            request.add("successful", successful);
 
             this.writeRequest(request);
         }

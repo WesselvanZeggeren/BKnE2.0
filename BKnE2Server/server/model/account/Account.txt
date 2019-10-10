@@ -1,1 +1,1 @@
-[{"id":1,"name":"wessel","password":"00000000","wins":0,"plays":0,"score":0,"color":{"r":155,"g":37,"b":221}}]
+[{"id":1,"name":"wessel","password":"00000000","wins":0,"plays":0,"score":0,"color":{"r":231,"g":130,"b":165}}]
