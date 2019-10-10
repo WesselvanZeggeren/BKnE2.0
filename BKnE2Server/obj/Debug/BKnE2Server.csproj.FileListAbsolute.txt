@@ -8,3 +8,5 @@ C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\Newto
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.csproj.CopyComplete
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.exe
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.pdb
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Lib.dll
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Lib.pdb

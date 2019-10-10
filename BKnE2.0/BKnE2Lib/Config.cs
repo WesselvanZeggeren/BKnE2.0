@@ -14,7 +14,7 @@ namespace BKnE2Lib
         // connection
         public const string machineName      = "BKnE2Server";
         public const string host             = "127.0.0.1";
-        public const int port                = 42069;
+        public const int port                = 6699;
 
         // game
         public const int maxPlayersInGame    = 2;
@@ -27,8 +27,8 @@ namespace BKnE2Lib
         public const string accountType      = "account"; // server: A[json{r, g, b}]                     client: A[json{name1, name2, *}   
 
         // paths
-        public static string certificateKey  = getBasePath() + @"\BKnE2Server\server\certificate";
-        public static string certificatePath = getBasePath() + @"\BKnE2Server\server\certificate";
+        public static string certificateKey  = getBasePath() + @"\BKnE2Server\server\certificate\cert.key";
+        public static string certificatePath = getBasePath() + @"\BKnE2Server\server\certificate\cert.crt";
         public static string accountPath     = getBasePath() + @"\BKnE2Server\server\model\account\Account.txt";
 
         private static string getBasePath()

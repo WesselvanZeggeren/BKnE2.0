@@ -18,7 +18,7 @@ namespace BKnE2Server.server.model.json
         private static List<ClientData> clients = new List<ClientData>();
 
         // login
-        public static ClientData login(string name, string password, bool register = false)
+        public static ClientData login(string name, string password, bool register)
         {
 
             load();
@@ -31,7 +31,9 @@ namespace BKnE2Server.server.model.json
             {
 
                 clients.Add(ClientData.newClient(generateId(), name, password));
-                return login(name, password);
+                save();
+
+                return login(name, password, false);
             }
 
             return null;
