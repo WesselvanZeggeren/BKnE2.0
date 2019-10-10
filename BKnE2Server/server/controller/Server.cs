@@ -75,10 +75,10 @@ namespace BKnE2Server.server.controller
             switch (preset)
             {
 
-                case Config.loginPreset:   client.login(message);             break;
-                case Config.startPreset:   client.game.startGame();           break;
-                case Config.pinPreset:     client.game.receivePin(message);   break;
-                case Config.messagePreset: client.game.sendAll(message);      break;
+                case Config.loginPreset:   client.login(message);                   break;
+                case Config.startPreset:   client.game.startGame();                 break;
+                case Config.pinPreset:     client.game.receivePin(client, message); break;
+                case Config.messagePreset: client.game.sendAll(message);            break;
             } 
         }
 

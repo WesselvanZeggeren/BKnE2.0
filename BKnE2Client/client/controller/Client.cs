@@ -8,5 +8,6 @@ namespace BKnE2Client.client.controller
 {
     class Client
     {
+
     }
 }

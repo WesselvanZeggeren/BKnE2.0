@@ -1,6 +1,7 @@
 ﻿using BKnE2Base;
 using BKnE2Server.server.controller;
 using BKnE2Server.server.model.client;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,11 @@ namespace BKnE2Server.server.model.game
     {
 
         // attributes
-        private List<Pin> pins;
-        private List<Client> clients;
+        private List<Pin> pins = new List<Pin>();
+        private List<Client> clients = new List<Client>();
+        private List<Client> nextRoundClients = new List<Client>();
         private bool running = false;
+        private int iterator = 0;
 
         private Server server;
 
@@ -25,9 +28,7 @@ namespace BKnE2Server.server.model.game
         public Game(Server server)
         {
 
-            this.server = server;
-
-            this.pins = new List<Pin>();
+            this.server = server;   
         }
 
         // game
@@ -35,6 +36,14 @@ namespace BKnE2Server.server.model.game
         {
 
             this.running = true;
+
+            this.sendAll(Config.startPreset);
+        }
+
+        public bool turn()
+        {
+
+            return false;
         }
 
         public bool isRunning()
@@ -44,14 +53,14 @@ namespace BKnE2Server.server.model.game
         }
 
         // pin
-        public void receivePin(string receivedString)
+        public void receivePin(Client client, string jsonPin)
         {
 
-            string[] pinString = receivedString.Split(':');
+            int[] pinCoördinates = JsonConvert.DeserializeObject<int[]>(jsonPin);
 
-            Pin pin = new Pin(Convert.ToInt32(pinString[0]), Convert.ToInt32(pinString[1]));
+            Pin pin = new Pin(pinCoördinates[0], pinCoördinates[1]);
 
-            Console.WriteLine(pin);
+
         }
 
         // client
@@ -59,6 +68,7 @@ namespace BKnE2Server.server.model.game
         {
 
             this.clients.Add(client);
+            this.sendAll(Config.accountPreset);
 
             if (this.clients.Count() >= Config.maxPlayersInGame)
                 this.startGame();

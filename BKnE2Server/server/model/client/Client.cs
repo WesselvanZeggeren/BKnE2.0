@@ -11,20 +11,22 @@ using BKnE2Server.server.controller;
 using BKnE2Server.server.model.json;
 using BKnE2Base;
 using Newtonsoft.Json;
+using System.Collections;
 
 namespace BKnE2Server.server.model.client
 {
 
-    class Client
+    class Client : IComparable
     {
 
         // attributes
         public Game game;
-        private List<Pin> pins;
+        public int position;
+
         private ClientData data = null;
+        private List<Pin> pins;
 
         private Server server;
-
         private Thread thread;
         private TcpClient client;
         private NetworkStream stream;
@@ -32,6 +34,7 @@ namespace BKnE2Server.server.model.client
         // constructor
         public Client(Server server, TcpClient client)
         {
+
             this.server = server;
 
             this.pins = new List<Pin>();
@@ -79,6 +82,37 @@ namespace BKnE2Server.server.model.client
 
             if (this.data != null)
                 AccountManager.save();
+        }
+
+        // pins
+        public bool threeInARow()
+        {
+
+            foreach (Pin p in this.pins)
+                if (this.containsPin(p.x    , p.y + 1) && this.containsPin(p.x    , p.y + 2) ||
+                    this.containsPin(p.x + 1, p.y + 1) && this.containsPin(p.x + 2, p.y + 2) ||
+                    this.containsPin(p.x + 1, p.y    ) && this.containsPin(p.x + 2, p.y    ) ||
+                    this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
+                    return true;
+
+            return false;
+        }
+
+        private bool containsPin(int x, int y)
+        {
+
+            foreach (Pin pin in this.pins)
+                if (pin.x == x && pin.y == y)
+                    return true;
+
+            return false;
+        }
+
+        // sort
+        public int CompareTo(object obj)
+        {
+
+            return this.position - (obj as Client).position;
         }
     }
 }
