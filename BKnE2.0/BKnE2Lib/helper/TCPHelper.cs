@@ -1,27 +1,30 @@
-﻿using System;
+﻿using BKnE2Lib.data;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Security;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BKnE2Base
+namespace BKnE2Lib.helper
 {
-    class TCPHelper
+    public static class TCPHelper
     {
 
         public static Encoding encoding = Encoding.UTF8;
 
         // write
-        public static string readText(NetworkStream networkStream)
+        public static string readText(SslStream stream)
         {
 
-            StreamReader stream = new StreamReader(networkStream, encoding);
-            return stream.ReadLine();
+            StreamReader reader = new StreamReader(stream, encoding);
+            return reader.ReadLine();
         }
 
-        public static string read(NetworkStream stream)
+        public static Request read(SslStream stream)
         {
 
             try
@@ -36,7 +39,7 @@ namespace BKnE2Base
                 while (readBytes < bytes.Length)
                     readBytes += stream.Read(bytes, readBytes, (bytes.Length - readBytes));
 
-                return encoding.GetString(bytes, 0, bytes.Length);
+                return JsonConvert.DeserializeObject<Request>(encoding.GetString(bytes, 0, bytes.Length));
             }
             catch (Exception e)
             {
@@ -45,25 +48,25 @@ namespace BKnE2Base
             }
         }
 
-        // send
-        public static void sendText(NetworkStream networkStream, string message)
+        // write
+        public static void writeText(SslStream stream, string message)
         {
 
-            StreamWriter stream = new StreamWriter(networkStream, encoding);
-            stream.WriteLine(message);
-            stream.Flush();
+            StreamWriter writer = new StreamWriter(stream, encoding);
+            writer.WriteLine(message);
+            writer.Flush();
         }
 
-        public static void send(NetworkStream stream, string message)
+        public static void write(SslStream stream, Request request)
         {
 
             try
             {
 
-                byte[] messageBytes = encoding.GetBytes(message);
+                byte[] messageBytes = encoding.GetBytes(JsonConvert.SerializeObject(request));
                 byte[] bytes = new byte[messageBytes.Length + 1];
 
-                bytes[0] = (byte)messageBytes.Length;
+                bytes[0] = (byte) bytes.Length;
 
                 for (int i = 0; i < messageBytes.Length; i++)
                     bytes[i + 1] = messageBytes[i];

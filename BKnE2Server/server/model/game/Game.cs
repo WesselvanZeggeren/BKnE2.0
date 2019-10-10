@@ -1,4 +1,5 @@
-﻿using BKnE2Base;
+﻿using BKnE2Lib;
+using BKnE2Lib.data;
 using BKnE2Server.server.controller;
 using BKnE2Server.server.model.client;
 using Newtonsoft.Json;
@@ -37,13 +38,7 @@ namespace BKnE2Server.server.model.game
 
             this.running = true;
 
-            this.sendAll(Config.startPreset);
-        }
-
-        public bool turn()
-        {
-
-            return false;
+            this.writeRequestToAll(Request.newRequest(Config.startType));
         }
 
         public bool isRunning()
@@ -53,14 +48,10 @@ namespace BKnE2Server.server.model.game
         }
 
         // pin
-        public void receivePin(Client client, string jsonPin)
+        public void receivePin(Client client, Request request)
         {
 
-            int[] pinCoördinates = JsonConvert.DeserializeObject<int[]>(jsonPin);
-
-            Pin pin = new Pin(pinCoördinates[0], pinCoördinates[1]);
-
-
+            Pin pin = new Pin(request.get("x"), request.get("y"));
         }
 
         // client
@@ -68,19 +59,23 @@ namespace BKnE2Server.server.model.game
         {
 
             this.clients.Add(client);
-            this.sendAll(Config.accountPreset);
 
             if (this.clients.Count() >= Config.maxPlayersInGame)
                 this.startGame();
+
+            Request request = Request.newRequest(Config.accountType);
+            //request.add("clients", this.getRequestClients());
+
+            this.writeRequestToAll(request);
         }
 
-        public void sendAll(string message)
+        public void writeRequestToAll(Request request)
         {
 
             foreach (Client client in this.clients)
             {
 
-                client.sendMessage(message);
+                client.writeRequest(request);
             }
         }
     }

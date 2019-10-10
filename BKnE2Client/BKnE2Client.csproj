@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="client\controller\Client.cs" />
-    <Compile Include="client\model\ServerFinder.cs" />
+    <Compile Include="client\model\ClientConnection.cs" />
     <Compile Include="client\view\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +85,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <Import Project="..\BKnE2.0\BKnE2Base\BKnE2Base.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\BKnE2.0\BKnE2Lib\BKnE2Lib.csproj">
+      <Project>{5af735b5-f4f7-49f1-917d-dbb10b0e20bc}</Project>
+      <Name>BKnE2Lib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
