@@ -85,6 +85,7 @@ namespace BKnE2Client.client.model
             {
 
                 Console.WriteLine("Message Receiver crasched : {0}", e.ToString());
+                this.stream = null;
                 this.thread = null;
             }
         }

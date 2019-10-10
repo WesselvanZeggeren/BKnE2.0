@@ -60,6 +60,8 @@ namespace BKnE2Lib.helper
         public static void write(SslStream stream, Request request)
         {
 
+            Console.WriteLine(request);
+
             try
             {
 

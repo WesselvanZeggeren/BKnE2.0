@@ -23,6 +23,8 @@ namespace BKnE2Client
 
             Client client = new Client();
             client.startClient();
+
+            Console.Read();
         }
     }
 }
