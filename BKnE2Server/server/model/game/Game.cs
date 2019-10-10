@@ -29,7 +29,7 @@ namespace BKnE2Server.server.model.game
         public Game(Server server)
         {
 
-            this.server = server;   
+            this.server = server;
         }
 
         // game
@@ -50,6 +50,15 @@ namespace BKnE2Server.server.model.game
             this.writeRequestToAll(request);
         }
 
+        private void manageIterator()
+        {
+
+            this.iterator += 1;
+
+            if (this.iterator == this.clients.Count())
+                this.iterator = 0;
+        }
+
         public bool isRunning()
         {
 
@@ -67,6 +76,15 @@ namespace BKnE2Server.server.model.game
 
                 pin.isAssigned = true;
                 client.assignPin(pin);
+
+                this.manageIterator();
+
+                if (client.threeInARow())
+                {
+
+                    this.nextRoundClients.Add(client);
+                    this.
+                }
             }
         }
 

@@ -20,14 +20,14 @@ using System.Security.Authentication;
 namespace BKnE2Server.server.model.client
 {
 
-    class Client : IComparable
+    class Client
     {
 
         // attributes
         public Game game;
-        public int position;
         public ClientData data = null;
         private List<Pin> pins;
+        private bool hasThreeInARow = false;
 
         private Server server;
         private Thread thread;
@@ -128,19 +128,6 @@ namespace BKnE2Server.server.model.client
             this.pins.Add(pin);
         }
 
-        public bool threeInARow()
-        {
-
-            foreach (Pin p in this.pins)
-                if (this.containsPin(p.x    , p.y + 1) && this.containsPin(p.x    , p.y + 2) ||
-                    this.containsPin(p.x + 1, p.y + 1) && this.containsPin(p.x + 2, p.y + 2) ||
-                    this.containsPin(p.x + 1, p.y    ) && this.containsPin(p.x + 2, p.y    ) ||
-                    this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
-                    return true;
-
-            return false;
-        }
-
         private bool containsPin(int x, int y)
         {
 
@@ -151,11 +138,26 @@ namespace BKnE2Server.server.model.client
             return false;
         }
 
-        // sort
-        public int CompareTo(object obj)
+        // game
+        public bool threeInARow()
         {
 
-            return this.position - (obj as Client).position;
+            if (!this.hasThreeInARow)
+                foreach (Pin p in this.pins)
+                    if (this.containsPin(p.x    , p.y + 1) && this.containsPin(p.x    , p.y + 2) ||
+                        this.containsPin(p.x + 1, p.y + 1) && this.containsPin(p.x + 2, p.y + 2) ||
+                        this.containsPin(p.x + 1, p.y    ) && this.containsPin(p.x + 2, p.y    ) ||
+                        this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
+                        this.hasThreeInARow = true;
+
+            return this.hasThreeInARow;
+        }
+
+        public void resetClientForGame()
+        {
+
+            this.pins = new List<Pin>();
+            this.hasThreeInARow = false;
         }
     }
 }
