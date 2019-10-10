@@ -11,12 +11,14 @@ namespace BKnE2Server.server.model.game
 
         public int x { get; }
         public int y { get; }
+        public bool isAssigned { get; set; }
 
         public Pin (int x, int y)
         {
 
             this.x = x;
             this.y = y;
+            this.isAssigned = false;
         }
 
         public override string ToString()

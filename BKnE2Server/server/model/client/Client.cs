@@ -119,6 +119,15 @@ namespace BKnE2Server.server.model.client
         }
 
         // pins
+        public void assignPin(Pin pin)
+        {
+
+            if (this.pins.Count() == 4)
+                this.pins.RemoveAt(0);
+
+            this.pins.Add(pin);
+        }
+
         public bool threeInARow()
         {
 

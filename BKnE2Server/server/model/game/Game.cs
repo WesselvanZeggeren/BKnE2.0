@@ -38,7 +38,16 @@ namespace BKnE2Server.server.model.game
 
             this.running = true;
 
-            this.writeRequestToAll(Request.newRequest(Config.startType));
+            int size = this.getBoardSize(Config.minBoardSize);
+
+            for (int x = 0; x < size; x++)
+                for (int y = 0; y < size; y++)
+                    this.pins.Add(new Pin(x, y));
+
+            Request request = Request.newRequest(Config.startType);
+            request.add("size", size);
+
+            this.writeRequestToAll(request);
         }
 
         public bool isRunning()
@@ -51,7 +60,34 @@ namespace BKnE2Server.server.model.game
         public void receivePin(Client client, Request request)
         {
 
-            Pin pin = new Pin(request.get("x"), request.get("y"));
+            Pin pin = this.getPin(request.get("x"), request.get("y"));
+
+            if (this.isCurrentPlayer(client) && pin.isAssigned)
+            {
+
+                pin.isAssigned = true;
+                client.assignPin(pin);
+            }
+        }
+
+        private Pin getPin(int x, int y)
+        {
+
+            foreach (Pin pin in this.pins)
+                if (pin.x == x && pin.y == y)
+                    return pin;
+
+            return null;
+        }
+
+        // board
+        private int getBoardSize(int size)
+        {
+
+            if ((size * size) > (this.clients.Count() * Config.maxPinsPerPlayer))
+                return size;
+
+            return this.getBoardSize(size + 1);
         }
 
         // client
@@ -78,5 +114,22 @@ namespace BKnE2Server.server.model.game
                 client.writeRequest(request);
             }
         }
+
+        private bool isCurrentPlayer(Client client)
+        {
+
+            return (client.data.id == this.clients.ElementAt(this.iterator).data.id);
+        }
+
+        /*
+        private List<string[]> getRequestClients()
+        {
+
+            List<string[]> clients = new List<string[]>();
+
+            foreach (Client client in this.clients)
+                clients.Add(new string[4], client.data.name, )
+        }
+        */
     }
 }
