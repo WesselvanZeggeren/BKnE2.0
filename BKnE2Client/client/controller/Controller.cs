@@ -19,6 +19,7 @@ namespace BKnE2Client.client.controller
         public Login login { get; set; }
         public Lobby lobby { get; set; }
         public Game game { get; set; }
+        public ConnectionHandler ConnectionHandler { get => connectionHandler; set => connectionHandler = value; }
 
         public Controller()
         {
@@ -26,6 +27,7 @@ namespace BKnE2Client.client.controller
             connectionHandler.startConnection();
         }
 
+        //Login to the server
         public void Login(string name, string password, bool register)
         {
             Request login = Request.newRequest(Config.loginType);
@@ -33,6 +35,14 @@ namespace BKnE2Client.client.controller
             login.add("password", password);
             login.add("register", register);
             connectionHandler.writeRequest(login);
+        }
+
+        //Send a message to the server
+        public void SendMessage(string msg)
+        {
+            Request message = Request.newRequest(Config.messageType);
+            message.add(Config.messageType, msg);
+            connectionHandler.writeRequest(message);
         }
     }
 }

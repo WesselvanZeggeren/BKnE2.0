@@ -19,6 +19,17 @@ namespace BKnE2Client.client.view
         {
             InitializeComponent();
             this.controller = controller;
+            chatTextBox.KeyPress += ChatTextBox_KeyPress;
+        }
+
+        //Send a message to the server when the ENTER is pressed
+        private void ChatTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Return)
+            {
+                controller.SendMessage(chatTextBox.Text);
+                chatTextBox.Text = string.Empty;
+            }
         }
     }
 }

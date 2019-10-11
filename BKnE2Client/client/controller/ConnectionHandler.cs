@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace BKnE2Client.client.controller
 {
-    class ConnectionHandler : ClientConnection
+    public class ConnectionHandler : ClientConnection
     {
         private Controller controller;
         private Dictionary<string, Action<Request>> functions;
