@@ -16,7 +16,9 @@ namespace BKnE2Client.client.controller
         
         private ConnectionHandler connectionHandler;
                 
-        public Form form { get; set; }
+        public Login login { get; set; }
+        public Lobby lobby { get; set; }
+        public Game game { get; set; }
 
         public Controller()
         {

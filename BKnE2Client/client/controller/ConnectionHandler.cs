@@ -33,8 +33,8 @@ namespace BKnE2Client.client.controller
         {
             Lobby lobby = new Lobby(controller);
             lobby.Show();
-            controller.form.Hide();
-            controller.form = lobby;
+            controller.login.Hide();
+            controller.lobby = lobby;
         }
 
         private void OnMessage(Request obj)
@@ -52,15 +52,17 @@ namespace BKnE2Client.client.controller
             
         }
 
+        //Call the request.type function
         private void InvokeFunction(Request request)
         {
             functions[request.type].Invoke(request);
         }
 
-        //Call the function in the dictionairy
+        //Call the InvokeFunction delegate
+        //Nessecairy to call the funciton on the application thread
         public override void receiveRequest(Request request)
         {
-            controller.form.Invoke(invokeFunction, request);
+            controller.login.Invoke(invokeFunction, request);
         }
     }
 }

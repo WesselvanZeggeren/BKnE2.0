@@ -22,7 +22,7 @@ namespace BKnE2Client
             loginButton.Click += OnLoginButtonPressed;
             registerButton.Click += OnRegisterButtonPressed;
             this.controller = new Controller();
-            this.controller.form = this;
+            this.controller.login = this;
         }
 
         private void OnLoginButtonPressed(object sender, EventArgs e)
