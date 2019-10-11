@@ -15,6 +15,8 @@ namespace BKnE2Client.client.controller
     {
         private Controller controller;
         private Dictionary<string, Action<Request>> functions;
+        private delegate void InvokeDelegate(Request r);
+        private InvokeDelegate invokeFunction;
 
         public ConnectionHandler(Controller controller)
         {
@@ -24,13 +26,14 @@ namespace BKnE2Client.client.controller
             functions[Config.messageType] = OnMessage;
             functions[Config.pinType] = OnPin;
             functions[Config.accountType] = OnAccount;
+            invokeFunction = new InvokeDelegate(InvokeFunction);
         }
 
         private void OnLogin(Request obj)
         {
             Lobby lobby = new Lobby(controller);
             lobby.Show();
-            controller.form.Close();
+            controller.form.Hide();
             controller.form = lobby;
         }
 
@@ -49,19 +52,15 @@ namespace BKnE2Client.client.controller
             
         }
 
-        public void Register(string name, string password, bool register)
+        private void InvokeFunction(Request request)
         {
-            Request request = Request.newRequest(Config.loginType);
-            request.add("name", name);
-            request.add("password", password);
-            request.add("register", register);
-            this.writeRequest(request);
+            functions[request.type].Invoke(request);
         }
 
         //Call the function in the dictionairy
         public override void receiveRequest(Request request)
         {
-            functions[request.type].Invoke(request);
+            controller.form.Invoke(invokeFunction, request);
         }
     }
 }
