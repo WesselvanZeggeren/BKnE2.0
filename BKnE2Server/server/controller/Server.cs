@@ -86,10 +86,11 @@ namespace BKnE2Server.server.controller
             switch (request.type)
             {
 
-                case Config.loginType:   client.login(request);                   break;
-                case Config.startType:   client.lobby.startGame();                 break;
-                case Config.pinType:     client.lobby.receivePin(client, request); break;
-                case Config.messageType: client.lobby.writeRequestToAll(request);  break;
+                case Config.loginType:   client.login(request);                      break;
+                case Config.pinType:     client.lobby.receivePin(client, request);   break;
+                case Config.messageType: client.lobby.writeRequestToAll(request);    break;
+                case Config.startType:   client.lobby.receiveStart(client, request); break;
+                case Config.lobbyType:   this.addClientToLobby(client);              break;
             }
         }
 
@@ -98,7 +99,7 @@ namespace BKnE2Server.server.controller
         {
 
             foreach (Lobby lobby in this.lobbys)
-                if (!lobby.game.running)
+                if (lobby.game == null)
                     return lobby;
 
             this.lobbys.Add(new Lobby(this));
@@ -111,13 +112,14 @@ namespace BKnE2Server.server.controller
             Lobby lobby = this.findLobby();
 
             lobby.addClient(client);
-            client.lobby = lobby;
+
+            client.writeRequest(Request.newRequest(Config.lobbyType));
         }
 
-        public void stopGame(Game game)
+        public void stopLobby(Lobby lobby)
         {
 
-
+            this.lobbys.Remove(lobby);
         }
     }
 }

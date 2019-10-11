@@ -2,6 +2,7 @@
 using BKnE2Lib.data;
 using BKnE2Server.server.controller;
 using BKnE2Server.server.model.client;
+using BKnE2Server.server.model.json;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace BKnE2Server.server.model.game
 
         private int iterator = 0;
 
-        public bool running = false;
+        public bool ended = false;
         public int size;
 
         // constructor
@@ -37,35 +38,35 @@ namespace BKnE2Server.server.model.game
         public void init()
         {
 
-            this.running = true;
             this.size = this.getSize(Config.minBoardSize);
 
             this.generatePins();
-        }
-
-        public void stop()
-        {
-
         }
 
         // round
         public void nextRound()
         {
 
-            if (this.playingPlayers() == 1)
+            if (this.playingPlayers() == 1 && this.winner == null)
             {
 
                 this.currentPlayer().isPlaying = false;
                 this.resetNextRoundPlayers();
                 this.iterator = 0;
 
-                if (this.nextRoundPlayers.Count() == 1)
-                    this.stop();
-                else
+                if (this.nextRoundPlayers.Count() != 1)
+                {
+
                     this.init();
 
-                this.players = new List<Client>(this.newPlayerList());
-                this.nextRoundPlayers = new List<Client>();
+                    this.players = new List<Client>(this.newPlayerList());
+                    this.nextRoundPlayers = new List<Client>();
+                }
+                else
+                {
+
+                    this.ended = true;
+                }
             }
         }
 
@@ -164,6 +165,31 @@ namespace BKnE2Server.server.model.game
         {
 
             return this.players.ElementAt(this.iterator);
+        }
+
+        // score
+        public void giveScore()
+        {
+
+            Client winner = this.nextRoundPlayers.ElementAt(0);
+            this.players.Remove(winner);
+
+            winner.data.wins += 1;
+            winner.data.plays += 1;
+            winner.data.score += Config.maxScorePerGame;
+
+            int scorePerPlayer = Config.maxScorePerGame / ((this.players.Count() + 1) / 2);
+
+            for (int i = 0; i < this.players.Count(); i++)
+            {
+
+                Client player = this.players.ElementAt(i);
+
+                player.data.plays += 1;
+                player.data.score += (Config.maxScorePerGame - (i + 1 * scorePerPlayer));
+            }
+
+            AccountManager.save();
         }
     }
 }

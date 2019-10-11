@@ -12,10 +12,16 @@ namespace BKnE2Lib
     {
 
         /**
-         * Start type. This type starts the game. It does not require any parameters from the client
-         * Server params:   "size":3
+         * Start type. This type starts the game. It is used to start and quit a game or to recieve its size
+         * Server params:   "start":true
+         * Client params:   "size":3
          */
         public const string startType = "start";
+
+        /**
+         * Lobby type. This type joins a lobby. It requires no parameters from the server and client side.
+         */
+        public const string lobbyType = "lobby";
 
         /**
          * Login type. This type is used to log a user in and confirm if the login was succesfull.
@@ -26,8 +32,8 @@ namespace BKnE2Lib
 
         /**
          * Message type. This type is used to deliver messages to another client.
-         * Server params:   "message":"Hello World!"
-         * Client params:   "message":"Hello World!"
+         * Server params:   "message":"Hello World To Server!"
+         * Client params:   "message":"Hello World Form Server!"
          */
         public const string messageType = "message";
 
@@ -52,6 +58,7 @@ namespace BKnE2Lib
         // game
         public const int maxPinsPerPlayer = 4;
         public const int maxPlayersInGame = 2;
+        public const int maxScorePerGame = 100;
         public const int minBoardSize = 3;
 
         // account

@@ -27,7 +27,7 @@ namespace BKnE2Server.server.model.game
         }
 
         // game
-        public void startGame()
+        private void startGame()
         {
 
             this.game = new Game(this.clients);
@@ -37,6 +37,15 @@ namespace BKnE2Server.server.model.game
             request.add("size", this.game.size);
 
             this.writeRequestToAll(request);
+        }
+
+        public void receiveStart(Client client, Request request)
+        {
+
+            if (request.get("start"))
+                this.startGame();
+            else
+                this.removeClient(client);
         }
 
         // pin
@@ -54,6 +63,9 @@ namespace BKnE2Server.server.model.game
 
                 this.game.nextPlayer();
                 this.game.nextRound();
+
+                if (this.game.ended)
+                    this.game.giveScore();
             }
         }
 
@@ -62,9 +74,28 @@ namespace BKnE2Server.server.model.game
         {
 
             this.clients.Add(client);
+            client.setLobby(this);
+
+            this.sendClientsToClients();
 
             if (this.clients.Count() >= Config.maxPlayersInGame)
                 this.startGame();
+        }
+
+        public void removeClient(Client client)
+        {
+
+            this.clients.Remove(client);
+            client.setLobby(null);
+
+            this.sendClientsToClients();
+
+            if (this.clients.Count() == 0)
+                this.server.stopLobby(this);
+        }
+
+        private void sendClientsToClients()
+        {
 
             Request request = Request.newRequest(Config.accountType);
             request.add("clients", this.getRequestClients());

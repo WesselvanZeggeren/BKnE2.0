@@ -24,9 +24,10 @@ namespace BKnE2Server.server.model.client
     {
 
         // attributes
-        public Lobby lobby;
         public ClientData data = null;
         public bool isPlaying = true;
+
+        public Lobby lobby;
         private List<Pin> pins;
 
         private Server server;
@@ -98,21 +99,12 @@ namespace BKnE2Server.server.model.client
         public void login(Request request)
         {
 
-            if (this.data == null)
-            {
+            this.data = AccountManager.login(request.get("name"), request.get("password"), request.get("register"));
 
-                this.data = AccountManager.login(request.get("name"), request.get("password"), request.get("register"));
+            request.clear();
+            request.add("successful", (this.data != null));
 
-                bool successful = (this.data != null);
-
-                if (successful)
-                    this.server.addClientToGame(this);
-
-                request.clear();
-                request.add("successful", successful);
-
-                this.writeRequest(request);
-            }
+            this.writeRequest(request);
         }
 
         // pins
@@ -155,6 +147,23 @@ namespace BKnE2Server.server.model.client
 
             this.pins = new List<Pin>();
             this.isPlaying = true;
+        }
+
+        // lobby
+        public void startLobby(Request request)
+        {
+
+            if (this.lobby == null)
+                this.server.addClientToLobby(this);
+            else
+                this.lobby.startGame(request);
+        }
+
+        public void setLobby(Lobby lobby)
+        {
+
+            if (this.lobby == null || lobby == null)
+                this.lobby = lobby;
         }
     }
 }
