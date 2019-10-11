@@ -12,34 +12,27 @@ using System.Windows.Forms;
 
 namespace BKnE2Client
 {
-    public partial class Form1 : Form
+    public partial class Login : Form
     {
         private Controller controller;
 
-        public Form1()
+        public Login()
         {
             InitializeComponent();
             loginButton.Click += OnLoginButtonPressed;
             registerButton.Click += OnRegisterButtonPressed;
             this.controller = new Controller();
+            this.controller.form = this;
         }
 
         private void OnLoginButtonPressed(object sender, EventArgs e)
         {
-            controller.Login(loginNameTB.Text, passwordTB.Text);
-            LoadLobby();
+            controller.Login(loginNameTB.Text, passwordTB.Text, false);
         }
 
         private void OnRegisterButtonPressed(object sender, EventArgs e)
         {
-            controller.Register(loginNameTB.Text, passwordTB.Text);
-            LoadLobby();
-        }
-
-        private void LoadLobby()
-        {
-            Lobby lobby = new Lobby(controller);
-            lobby.Show();
+            controller.Login(loginNameTB.Text, passwordTB.Text, true);
         }
     }
 }

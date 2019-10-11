@@ -1,40 +1,36 @@
 ﻿using BKnE2Client.client.model;
+using BKnE2Client.client.view;
+using BKnE2Lib;
+using BKnE2Lib.data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BKnE2Client.client.controller
 {
     public class Controller
     {
-        private MessageHandler messageHandler;
-        private NetworkConnection networkConnection;
+        
+        private ConnectionHandler connectionHandler;
+                
+        public Form form { get; set; }
 
         public Controller()
         {
-            this.messageHandler = new MessageHandler(this);
-            this.networkConnection = new NetworkConnection(this);
+            this.connectionHandler = new ConnectionHandler(this);
+            connectionHandler.startConnection();
         }
 
-        public void HandleMessage(string message)
+        public void Login(string name, string password, bool register)
         {
-            messageHandler.Invoke(message);
-        }
-
-        //Connect and login
-        public void Login(string username, string password)
-        {
-            this.networkConnection.Connect(ClientConfig.host, ClientConfig.port);
-            //Login
-        }
-
-        //Connect and register
-        public void Register(string username, string password)
-        {
-            this.networkConnection.Connect(ClientConfig.host, ClientConfig.port);
-            //Register
+            Request login = Request.newRequest(Config.loginType);
+            login.add("name", name);
+            login.add("password", password);
+            login.add("register", register);
+            connectionHandler.writeRequest(login);
         }
     }
 }

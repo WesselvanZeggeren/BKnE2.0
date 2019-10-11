@@ -50,16 +50,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientConfig.cs" />
+    <Compile Include="client\controller\ConnectionHandler.cs" />
     <Compile Include="client\controller\Controller.cs" />
-    <Compile Include="client\controller\MessageHandler.cs" />
-    <Compile Include="client\model\NetworkConnection.cs" />
     <Compile Include="client\controller\Client.cs" />
     <Compile Include="client\model\ClientConnection.cs" />
-    <Compile Include="client\view\Form1.cs">
+    <Compile Include="client\view\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="client\view\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="client\view\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="client\view\Game.cs">
       <SubType>Form</SubType>
@@ -75,8 +74,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="client\view\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="client\view\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="client\view\Game.resx">
       <DependentUpon>Game.cs</DependentUpon>

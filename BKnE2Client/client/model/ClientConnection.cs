@@ -20,7 +20,7 @@ namespace BKnE2Client.client.model
         private Thread thread;
 
         // connection
-        protected void startConnection()
+        public void startConnection()
         {
 
             TcpClient client = new TcpClient(Config.host, Config.port);
@@ -61,7 +61,7 @@ namespace BKnE2Client.client.model
         }
 
         // messaging
-        protected void writeRequest(Request request)
+        public void writeRequest(Request request)
         {
 
             TCPHelper.write(this.stream, request);
@@ -91,7 +91,6 @@ namespace BKnE2Client.client.model
         }
 
         // overrides
-        public abstract void startClient();
         public abstract void receiveRequest(Request request);
     }
 }
