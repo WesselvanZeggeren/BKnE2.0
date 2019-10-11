@@ -24,10 +24,10 @@ namespace BKnE2Server.server.model.client
     {
 
         // attributes
-        public Game game;
+        public Lobby lobby;
         public ClientData data = null;
+        public bool isPlaying = true;
         private List<Pin> pins;
-        private bool hasThreeInARow = false;
 
         private Server server;
         private Thread thread;
@@ -98,24 +98,21 @@ namespace BKnE2Server.server.model.client
         public void login(Request request)
         {
 
-            this.data = AccountManager.login(request.get("name"), request.get("password"), request.get("register"));
+            if (this.data == null)
+            {
 
-            bool successful = (this.data != null);
+                this.data = AccountManager.login(request.get("name"), request.get("password"), request.get("register"));
 
-            if (successful)
-                this.server.addClientToGame(this);
+                bool successful = (this.data != null);
 
-            request.clear();
-            request.add("successful", successful);
+                if (successful)
+                    this.server.addClientToGame(this);
 
-            this.writeRequest(request);
-        }
+                request.clear();
+                request.add("successful", successful);
 
-        public void save()
-        {
-
-            if (this.data != null)
-                AccountManager.save();
+                this.writeRequest(request);
+            }
         }
 
         // pins
@@ -139,25 +136,25 @@ namespace BKnE2Server.server.model.client
         }
 
         // game
-        public bool threeInARow()
+        public bool hasThreeInARow()
         {
 
-            if (!this.hasThreeInARow)
+            if (this.isPlaying)
                 foreach (Pin p in this.pins)
                     if (this.containsPin(p.x    , p.y + 1) && this.containsPin(p.x    , p.y + 2) ||
                         this.containsPin(p.x + 1, p.y + 1) && this.containsPin(p.x + 2, p.y + 2) ||
                         this.containsPin(p.x + 1, p.y    ) && this.containsPin(p.x + 2, p.y    ) ||
                         this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
-                        this.hasThreeInARow = true;
+                        this.isPlaying = false;
 
-            return this.hasThreeInARow;
+            return this.isPlaying;
         }
 
-        public void resetClientForGame()
+        public void resetClient()
         {
 
             this.pins = new List<Pin>();
-            this.hasThreeInARow = false;
+            this.isPlaying = true;
         }
     }
 }

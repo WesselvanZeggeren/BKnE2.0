@@ -18,74 +18,86 @@ namespace BKnE2Server.server.model.game
 
         // attributes
         private List<Pin> pins = new List<Pin>();
-        private List<Client> clients = new List<Client>();
-        private List<Client> nextRoundClients = new List<Client>();
-        private bool running = false;
+        private List<Client> nextRoundPlayers = new List<Client>();
+        private List<Client> players;
+
         private int iterator = 0;
 
-        private Server server;
+        public bool running = false;
+        public int size;
 
         // constructor
-        public Game(Server server)
+        public Game(List<Client> players)
         {
 
-            this.server = server;
+            this.players = players;
         }
 
         // game
-        public void startGame()
+        public void init()
         {
 
             this.running = true;
+            this.size = this.getSize(Config.minBoardSize);
 
-            int size = this.getBoardSize(Config.minBoardSize);
-
-            for (int x = 0; x < size; x++)
-                for (int y = 0; y < size; y++)
-                    this.pins.Add(new Pin(x, y));
-
-            Request request = Request.newRequest(Config.startType);
-            request.add("size", size);
-
-            this.writeRequestToAll(request);
+            this.generatePins();
         }
 
-        private void manageIterator()
+        public void stop()
         {
 
-            this.iterator += 1;
+        }
 
-            if (this.iterator == this.clients.Count())
+        // round
+        public void nextRound()
+        {
+
+            if (this.playingPlayers() == 1)
+            {
+
+                this.currentPlayer().isPlaying = false;
+                this.resetNextRoundPlayers();
                 this.iterator = 0;
+
+                if (this.nextRoundPlayers.Count() == 1)
+                    this.stop();
+                else
+                    this.init();
+
+                this.players = new List<Client>(this.newPlayerList());
+                this.nextRoundPlayers = new List<Client>();
+            }
         }
 
-        public bool isRunning()
+        // size
+        private int getSize(int size)
         {
 
-            return this.running;
+            if ((size * size) > (this.playingPlayers() * Config.maxPinsPerPlayer))
+                return size;
+
+            return this.getSize(size + 1);
         }
 
-        // pin
-        public void receivePin(Client client, Request request)
+        // pins
+        public bool receivePin(Client player, Request request)
         {
 
             Pin pin = this.getPin(request.get("x"), request.get("y"));
 
-            if (this.isCurrentPlayer(client) && pin.isAssigned)
+            if (player.data.id == this.currentPlayer().data.id && !pin.isAssigned)
             {
 
                 pin.isAssigned = true;
-                client.assignPin(pin);
+                player.assignPin(pin);
 
-                this.manageIterator();
+                if (player.hasThreeInARow())
+                    this.nextRoundPlayers.Add(player);
 
-                if (client.threeInARow())
-                {
-
-                    this.nextRoundClients.Add(client);
-                    this.
-                }
+                return true;
             }
+
+            return false;
         }
 
         private Pin getPin(int x, int y)
@@ -98,56 +110,60 @@ namespace BKnE2Server.server.model.game
             return null;
         }
 
-        // board
-        private int getBoardSize(int size)
+        private void generatePins()
         {
 
-            if ((size * size) > (this.clients.Count() * Config.maxPinsPerPlayer))
-                return size;
-
-            return this.getBoardSize(size + 1);
+            for (int x = 0; x < size; x++)
+                for (int y = 0; y < size; y++)
+                    this.pins.Add(new Pin(x, y));
         }
 
-        // client
-        public void addClient(Client client)
+        // player
+        private void resetNextRoundPlayers()
         {
 
-            this.clients.Add(client);
-
-            if (this.clients.Count() >= Config.maxPlayersInGame)
-                this.startGame();
-
-            Request request = Request.newRequest(Config.accountType);
-            //request.add("clients", this.getRequestClients());
-
-            this.writeRequestToAll(request);
+            foreach (Client player in this.nextRoundPlayers)
+                player.resetClient();
         }
 
-        public void writeRequestToAll(Request request)
+        private int playingPlayers()
         {
 
-            foreach (Client client in this.clients)
-            {
+            int playersPlaying = 0;
 
-                client.writeRequest(request);
-            }
+            foreach (Client player in this.players)
+                if (player.isPlaying)
+                    playersPlaying += 1;
+
+            return playersPlaying;
         }
 
-        private bool isCurrentPlayer(Client client)
+        private List<Client> newPlayerList()
         {
 
-            return (client.data.id == this.clients.ElementAt(this.iterator).data.id);
+            foreach (Client player in this.players)
+                if (!player.isPlaying)
+                    this.nextRoundPlayers.Add(player);
+
+            return this.nextRoundPlayers;
         }
 
-        /*
-        private List<string[]> getRequestClients()
+        public void nextPlayer()
         {
 
-            List<string[]> clients = new List<string[]>();
+            this.iterator += 1;
 
-            foreach (Client client in this.clients)
-                clients.Add(new string[4], client.data.name, )
+            if (this.iterator == this.players.Count())
+                this.iterator = 0;
+
+            if (!this.currentPlayer().isPlaying)
+                this.nextPlayer();
         }
-        */
+
+        private Client currentPlayer()
+        {
+
+            return this.players.ElementAt(this.iterator);
+        }
     }
 }

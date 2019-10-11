@@ -64,16 +64,5 @@ namespace BKnE2Lib.helper
                 Console.WriteLine("Remote certificate is null.");
             }
         }
-
-        private static void containCertBuild()
-        {
-
-            /*
-            makecert -sv RHCert.pvk -r -n "CN=RHServer" RHCert.cer
-            makecert -ic RHCert.cer -iv RHCert.pvk -n "CN=RHServer" -sv  RHTCert.pvk -pe -sky exchange RHTCert.cer
-            cert2spc RHTCert.cer RHTCert.spc
-            pvkimprt -pfx RHTCert.spc RHTCert.pvk
-            */
-        }
     }
 }
