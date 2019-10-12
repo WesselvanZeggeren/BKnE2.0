@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace BKnE2Client.client.view
 {
-    public partial class Game : Form
+    public partial class GameForm : Form
     {
-        public Game()
+        public GameForm()
         {
             InitializeComponent();
         }

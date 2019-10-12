@@ -31,15 +31,15 @@ namespace BKnE2Client.client.controller
 
         private void OnLogin(Request obj)
         {
-            Lobby lobby = new Lobby(controller);
+            LobbyForm lobby = new LobbyForm(controller);
             lobby.Show();
-            controller.login.Hide();
-            controller.lobby = lobby;
+            controller.loginForm.Hide();
+            controller.lobbyForm = lobby;
         }
 
         private void OnMessage(Request obj)
         {
-            
+            controller.lobbyForm.AddChat(obj.get(Config.messageType));
         }
 
         private void OnPin(Request obj)
@@ -49,7 +49,7 @@ namespace BKnE2Client.client.controller
 
         private void OnAccount(Request obj)
         {
-            
+            //controller.lobby.AddPlayer(obj.get(Config.accountType));
         }
 
         //Call the request.type function
@@ -62,7 +62,7 @@ namespace BKnE2Client.client.controller
         //Nessecairy to call the funciton on the application thread
         public override void receiveRequest(Request request)
         {
-            controller.login.Invoke(invokeFunction, request);
+            controller.loginForm.Invoke(invokeFunction, request);
         }
     }
 }

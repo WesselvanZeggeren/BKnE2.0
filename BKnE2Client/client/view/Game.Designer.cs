@@ -1,6 +1,6 @@
 ﻿namespace BKnE2Client.client.view
 {
-    partial class Game
+    partial class GameForm
     {
         /// <summary>
         /// Required designer variable.

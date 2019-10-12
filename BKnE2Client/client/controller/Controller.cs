@@ -16,9 +16,9 @@ namespace BKnE2Client.client.controller
         
         private ConnectionHandler connectionHandler;
                 
-        public Login login { get; set; }
-        public Lobby lobby { get; set; }
-        public Game game { get; set; }
+        public LoginForm loginForm { get; set; }
+        public LobbyForm lobbyForm { get; set; }
+        public GameForm gameForm { get; set; }
         public ConnectionHandler ConnectionHandler { get => connectionHandler; set => connectionHandler = value; }
 
         public Controller()
@@ -30,6 +30,7 @@ namespace BKnE2Client.client.controller
         //Login to the server
         public void Login(string name, string password, bool register)
         {
+            loginForm.loginName = name;
             Request login = Request.newRequest(Config.loginType);
             login.add("name", name);
             login.add("password", password);
@@ -39,6 +40,37 @@ namespace BKnE2Client.client.controller
 
         //Send a message to the server
         public void SendMessage(string msg)
+        {
+            int maxCharacters = 100;
+
+            if (msg.Length > maxCharacters)
+            {
+                Stack<string> messages = new Stack<string>();
+
+                for (int i = 0; i < msg.Length; i += maxCharacters)
+                {
+                    if (msg.Length - maxCharacters - i >= 0)
+                    {
+                        messages.Push(msg.Substring(i, maxCharacters) + "-");
+                    }
+                    else
+                    {
+                        messages.Push(msg.Substring(i, msg.Length - i));
+                    }
+                }
+
+                int msgLength = messages.Count();
+                for (int i = 0; i < msgLength; i++)
+                {
+                    WriteRequest(messages.Pop());
+                }
+            } else
+            {
+                WriteRequest(msg);
+            }
+        }
+
+        private void WriteRequest(string msg)
         {
             Request message = Request.newRequest(Config.messageType);
             message.add(Config.messageType, msg);

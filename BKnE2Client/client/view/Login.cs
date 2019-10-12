@@ -12,17 +12,18 @@ using System.Windows.Forms;
 
 namespace BKnE2Client
 {
-    public partial class Login : Form
+    public partial class LoginForm : Form
     {
         private Controller controller;
+        public string loginName;
 
-        public Login()
+        public LoginForm()
         {
             InitializeComponent();
             loginButton.Click += OnLoginButtonPressed;
             registerButton.Click += OnRegisterButtonPressed;
             this.controller = new Controller();
-            this.controller.login = this;
+            this.controller.loginForm = this;
         }
 
         private void OnLoginButtonPressed(object sender, EventArgs e)

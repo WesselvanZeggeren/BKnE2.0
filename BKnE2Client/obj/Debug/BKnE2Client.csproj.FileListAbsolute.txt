@@ -26,7 +26,7 @@ C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\bin\Debug\BKnE2Lib.dll
 C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\bin\Debug\BKnE2Lib.pdb
 C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.Login.resources
-C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.client.view.Game.resources
-C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.client.view.Lobby.resources
 C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.csproj.CopyComplete
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.LoginForm.resources
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.client.view.GameForm.resources
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.client.view.LobbyForm.resources

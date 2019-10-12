@@ -76,7 +76,7 @@ namespace BKnE2Lib.helper
                 stream.Write(bytes, 0, bytes.Length);
                 stream.Flush();
             }
-            catch (Exception e)
+            catch (IOException e)
             {
                 Console.WriteLine(e.StackTrace);
                 throw e;
