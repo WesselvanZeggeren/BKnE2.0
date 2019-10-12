@@ -72,6 +72,7 @@
     <Compile Include="client\view\Lobby.Designer.cs">
       <DependentUpon>Lobby.cs</DependentUpon>
     </Compile>
+    <Compile Include="client\view\SharedUIupdate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="client\view\Login.resx">

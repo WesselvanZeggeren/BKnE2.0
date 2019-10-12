@@ -4,10 +4,6 @@ using BKnE2Lib;
 using BKnE2Lib.data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace BKnE2Client.client.controller
 {
@@ -29,6 +25,7 @@ namespace BKnE2Client.client.controller
             invokeFunction = new InvokeDelegate(InvokeFunction);
         }
 
+        //Load the lobby when logged in
         private void OnLogin(Request obj)
         {
             LobbyForm lobby = new LobbyForm(controller);
@@ -40,7 +37,11 @@ namespace BKnE2Client.client.controller
         //Adds a chat to the UI list
         private void OnMessage(Request obj)
         {
-            controller.lobbyForm.AddChat(obj.get(Config.messageType));
+            if(controller.lobbyForm != null)
+                controller.lobbyForm.AddChat(obj.get(Config.messageType));
+
+            if (controller.gameForm != null)
+                controller.gameForm.AddChat(obj.get(Config.messageType));
         }
 
         private void OnPin(Request obj)
@@ -60,6 +61,10 @@ namespace BKnE2Client.client.controller
                 if (controller.lobbyForm != null)
                 {
                     controller.lobbyForm.UpdatePlayerList();
+                }
+                if(controller.gameForm != null)
+                {
+                    controller.gameForm.UpdatePlayerList();
                 }
             }
         }

@@ -21,6 +21,7 @@ namespace BKnE2Client.client.controller
         public GameForm gameForm { get; set; }
         public ConnectionHandler ConnectionHandler { get => connectionHandler; set => connectionHandler = value; }
         public List<string> players;
+        public ListBox.ObjectCollection messages;
 
         public Controller()
         {

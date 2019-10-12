@@ -62,24 +62,29 @@
             // chatListBox
             // 
             this.chatListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chatListBox.Font = new System.Drawing.Font("Comic Sans MS", 12F);
             this.chatListBox.FormattingEnabled = true;
+            this.chatListBox.ItemHeight = 23;
             this.chatListBox.Location = new System.Drawing.Point(0, 0);
             this.chatListBox.Name = "chatListBox";
-            this.chatListBox.Size = new System.Drawing.Size(300, 661);
+            this.chatListBox.Size = new System.Drawing.Size(300, 651);
             this.chatListBox.TabIndex = 1;
             // 
             // chatTextBox
             // 
             this.chatTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chatTextBox.Location = new System.Drawing.Point(0, 661);
+            this.chatTextBox.Font = new System.Drawing.Font("Comic Sans MS", 12F);
+            this.chatTextBox.Location = new System.Drawing.Point(0, 651);
             this.chatTextBox.Name = "chatTextBox";
-            this.chatTextBox.Size = new System.Drawing.Size(300, 20);
+            this.chatTextBox.Size = new System.Drawing.Size(300, 30);
             this.chatTextBox.TabIndex = 0;
             // 
             // playerListBox
             // 
             this.playerListBox.Dock = System.Windows.Forms.DockStyle.Right;
+            this.playerListBox.Font = new System.Drawing.Font("Comic Sans MS", 12F);
             this.playerListBox.FormattingEnabled = true;
+            this.playerListBox.ItemHeight = 23;
             this.playerListBox.Location = new System.Drawing.Point(964, 0);
             this.playerListBox.Name = "playerListBox";
             this.playerListBox.Size = new System.Drawing.Size(300, 681);
@@ -98,10 +103,12 @@
             // serverListBox
             // 
             this.serverListBox.Enabled = false;
+            this.serverListBox.Font = new System.Drawing.Font("Comic Sans MS", 12F);
             this.serverListBox.FormattingEnabled = true;
+            this.serverListBox.ItemHeight = 23;
             this.serverListBox.Location = new System.Drawing.Point(32, 12);
             this.serverListBox.Name = "serverListBox";
-            this.serverListBox.Size = new System.Drawing.Size(600, 56);
+            this.serverListBox.Size = new System.Drawing.Size(600, 50);
             this.serverListBox.TabIndex = 1;
             // 
             // buttonPanel

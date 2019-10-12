@@ -1,14 +1,8 @@
 ﻿using BKnE2Client.client.controller;
-using BKnE2Lib;
 using BKnE2Lib.data;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BKnE2Client.client.view
@@ -16,20 +10,23 @@ namespace BKnE2Client.client.view
     public partial class GameForm : Form
     {
         private Controller controller;
-        private List<ButtonStruct> buttons;
+        private List<Pin> buttons;
 
         public GameForm(Controller controller)
         {
             InitializeComponent();
             this.controller = controller;
             controller.gameForm = this;
-            InitButtons();            
+            InitButtons();
+            UpdatePlayerList();
+            chatTextBox.KeyPress += ChatTextBox_KeyPress;
+            SetMessages();
         }
 
-        //Places the buttons in a struct and list
+        //Places the buttons in a Pin struct and list
         private void InitButtons()
         {
-            this.buttons = new List<ButtonStruct>();
+            this.buttons = new List<Pin>();
 
             Panel gamePanel = (Panel)Controls["gamePanel"];
             Panel buttonPanel = (Panel)gamePanel.Controls["buttonPanel"];
@@ -40,7 +37,7 @@ namespace BKnE2Client.client.view
                 {
                     int x = int.Parse(button.Name.Substring(1, 1));
                     int y = int.Parse(button.Name.Substring(3, 1));
-                    buttons.Add(new ButtonStruct(x, y, button));
+                    buttons.Add(new Pin(x, y, button));
                     button.Click += OnButtonPressed;
                 }
             }
@@ -54,7 +51,7 @@ namespace BKnE2Client.client.view
             int y = int.Parse(b.Name.Substring(3, 1));
             controller.SendPin(x, y);
         }
-
+                
         //Set the specified pin to the specified color
         public void SetPin(Request obj)
         {
@@ -76,7 +73,7 @@ namespace BKnE2Client.client.view
         //Return a specified button
         private Button GetButton(int x, int y)
         {
-            foreach(ButtonStruct b in buttons)
+            foreach(Pin b in buttons)
             {
                 if(b.x == x && b.y == y)
                 {
@@ -85,15 +82,39 @@ namespace BKnE2Client.client.view
             }
             return null;
         }
+
+        //Load the older messages in the new Form
+        private void SetMessages()
+        {
+            SharedUIupdate.SetMessages(chatListBox, controller);
+        }
+
+        //Send a message to the server when the ENTER is pressed
+        private void ChatTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            SharedUIupdate.ChatTextBox_KeyPress(e, chatTextBox, controller);
+        }
+
+        //Puts a message in the UI chatbox
+        public void AddChat(string msg)
+        {
+            SharedUIupdate.AddChatMessage(msg, chatListBox, controller);
+        }
+
+        //Updates the UI list with players
+        public void UpdatePlayerList()
+        {
+            SharedUIupdate.UpdatePlayerList(playerListBox, controller);
+        }
     }
 
-    internal struct ButtonStruct
+    internal struct Pin
     {
         public int x;
         public int y;
         public Button button;
 
-        public ButtonStruct(int x, int y, Button button)
+        public Pin(int x, int y, Button button)
         {
             this.x = x;
             this.y = y;
