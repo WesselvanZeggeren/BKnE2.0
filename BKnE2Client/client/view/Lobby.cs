@@ -21,7 +21,17 @@ namespace BKnE2Client.client.view
             this.controller = controller;
             this.controller.lobbyForm = this;
             chatTextBox.KeyPress += ChatTextBox_KeyPress;
+            playButton.Click += PlayButtonPressed;
             UpdatePlayerList();
+        }
+
+        //NOT CORRECT! *****************************************************************************************************************
+        private void PlayButtonPressed(object sender, EventArgs e)
+        {
+            GameForm gameForm = new GameForm(controller);
+            gameForm.Show();
+            controller.lobbyForm.Hide();
+            controller.gameForm = gameForm;
         }
 
         //Send a message to the server when the ENTER is pressed

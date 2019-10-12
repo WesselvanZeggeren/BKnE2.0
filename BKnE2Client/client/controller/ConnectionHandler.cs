@@ -45,7 +45,7 @@ namespace BKnE2Client.client.controller
 
         private void OnPin(Request obj)
         {
-            
+            controller.gameForm.SetPin(obj);
         }
 
         //Updates the list with players

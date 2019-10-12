@@ -72,6 +72,15 @@ namespace BKnE2Client.client.controller
             }
         }
 
+        //Send a pin to the server
+        public void SendPin(int x, int y)
+        {
+            Request pinRequest = Request.newRequest(Config.pinType);
+            pinRequest.add("x", x);
+            pinRequest.add("y", y);
+            connectionHandler.writeRequest(pinRequest);
+        }
+
         private void WriteRequest(string msg)
         {
             Request message = Request.newRequest(Config.messageType);

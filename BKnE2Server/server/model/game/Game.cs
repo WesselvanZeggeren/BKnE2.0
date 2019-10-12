@@ -50,7 +50,6 @@ namespace BKnE2Server.server.model.game
         // pin
         public void receivePin(Client client, Request request)
         {
-
             Pin pin = new Pin(request.get("x"), request.get("y"));
         }
 

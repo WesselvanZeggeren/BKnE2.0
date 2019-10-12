@@ -63,7 +63,6 @@ namespace BKnE2Client.client.model
         // messaging
         public void writeRequest(Request request)
         {
-
             TCPHelper.write(this.stream, request);
         }
 
