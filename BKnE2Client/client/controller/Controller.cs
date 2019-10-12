@@ -20,11 +20,13 @@ namespace BKnE2Client.client.controller
         public LobbyForm lobbyForm { get; set; }
         public GameForm gameForm { get; set; }
         public ConnectionHandler ConnectionHandler { get => connectionHandler; set => connectionHandler = value; }
+        public List<string> players;
 
         public Controller()
         {
             this.connectionHandler = new ConnectionHandler(this);
             connectionHandler.startConnection();
+            players = new List<string>();
         }
 
         //Login to the server

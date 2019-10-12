@@ -37,6 +37,7 @@ namespace BKnE2Client.client.controller
             controller.lobbyForm = lobby;
         }
 
+        //Adds a chat to the UI list
         private void OnMessage(Request obj)
         {
             controller.lobbyForm.AddChat(obj.get(Config.messageType));
@@ -47,9 +48,20 @@ namespace BKnE2Client.client.controller
             
         }
 
+        //Updates the list with players
         private void OnAccount(Request obj)
         {
-            //controller.lobby.AddPlayer(obj.get(Config.accountType));
+            List<string> players = (List<string>) obj.get("parameters");
+            
+            if(players != null)
+            {
+                controller.players = players;
+
+                if (controller.lobbyForm != null)
+                {
+                    controller.lobbyForm.UpdatePlayerList();
+                }
+            }
         }
 
         //Call the request.type function

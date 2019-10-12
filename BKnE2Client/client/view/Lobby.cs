@@ -19,7 +19,9 @@ namespace BKnE2Client.client.view
         {
             InitializeComponent();
             this.controller = controller;
+            this.controller.lobbyForm = this;
             chatTextBox.KeyPress += ChatTextBox_KeyPress;
+            UpdatePlayerList();
         }
 
         //Send a message to the server when the ENTER is pressed
@@ -35,6 +37,7 @@ namespace BKnE2Client.client.view
             }
         }
 
+        //Puts a message in the UI chatbox
         public void AddChat(string msg)
         {
             int maxCharacters = 25;
@@ -65,9 +68,15 @@ namespace BKnE2Client.client.view
             }
         }
 
-        public void AddPlayer(string playerName)
+        //Updates the UI list with players
+        public void UpdatePlayerList()
         {
-            playerListBox.Items.Add(playerName);
+            playerListBox.Items.Clear();
+
+            foreach(string name in controller.players)
+            {
+                playerListBox.Items.Insert(0, name);
+            }
         }
     }
 }
