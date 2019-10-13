@@ -19,7 +19,7 @@ namespace BKnE2Server
             Server server = new Server();
             server.startServer();
 
-            //new Thread(new ThreadStart(new Test().start)).Start();
+            new Thread(new ThreadStart(new Test().start)).Start();
 
             Console.Read();
         }

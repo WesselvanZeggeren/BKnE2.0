@@ -59,7 +59,7 @@ namespace BKnE2Server.server.model.game
                 request.add("g", client.data.color.g);
                 request.add("b", client.data.color.b);
 
-                client.writeRequest(request);
+                this.writeRequestToAll(request);
 
                 this.game.nextPlayer();
                 this.game.nextRound();
