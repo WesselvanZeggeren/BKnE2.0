@@ -137,7 +137,7 @@ namespace BKnE2Server.server.model.client
                         this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
                         this.isPlaying = false;
 
-            return this.isPlaying;
+            return !this.isPlaying;
         }
 
         public void resetClient()

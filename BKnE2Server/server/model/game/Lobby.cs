@@ -30,7 +30,7 @@ namespace BKnE2Server.server.model.game
         public void startGame()
         {
 
-            this.game = new Game(this.clients);
+            this.game = new Game(new List<Client>(this.clients));
             this.game.init();
 
             Request request = Request.newRequest(Config.startType);
@@ -76,7 +76,7 @@ namespace BKnE2Server.server.model.game
             this.clients.Add(client);
             client.setLobby(this);
 
-            this.sendClientsToClients();
+            this.sendPlayersToClients();
 
             if (this.clients.Count() >= Config.maxPlayersInGame)
                 this.startGame();
@@ -88,16 +88,16 @@ namespace BKnE2Server.server.model.game
             this.clients.Remove(client);
             client.setLobby(null);
 
-            this.sendClientsToClients();
+            this.sendPlayersToClients();
 
             if (this.clients.Count() == 0)
                 this.server.stopLobby(this);
         }
 
-        private void sendClientsToClients()
+        private void sendPlayersToClients()
         {
 
-            Request request = Request.newRequest(Config.accountType);
+            Request request = Request.newRequest(Config.playerType);
             request.add("players", this.getPlayers());
 
             this.writeRequestToAll(request);

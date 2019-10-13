@@ -86,7 +86,7 @@ namespace BKnE2Server.server.controller
                 case Config.pinType:     client.lobby.receivePin(client, request);   break;
                 case Config.messageType: client.lobby.writeRequestToAll(request);    break;
                 case Config.startType:   client.lobby.receiveStart(client, request); break;
-                case Config.lobbyType:   this.addClientToLobby(client);              break;
+                case Config.lobbyType:   this.findLobby().addClient(client);         break;
             }
         }
 
@@ -102,18 +102,10 @@ namespace BKnE2Server.server.controller
             return this.findLobby();
         }
 
-        public void addClientToLobby(Client client)
-        {
-
-            Lobby lobby = this.findLobby();
-
-            lobby.addClient(client);
-
-            client.writeRequest(Request.newRequest(Config.lobbyType));
-        }
-
         public void stopLobby(Lobby lobby)
         {
+
+            Console.WriteLine("Lobby removed");
 
             this.lobbys.Remove(lobby);
         }

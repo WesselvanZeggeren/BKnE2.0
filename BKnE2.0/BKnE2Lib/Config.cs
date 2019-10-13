@@ -45,11 +45,11 @@ namespace BKnE2Lib
         public const string pinType = "pin";
 
         /**
-         * Account type: This type is used to change the players color or show wich players are in a room.
+         * Player type: This type is used to change the players color or show wich players are in a room.
          * Server params:   "r":255, "g":0, "b":0
          * Client params:   "players":List<Player>
          */
-        public const string accountType = "account";
+        public const string playerType = "player";
 
         // connection
         public const string machineName = "BKnE2Server";
@@ -61,7 +61,7 @@ namespace BKnE2Lib
         // game
         public const int maxPinsPerPlayer = 4;
         public const int maxPlayersInGame = 2;
-        public const int maxScorePerGame = 100;
+        public const int maxScorePerGame = 50;
         public const int minBoardSize = 3;
 
         // account
