@@ -51,5 +51,10 @@ namespace BKnE2Client.client.view
         {
             SharedUIupdate.UpdatePlayerList(playerListBox, controller);
         }
+
+        public void SetServerMessage(string msg)
+        {
+            SharedUIupdate.SetServerMessage(serverListBox, msg);
+        }
     }
 }

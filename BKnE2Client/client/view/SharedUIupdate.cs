@@ -80,5 +80,10 @@ namespace BKnE2Client.client.view
                 }
             }
         }
+
+        public static void SetServerMessage(ListBox serverListbox, string msg)
+        {
+            serverListbox.Items.Insert(0, msg);
+        }
     }
 }
