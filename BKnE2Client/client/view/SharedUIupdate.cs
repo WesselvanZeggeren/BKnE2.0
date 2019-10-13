@@ -1,4 +1,5 @@
 ﻿using BKnE2Client.client.controller;
+using BKnE2Lib.data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -63,9 +64,9 @@ namespace BKnE2Client.client.view
         {
             playerListBox.Items.Clear();
 
-            foreach (string name in controller.players)
+            foreach (Player player in controller.players)
             {
-                playerListBox.Items.Insert(0, name);
+                playerListBox.Items.Insert(0, player.name);
             }
         }
 
@@ -79,6 +80,11 @@ namespace BKnE2Client.client.view
                     AddChatMessage(msg, chatListBox, controller);
                 }
             }
+        }
+
+        public static void SetServerMessage(ListBox serverListbox, string msg)
+        {
+            serverListbox.Items.Insert(0, msg);
         }
     }
 }

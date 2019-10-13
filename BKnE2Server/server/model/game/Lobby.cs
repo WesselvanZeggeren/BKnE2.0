@@ -2,6 +2,7 @@
 using BKnE2Lib.data;
 using BKnE2Server.server.controller;
 using BKnE2Server.server.model.client;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,7 +99,7 @@ namespace BKnE2Server.server.model.game
         {
 
             Request request = Request.newRequest(Config.playerType);
-            request.add("players", this.getPlayers());
+            request.add("players", JsonConvert.SerializeObject(this.getPlayers()));
 
             this.writeRequestToAll(request);
         }

@@ -20,14 +20,14 @@ namespace BKnE2Client.client.controller
         public LobbyForm lobbyForm { get; set; }
         public GameForm gameForm { get; set; }
         public ConnectionHandler ConnectionHandler { get => connectionHandler; set => connectionHandler = value; }
-        public List<string> players;
+        public List<Player> players;
         public ListBox.ObjectCollection messages;
 
         public Controller()
         {
             this.connectionHandler = new ConnectionHandler(this);
             connectionHandler.startConnection();
-            players = new List<string>();
+            players = new List<Player>();
         }
 
         //Login to the server
@@ -39,6 +39,13 @@ namespace BKnE2Client.client.controller
             login.add("password", password);
             login.add("register", register);
             connectionHandler.writeRequest(login);
+        }
+
+        public void GameRequest(bool startGame)
+        {
+            Request request = Request.newRequest(Config.startType);
+            request.add("start", startGame);
+            connectionHandler.writeRequest(request);
         }
 
         //Send a message to the server

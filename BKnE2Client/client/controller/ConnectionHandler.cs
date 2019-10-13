@@ -2,6 +2,8 @@
 using BKnE2Client.client.view;
 using BKnE2Lib;
 using BKnE2Lib.data;
+using BKnE2Lib.helper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -21,17 +23,22 @@ namespace BKnE2Client.client.controller
             functions[Config.loginType] = OnLogin;
             functions[Config.messageType] = OnMessage;
             functions[Config.pinType] = OnPin;
-            functions[Config.playerType] = OnPlayer;
+            functions[Config.accountType] = OnAccount;
+            functions[Config.startType] = OnStart;
             invokeFunction = new InvokeDelegate(InvokeFunction);
         }
-
+        
         //Load the lobby when logged in
         private void OnLogin(Request obj)
         {
-            LobbyForm lobby = new LobbyForm(controller);
-            lobby.Show();
-            controller.loginForm.Hide();
-            controller.lobbyForm = lobby;
+            if (obj.get("successful"))
+            {
+                LobbyForm lobby = new LobbyForm(controller);
+                lobby.Show();
+                controller.loginForm.Hide();
+                controller.lobbyForm = lobby;
+                this.writeRequest(Request.newRequest(Config.lobbyType));
+            }
         }
 
         //Adds a chat to the UI list
@@ -52,9 +59,9 @@ namespace BKnE2Client.client.controller
         //Updates the list with players
         private void OnPlayer(Request obj)
         {
-            List<string> players = (List<string>) obj.get("parameters");
-            
-            if(players != null)
+            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(obj.get("players"));
+
+            if (players != null)
             {
                 controller.players = players;
 
@@ -69,10 +76,42 @@ namespace BKnE2Client.client.controller
             }
         }
 
+        private void OnStart(Request obj)
+        {
+            if (obj.get("size") != null)
+            {
+                GameForm gameForm = new GameForm(controller);
+                gameForm.Show();
+                controller.lobbyForm.Hide();
+                controller.gameForm = gameForm;
+            }
+            else
+            {
+                controller.gameForm.Hide();
+                controller.lobbyForm.Show();
+            }
+        }
+
         //Call the request.type function
         private void InvokeFunction(Request request)
         {
-            functions[request.type].Invoke(request);
+            try
+            {
+                if(request != null)
+                {
+                    functions[request.type].Invoke(request);
+                }
+            } catch (Exception e)
+            {
+                if (controller.lobbyForm != null)
+                {
+                    controller.lobbyForm.SetServerMessage(DateTime.Now.Millisecond + " " + e.ToString());
+                }
+                if (controller.gameForm != null)
+                {
+                    controller.gameForm.SetServerMessage(DateTime.Now.Millisecond + " " + e.ToString());
+                }
+            }
         }
 
         //Call the InvokeFunction delegate
