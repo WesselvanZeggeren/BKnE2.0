@@ -55,11 +55,11 @@ namespace BKnE2Client.client.view
         //Set the specified pin to the specified color
         public void SetPin(Request obj)
         {
-            int x = obj.get("x");
-            int y = obj.get("y");
-            int red = obj.get("r");
-            int green = obj.get("g");
-            int blue = obj.get("b");
+            int x = (int) obj.get("x");
+            int y = (int) obj.get("y");
+            int red = (int) obj.get("r");
+            int green = (int) obj.get("g");
+            int blue = (int) obj.get("b");
 
             Button b = GetButton(x, y);
 

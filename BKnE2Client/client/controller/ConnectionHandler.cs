@@ -78,7 +78,7 @@ namespace BKnE2Client.client.controller
 
         private void OnStart(Request obj)
         {
-            if (obj.get("start"))
+            if (obj.get("size") != null)
             {
                 GameForm gameForm = new GameForm(controller);
                 gameForm.Show();
