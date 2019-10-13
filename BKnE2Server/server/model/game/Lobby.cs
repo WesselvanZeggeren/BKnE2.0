@@ -98,7 +98,7 @@ namespace BKnE2Server.server.model.game
         {
 
             Request request = Request.newRequest(Config.accountType);
-            request.add("clients", this.getPlayers());
+            request.add("players", this.getPlayers());
 
             this.writeRequestToAll(request);
         }
