@@ -53,8 +53,10 @@
     <Compile Include="server\controller\Server.cs" />
     <Compile Include="server\model\client\Client.cs" />
     <Compile Include="server\model\game\Game.cs" />
+    <Compile Include="server\model\game\Lobby.cs" />
     <Compile Include="server\model\game\Pin.cs" />
     <Compile Include="server\model\account\AccountManager.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

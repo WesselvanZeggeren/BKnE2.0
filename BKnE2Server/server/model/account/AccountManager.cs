@@ -27,7 +27,7 @@ namespace BKnE2Server.server.model.json
                 if (client.name == name && client.password == password)
                     return client;
 
-            if (register && clients.Count() < 100)
+            if (register && clients.Count() < Config.maxAmmountOfAccounts)
             {
 
                 clients.Add(ClientData.newClient(generateId(), name, password));
