@@ -21,7 +21,7 @@ namespace BKnE2Client.client.controller
             functions[Config.loginType] = OnLogin;
             functions[Config.messageType] = OnMessage;
             functions[Config.pinType] = OnPin;
-            functions[Config.accountType] = OnAccount;
+            functions[Config.playerType] = OnPlayer;
             invokeFunction = new InvokeDelegate(InvokeFunction);
         }
 
@@ -50,7 +50,7 @@ namespace BKnE2Client.client.controller
         }
 
         //Updates the list with players
-        private void OnAccount(Request obj)
+        private void OnPlayer(Request obj)
         {
             List<string> players = (List<string>) obj.get("parameters");
             
