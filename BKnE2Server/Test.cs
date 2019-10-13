@@ -16,7 +16,7 @@ namespace BKnE2Server
     public class Test : Connection
     {
 
-        public int sleep = 5000;
+        public int sleep = 1000;
 
         public void start()
         {
@@ -37,7 +37,7 @@ namespace BKnE2Server
 
             new Thread(new ThreadStart(new Test2().start2)).Start();
 
-            Thread.Sleep(sleep * 5);
+            Thread.Sleep(sleep * 4);
 
             this.pinRequest(0, 0);
 
