@@ -28,10 +28,14 @@ namespace BKnE2Client.client.controller
         //Load the lobby when logged in
         private void OnLogin(Request obj)
         {
-            LobbyForm lobby = new LobbyForm(controller);
-            lobby.Show();
-            controller.loginForm.Hide();
-            controller.lobbyForm = lobby;
+            if (obj.get("successful"))
+            {
+                LobbyForm lobby = new LobbyForm(controller);
+                lobby.Show();
+                controller.loginForm.Hide();
+                controller.lobbyForm = lobby;
+                this.writeRequest(Request.newRequest(Config.lobbyType));
+            }
         }
 
         //Adds a chat to the UI list

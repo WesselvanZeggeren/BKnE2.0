@@ -78,7 +78,7 @@ namespace BKnE2Server.server.controller
         // messaging
         public void receiveRequest(Client client, Request request)
         {
-
+            Console.WriteLine(request.ToString());
             switch (request.type)
             {
 
@@ -108,8 +108,6 @@ namespace BKnE2Server.server.controller
             Lobby lobby = this.findLobby();
 
             lobby.addClient(client);
-
-            client.writeRequest(Request.newRequest(Config.lobbyType));
         }
 
         public void stopLobby(Lobby lobby)
