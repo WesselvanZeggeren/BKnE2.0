@@ -65,6 +65,7 @@ namespace BKnE2Server.server.model.game
                 else
                 {
 
+                    Console.WriteLine("game ended");
                     this.ended = true;
                 }
             }

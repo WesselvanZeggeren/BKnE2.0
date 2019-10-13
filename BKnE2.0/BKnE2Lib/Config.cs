@@ -47,7 +47,7 @@ namespace BKnE2Lib
         /**
          * Account type: This type is used to change the players color or show wich players are in a room.
          * Server params:   "r":255, "g":0, "b":0
-         * Client params:   "names":List<string> [{"kees", 255, 0, 0}, {"Bert", 0, 0, 255}]
+         * Client params:   "players":List<Player>
          */
         public const string accountType = "account";
 
