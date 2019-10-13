@@ -21,7 +21,7 @@ namespace BKnE2Server.server.controller
         // attributes
         public X509Certificate2 certificate;
 
-        private List<Game> games;
+        private List<Lobby> lobbys;
         
         // constructor
         public void startServer()
@@ -31,7 +31,7 @@ namespace BKnE2Server.server.controller
             {
 
                 this.certificate = new X509Certificate2(Config.certificatePath, Config.certificateKey);
-                this.games = new List<Game>();
+                this.lobbys = new List<Lobby>();
 
                 new Thread(new ThreadStart(catchClients)).Start();
             }
@@ -43,8 +43,6 @@ namespace BKnE2Server.server.controller
                 if (e.InnerException != null)
                     Console.WriteLine("Inner exception: {0}", e.InnerException.Message);
             }
-
-            Console.Read();
         }
 
         // connection
@@ -86,38 +84,40 @@ namespace BKnE2Server.server.controller
             switch (request.type)
             {
 
-                case Config.loginType:   client.login(request);                   break;
-                case Config.startType:   client.game.startGame();                 break;
-                case Config.pinType:     client.game.receivePin(client, request); break;
-                case Config.messageType: client.game.writeRequestToAll(request);  break;
+                case Config.loginType:   client.login(request);                      break;
+                case Config.pinType:     client.lobby.receivePin(client, request);   break;
+                case Config.messageType: client.lobby.writeRequestToAll(request);    break;
+                case Config.startType:   client.lobby.receiveStart(client, request); break;
+                case Config.lobbyType:   this.addClientToLobby(client);              break;
             }
         }
 
         // game
-        private Game findGame()
+        private Lobby findLobby()
         {
 
-            foreach (Game game in this.games)
-                if (!game.isRunning())
-                    return game;
+            foreach (Lobby lobby in this.lobbys)
+                if (lobby.game == null)
+                    return lobby;
 
-            this.games.Add(new Game(this));
-            return this.findGame();
+            this.lobbys.Add(new Lobby(this));
+            return this.findLobby();
         }
 
-        public void addClientToGame(Client client)
+        public void addClientToLobby(Client client)
         {
 
-            Game game = this.findGame();
+            Lobby lobby = this.findLobby();
 
-            game.addClient(client);
-            client.game = game;
+            lobby.addClient(client);
+
+            client.writeRequest(Request.newRequest(Config.lobbyType));
         }
 
-        public void stopGame(Game game)
+        public void stopLobby(Lobby lobby)
         {
 
-
+            this.lobbys.Remove(lobby);
         }
     }
 }

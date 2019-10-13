@@ -45,7 +45,7 @@ namespace BKnE2Client.client.model
                 return;
             }
 
-            this.thread = new Thread(new ThreadStart(getMessage));
+            this.thread = new Thread(new ThreadStart(readRequest));
             this.thread.Start();
         }
 
@@ -66,7 +66,7 @@ namespace BKnE2Client.client.model
             TCPHelper.write(this.stream, request);
         }
 
-        private void getMessage()
+        private void readRequest()
         {
 
             try

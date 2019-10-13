@@ -12,7 +12,7 @@ namespace BKnE2Lib.data
     {
 
         public string type;
-        public List<Tuple<string, dynamic>> parameters;
+        public Dictionary<string, dynamic> parameters;
 
         private Request() { }
 
@@ -21,7 +21,7 @@ namespace BKnE2Lib.data
 
             Request request = new Request();
             request.type = type;
-            request.parameters = new List<Tuple<string, dynamic>>();
+            request.parameters = new Dictionary<string, dynamic>();
 
             return request;
         }
@@ -29,23 +29,23 @@ namespace BKnE2Lib.data
         public void add(string id, dynamic value)
         {
 
-            this.parameters.Add(new Tuple<string, dynamic>(id, value));
+            this.parameters.Add(id, value);
         }
 
         public dynamic get(string id)
         {
 
-            foreach (Tuple<string, dynamic> parameter in this.parameters)
-                if (parameter.Item1 == id)
-                    return parameter.Item2;
+            dynamic value;
 
-            return null;
+            this.parameters.TryGetValue(id, out value);
+
+            return value;
         }
 
         public void clear()
         {
 
-            this.parameters = new List<Tuple<string, dynamic>>();
+            this.parameters = new Dictionary<string, dynamic>();
         }
 
         public override string ToString()

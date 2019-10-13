@@ -20,13 +20,14 @@ using System.Security.Authentication;
 namespace BKnE2Server.server.model.client
 {
 
-    class Client : IComparable
+    class Client
     {
 
         // attributes
-        public Game game;
-        public int position;
         public ClientData data = null;
+        public bool isPlaying = true;
+
+        public Lobby lobby;
         private List<Pin> pins;
 
         private Server server;
@@ -62,8 +63,8 @@ namespace BKnE2Server.server.model.client
                 SSLHelper.DisplayCertificateInformation(this.stream);
                 SSLHelper.DisplayStreamProperties(this.stream);
 
-                this.stream.ReadTimeout = 60000;
-                this.stream.WriteTimeout = 60000;
+                this.stream.ReadTimeout = Config.connectionTimeout;
+                this.stream.WriteTimeout = Config.connectionTimeout;
 
                 while (true)
                 {
@@ -100,36 +101,20 @@ namespace BKnE2Server.server.model.client
 
             this.data = AccountManager.login(request.get("name"), request.get("password"), request.get("register"));
 
-            bool successful = (this.data != null);
-
-            if (successful)
-                this.server.addClientToGame(this);
-
             request.clear();
-            request.add("successful", successful);
+            request.add("successful", (this.data != null));
 
             this.writeRequest(request);
         }
 
-        public void save()
-        {
-
-            if (this.data != null)
-                AccountManager.save();
-        }
-
         // pins
-        public bool threeInARow()
+        public void assignPin(Pin pin)
         {
 
-            foreach (Pin p in this.pins)
-                if (this.containsPin(p.x    , p.y + 1) && this.containsPin(p.x    , p.y + 2) ||
-                    this.containsPin(p.x + 1, p.y + 1) && this.containsPin(p.x + 2, p.y + 2) ||
-                    this.containsPin(p.x + 1, p.y    ) && this.containsPin(p.x + 2, p.y    ) ||
-                    this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
-                    return true;
+            if (this.pins.Count() == 4)
+                this.pins.RemoveAt(0);
 
-            return false;
+            this.pins.Add(pin);
         }
 
         private bool containsPin(int x, int y)
@@ -142,11 +127,34 @@ namespace BKnE2Server.server.model.client
             return false;
         }
 
-        // sort
-        public int CompareTo(object obj)
+        // game
+        public bool hasThreeInARow()
         {
 
-            return this.position - (obj as Client).position;
+            if (this.isPlaying)
+                foreach (Pin p in this.pins)
+                    if (this.containsPin(p.x    , p.y + 1) && this.containsPin(p.x    , p.y + 2) ||
+                        this.containsPin(p.x + 1, p.y + 1) && this.containsPin(p.x + 2, p.y + 2) ||
+                        this.containsPin(p.x + 1, p.y    ) && this.containsPin(p.x + 2, p.y    ) ||
+                        this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
+                        this.isPlaying = false;
+
+            return this.isPlaying;
+        }
+
+        public void resetClient()
+        {
+
+            this.pins = new List<Pin>();
+            this.isPlaying = true;
+        }
+
+        // lobby
+        public void setLobby(Lobby lobby)
+        {
+
+            if (this.lobby == null || lobby == null)
+                this.lobby = lobby;
         }
     }
 }
