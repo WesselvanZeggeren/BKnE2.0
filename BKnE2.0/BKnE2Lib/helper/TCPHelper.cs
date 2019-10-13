@@ -44,7 +44,8 @@ namespace BKnE2Lib.helper
             catch (Exception e)
             {
 
-                throw e;
+                ExceptionHelper.print(e);
+                return null;
             }
         }
 
@@ -76,8 +77,8 @@ namespace BKnE2Lib.helper
             }
             catch (IOException e)
             {
-                Console.WriteLine(e.StackTrace);
-                throw e;
+
+                ExceptionHelper.print(e);
             }
         }
     }

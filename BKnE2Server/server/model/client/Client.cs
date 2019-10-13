@@ -76,10 +76,8 @@ namespace BKnE2Server.server.model.client
             }
             catch (Exception e)
             {
-                Console.WriteLine("Exception: {0}\n name: {1}", e.Message, e.GetType().Name);
 
-                if (e.InnerException != null)
-                    Console.WriteLine("Inner exception: {0}", e.InnerException.Message);
+                ExceptionHelper.print(e);
             }
             finally
             {
