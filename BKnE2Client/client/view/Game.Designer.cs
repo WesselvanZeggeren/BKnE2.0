@@ -35,15 +35,15 @@
             this.gamePanel = new System.Windows.Forms.Panel();
             this.serverListBox = new System.Windows.Forms.ListBox();
             this.buttonPanel = new System.Windows.Forms.Panel();
-            this.x3y3 = new System.Windows.Forms.Button();
-            this.x2y3 = new System.Windows.Forms.Button();
-            this.x1y3 = new System.Windows.Forms.Button();
-            this.x3y2 = new System.Windows.Forms.Button();
             this.x2y2 = new System.Windows.Forms.Button();
             this.x1y2 = new System.Windows.Forms.Button();
-            this.x3y1 = new System.Windows.Forms.Button();
+            this.x0y2 = new System.Windows.Forms.Button();
             this.x2y1 = new System.Windows.Forms.Button();
             this.x1y1 = new System.Windows.Forms.Button();
+            this.x0y1 = new System.Windows.Forms.Button();
+            this.x2y0 = new System.Windows.Forms.Button();
+            this.x1y0 = new System.Windows.Forms.Button();
+            this.x0y0 = new System.Windows.Forms.Button();
             this.chatPanel.SuspendLayout();
             this.gamePanel.SuspendLayout();
             this.buttonPanel.SuspendLayout();
@@ -113,101 +113,101 @@
             // 
             // buttonPanel
             // 
-            this.buttonPanel.Controls.Add(this.x3y3);
-            this.buttonPanel.Controls.Add(this.x2y3);
-            this.buttonPanel.Controls.Add(this.x1y3);
-            this.buttonPanel.Controls.Add(this.x3y2);
             this.buttonPanel.Controls.Add(this.x2y2);
             this.buttonPanel.Controls.Add(this.x1y2);
-            this.buttonPanel.Controls.Add(this.x3y1);
+            this.buttonPanel.Controls.Add(this.x0y2);
             this.buttonPanel.Controls.Add(this.x2y1);
             this.buttonPanel.Controls.Add(this.x1y1);
+            this.buttonPanel.Controls.Add(this.x0y1);
+            this.buttonPanel.Controls.Add(this.x2y0);
+            this.buttonPanel.Controls.Add(this.x1y0);
+            this.buttonPanel.Controls.Add(this.x0y0);
             this.buttonPanel.Location = new System.Drawing.Point(32, 75);
             this.buttonPanel.Margin = new System.Windows.Forms.Padding(6);
             this.buttonPanel.Name = "buttonPanel";
             this.buttonPanel.Size = new System.Drawing.Size(600, 600);
             this.buttonPanel.TabIndex = 0;
             // 
-            // x3y3
-            // 
-            this.x3y3.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x3y3.Location = new System.Drawing.Point(403, 403);
-            this.x3y3.Name = "x3y3";
-            this.x3y3.Size = new System.Drawing.Size(194, 194);
-            this.x3y3.TabIndex = 8;
-            this.x3y3.UseVisualStyleBackColor = true;
-            // 
-            // x2y3
-            // 
-            this.x2y3.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x2y3.Location = new System.Drawing.Point(203, 403);
-            this.x2y3.Name = "x2y3";
-            this.x2y3.Size = new System.Drawing.Size(194, 194);
-            this.x2y3.TabIndex = 7;
-            this.x2y3.UseVisualStyleBackColor = true;
-            // 
-            // x1y3
-            // 
-            this.x1y3.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x1y3.Location = new System.Drawing.Point(3, 403);
-            this.x1y3.Name = "x1y3";
-            this.x1y3.Size = new System.Drawing.Size(194, 194);
-            this.x1y3.TabIndex = 6;
-            this.x1y3.UseVisualStyleBackColor = true;
-            // 
-            // x3y2
-            // 
-            this.x3y2.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x3y2.Location = new System.Drawing.Point(403, 203);
-            this.x3y2.Name = "x3y2";
-            this.x3y2.Size = new System.Drawing.Size(194, 194);
-            this.x3y2.TabIndex = 5;
-            this.x3y2.UseVisualStyleBackColor = true;
-            // 
             // x2y2
             // 
             this.x2y2.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x2y2.Location = new System.Drawing.Point(203, 203);
+            this.x2y2.Location = new System.Drawing.Point(403, 403);
             this.x2y2.Name = "x2y2";
             this.x2y2.Size = new System.Drawing.Size(194, 194);
-            this.x2y2.TabIndex = 4;
+            this.x2y2.TabIndex = 8;
             this.x2y2.UseVisualStyleBackColor = true;
             // 
             // x1y2
             // 
             this.x1y2.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x1y2.Location = new System.Drawing.Point(3, 203);
+            this.x1y2.Location = new System.Drawing.Point(203, 403);
             this.x1y2.Name = "x1y2";
             this.x1y2.Size = new System.Drawing.Size(194, 194);
-            this.x1y2.TabIndex = 3;
+            this.x1y2.TabIndex = 7;
             this.x1y2.UseVisualStyleBackColor = true;
             // 
-            // x3y1
+            // x0y2
             // 
-            this.x3y1.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x3y1.Location = new System.Drawing.Point(403, 3);
-            this.x3y1.Name = "x3y1";
-            this.x3y1.Size = new System.Drawing.Size(194, 194);
-            this.x3y1.TabIndex = 2;
-            this.x3y1.UseVisualStyleBackColor = true;
+            this.x0y2.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.x0y2.Location = new System.Drawing.Point(3, 403);
+            this.x0y2.Name = "x0y2";
+            this.x0y2.Size = new System.Drawing.Size(194, 194);
+            this.x0y2.TabIndex = 6;
+            this.x0y2.UseVisualStyleBackColor = true;
             // 
             // x2y1
             // 
             this.x2y1.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x2y1.Location = new System.Drawing.Point(203, 3);
+            this.x2y1.Location = new System.Drawing.Point(403, 203);
             this.x2y1.Name = "x2y1";
             this.x2y1.Size = new System.Drawing.Size(194, 194);
-            this.x2y1.TabIndex = 1;
+            this.x2y1.TabIndex = 5;
             this.x2y1.UseVisualStyleBackColor = true;
             // 
             // x1y1
             // 
             this.x1y1.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.x1y1.Location = new System.Drawing.Point(3, 3);
+            this.x1y1.Location = new System.Drawing.Point(203, 203);
             this.x1y1.Name = "x1y1";
             this.x1y1.Size = new System.Drawing.Size(194, 194);
-            this.x1y1.TabIndex = 0;
+            this.x1y1.TabIndex = 4;
             this.x1y1.UseVisualStyleBackColor = true;
+            // 
+            // x0y1
+            // 
+            this.x0y1.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.x0y1.Location = new System.Drawing.Point(3, 203);
+            this.x0y1.Name = "x0y1";
+            this.x0y1.Size = new System.Drawing.Size(194, 194);
+            this.x0y1.TabIndex = 3;
+            this.x0y1.UseVisualStyleBackColor = true;
+            // 
+            // x2y0
+            // 
+            this.x2y0.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.x2y0.Location = new System.Drawing.Point(403, 3);
+            this.x2y0.Name = "x2y0";
+            this.x2y0.Size = new System.Drawing.Size(194, 194);
+            this.x2y0.TabIndex = 2;
+            this.x2y0.UseVisualStyleBackColor = true;
+            // 
+            // x1y0
+            // 
+            this.x1y0.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.x1y0.Location = new System.Drawing.Point(203, 3);
+            this.x1y0.Name = "x1y0";
+            this.x1y0.Size = new System.Drawing.Size(194, 194);
+            this.x1y0.TabIndex = 1;
+            this.x1y0.UseVisualStyleBackColor = true;
+            // 
+            // x0y0
+            // 
+            this.x0y0.Font = new System.Drawing.Font("Comic Sans MS", 99.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.x0y0.Location = new System.Drawing.Point(3, 3);
+            this.x0y0.Name = "x0y0";
+            this.x0y0.Size = new System.Drawing.Size(194, 194);
+            this.x0y0.TabIndex = 0;
+            this.x0y0.UseVisualStyleBackColor = true;
             // 
             // GameForm
             // 
@@ -237,15 +237,15 @@
         private System.Windows.Forms.ListBox playerListBox;
         private System.Windows.Forms.Panel gamePanel;
         private System.Windows.Forms.Panel buttonPanel;
-        private System.Windows.Forms.Button x3y3;
-        private System.Windows.Forms.Button x2y3;
-        private System.Windows.Forms.Button x1y3;
-        private System.Windows.Forms.Button x3y2;
         private System.Windows.Forms.Button x2y2;
         private System.Windows.Forms.Button x1y2;
-        private System.Windows.Forms.Button x3y1;
+        private System.Windows.Forms.Button x0y2;
         private System.Windows.Forms.Button x2y1;
         private System.Windows.Forms.Button x1y1;
+        private System.Windows.Forms.Button x0y1;
+        private System.Windows.Forms.Button x2y0;
+        private System.Windows.Forms.Button x1y0;
+        private System.Windows.Forms.Button x0y0;
         private System.Windows.Forms.ListBox serverListBox;
     }
 }
