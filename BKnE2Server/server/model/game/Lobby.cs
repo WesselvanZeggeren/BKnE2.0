@@ -27,7 +27,7 @@ namespace BKnE2Server.server.model.game
         }
 
         // game
-        private void startGame()
+        public void startGame()
         {
 
             this.game = new Game(this.clients);

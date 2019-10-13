@@ -50,10 +50,13 @@ namespace BKnE2Lib
          * Client params:   "names":List<string> [{"kees", 255, 0, 0}, {"Bert", 0, 0, 255}]
          */
         public const string accountType = "account";
+
         // connection
         public const string machineName = "BKnE2Server";
         public const string host = "127.0.0.1";
         public const int port = 6699;
+
+        public const int connectionTimeout = 3600000;
 
         // game
         public const int maxPinsPerPlayer = 4;

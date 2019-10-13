@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,7 @@ namespace BKnE2Server.server.model.game
         public override string ToString()
         {
 
-            return String.Format(
-                "x: {0}\ty: {1}",
-                this.x, this.y
-            );
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

@@ -43,8 +43,6 @@ namespace BKnE2Server.server.controller
                 if (e.InnerException != null)
                     Console.WriteLine("Inner exception: {0}", e.InnerException.Message);
             }
-
-            Console.Read();
         }
 
         // connection

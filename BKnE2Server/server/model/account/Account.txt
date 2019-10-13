@@ -1,1 +1,1 @@
-[{"id":1,"name":"wessel","password":"00000000","wins":0,"plays":0,"score":0,"color":{"r":216,"g":143,"b":66}},{"id":2,"name":"admin","password":"admin","wins":0,"plays":0,"score":0,"color":{"r":44,"g":66,"b":123}}]
+[{"id":1,"name":"wessel","password":"00000000","wins":0,"plays":0,"score":0,"color":{"r":216,"g":143,"b":66}},{"id":2,"name":"admin","password":"admin","wins":0,"plays":0,"score":0,"color":{"r":44,"g":66,"b":123}},{"id":3,"name":"kees konders","password":"keesbeest","wins":0,"plays":0,"score":1000,"color":{"r":54,"g":27,"b":63}}]

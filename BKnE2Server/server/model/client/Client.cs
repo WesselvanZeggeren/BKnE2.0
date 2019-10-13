@@ -63,8 +63,8 @@ namespace BKnE2Server.server.model.client
                 SSLHelper.DisplayCertificateInformation(this.stream);
                 SSLHelper.DisplayStreamProperties(this.stream);
 
-                this.stream.ReadTimeout = 60000;
-                this.stream.WriteTimeout = 60000;
+                this.stream.ReadTimeout = Config.connectionTimeout;
+                this.stream.WriteTimeout = Config.connectionTimeout;
 
                 while (true)
                 {
@@ -150,15 +150,6 @@ namespace BKnE2Server.server.model.client
         }
 
         // lobby
-        public void startLobby(Request request)
-        {
-
-            if (this.lobby == null)
-                this.server.addClientToLobby(this);
-            else
-                this.lobby.startGame(request);
-        }
-
         public void setLobby(Lobby lobby)
         {
 
