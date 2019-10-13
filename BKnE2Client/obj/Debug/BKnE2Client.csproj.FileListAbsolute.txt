@@ -35,3 +35,6 @@ C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.client.view.Game.resources
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.client.view.Lobby.resources
 >>>>>>> game2
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.LoginForm.resources
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.client.view.GameForm.resources
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Client\obj\Debug\BKnE2Client.client.view.LobbyForm.resources

@@ -16,7 +16,7 @@ namespace BKnE2Server
     public class Test : Connection
     {
 
-        public int sleep = 1000;
+        public int sleep = 5000;
 
         public void start()
         {
