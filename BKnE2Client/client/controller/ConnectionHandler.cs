@@ -23,7 +23,7 @@ namespace BKnE2Client.client.controller
             functions[Config.loginType] = OnLogin;
             functions[Config.messageType] = OnMessage;
             functions[Config.pinType] = OnPin;
-            functions[Config.accountType] = OnAccount;
+            functions[Config.playerType] = OnPlayer;
             functions[Config.startType] = OnStart;
             invokeFunction = new InvokeDelegate(InvokeFunction);
         }
