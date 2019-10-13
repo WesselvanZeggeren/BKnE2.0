@@ -1,4 +1,6 @@
 ﻿using BKnE2Client.client.controller;
+using BKnE2Lib;
+using BKnE2Lib.data;
 using System;
 using System.Windows.Forms;
 
@@ -22,10 +24,11 @@ namespace BKnE2Client.client.view
         //NOT CORRECT! ONLY FOR TESTING PURPOSES! *****************************************************************************************************************
         private void PlayButtonPressed(object sender, EventArgs e)
         {
-            GameForm gameForm = new GameForm(controller);
-            gameForm.Show();
-            controller.lobbyForm.Hide();
-            controller.gameForm = gameForm;
+            //GameForm gameForm = new GameForm(controller);
+            //gameForm.Show();
+            //controller.lobbyForm.Hide();
+            //controller.gameForm = gameForm;
+            controller.GameRequest(true);
         }
 
         //Load the older messages in the new Form

@@ -41,6 +41,13 @@ namespace BKnE2Client.client.controller
             connectionHandler.writeRequest(login);
         }
 
+        public void GameRequest(bool startGame)
+        {
+            Request request = Request.newRequest(Config.startType);
+            request.add("start", startGame);
+            connectionHandler.writeRequest(request);
+        }
+
         //Send a message to the server
         public void SendMessage(string msg)
         {

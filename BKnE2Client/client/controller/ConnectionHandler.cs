@@ -84,6 +84,11 @@ namespace BKnE2Client.client.controller
                 controller.lobbyForm.Hide();
                 controller.gameForm = gameForm;
             }
+            else
+            {
+                controller.gameForm.Hide();
+                controller.lobbyForm.Show();
+            }
         }
 
         //Call the request.type function
