@@ -1,5 +1,6 @@
 ﻿using BKnE2Lib;
 using BKnE2Lib.data;
+using BKnE2Lib.helper;
 using BKnE2Server.server.model.client;
 using BKnE2Server.server.model.game;
 using System;
@@ -38,10 +39,7 @@ namespace BKnE2Server.server.controller
             catch (Exception e)
             {
 
-                Console.WriteLine("Couldn't authenticate: {0}", e.StackTrace);
-
-                if (e.InnerException != null)
-                    Console.WriteLine("Inner exception: {0}", e.InnerException.Message);
+                ExceptionHelper.print(e);
             }
         }
 
@@ -71,7 +69,7 @@ namespace BKnE2Server.server.controller
             catch (Exception e)
             {
 
-                Console.WriteLine(String.Format("Client Catcher chrashed.\n{0}.\nIt will restart in 10 seconds!", e.StackTrace));
+                ExceptionHelper.print(e);
                 Thread.Sleep(10000);
                 this.catchClients();
             }
