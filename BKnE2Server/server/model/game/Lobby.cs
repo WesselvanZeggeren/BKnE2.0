@@ -42,9 +42,9 @@ namespace BKnE2Server.server.model.game
         public void receiveStart(Client client, Request request)
         {
 
-            if (request.get("start"))
+            if (request.get("start") && this.clients.Count() > 1)
                 this.startGame();
-            else
+            else if (this.game.ended) 
                 this.removeClient(client);
         }
 
