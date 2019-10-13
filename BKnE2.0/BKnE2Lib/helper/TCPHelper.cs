@@ -74,10 +74,11 @@ namespace BKnE2Lib.helper
                     bytes[i + 1] = messageBytes[i];
 
                 stream.Write(bytes, 0, bytes.Length);
+                stream.Flush();
             }
-            catch (Exception e)
+            catch (IOException e)
             {
-
+                Console.WriteLine(e.StackTrace);
                 throw e;
             }
         }
