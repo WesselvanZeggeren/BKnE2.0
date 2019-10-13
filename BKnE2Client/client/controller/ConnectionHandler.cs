@@ -3,6 +3,7 @@ using BKnE2Client.client.view;
 using BKnE2Lib;
 using BKnE2Lib.data;
 using BKnE2Lib.helper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -58,9 +59,9 @@ namespace BKnE2Client.client.controller
         //Updates the list with players
         private void OnAccount(Request obj)
         {
-            List<string> players = (List<string>) obj.get("parameters");
-            
-            if(players != null)
+            List<Player> players = JsonConvert.DeserializeObject<List<Player>>(obj.get("players"));
+
+            if (players != null)
             {
                 controller.players = players;
 
