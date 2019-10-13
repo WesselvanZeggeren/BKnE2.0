@@ -78,7 +78,7 @@ namespace BKnE2Server.server.controller
         // messaging
         public void receiveRequest(Client client, Request request)
         {
-            Console.WriteLine(request.ToString());
+            Console.WriteLine("CLIENT: " + request.ToString());
             switch (request.type)
             {
 

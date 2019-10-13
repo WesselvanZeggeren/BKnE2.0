@@ -89,7 +89,7 @@ namespace BKnE2Server.server.model.client
 
         public void writeRequest(Request request)
         {
-
+            Console.WriteLine("SERVER: " + request);
             TCPHelper.write(this.stream, request);
         }
 
