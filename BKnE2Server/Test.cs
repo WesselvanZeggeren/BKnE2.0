@@ -13,42 +13,72 @@ using System.Threading.Tasks;
 
 namespace BKnE2Server
 {
-    public class Test : Connection
-    {
 
-        public int sleep = 1000;
+    public class Player1 : TestPlayer
+    {
 
         public void start()
         {
 
             Thread.Sleep(sleep);
-
             this.startConnection();
-
             Thread.Sleep(sleep);
-
-            this.loginRequest("admin", "admin", false);
-
+            this.loginRequest("1", "1", true);
             Thread.Sleep(sleep);
-
             this.lobbyRequest();
-
             Thread.Sleep(sleep);
-
-            new Thread(new ThreadStart(new Test2().start2)).Start();
-
+            new Thread(new ThreadStart(new Player2().start)).Start();
             Thread.Sleep(sleep * 4);
-
             this.pinRequest(0, 0);
-
             Thread.Sleep(sleep * 2);
-
             this.pinRequest(1, 0);
-
             Thread.Sleep(sleep * 2);
-
             this.pinRequest(2, 0);
+            Thread.Sleep(sleep * 2);
+            this.startRequest(false);
         }
+    }
+
+    public class Player2 : TestPlayer
+    {
+
+        public bool relevant = true;
+
+        public void start()
+        {
+
+            Console.WriteLine();
+            this.startConnection();
+            Thread.Sleep(sleep);
+            this.loginRequest("2", "2", true);
+            Thread.Sleep(sleep);
+            this.relevant = false;
+            this.lobbyRequest();
+            Thread.Sleep(sleep);
+            this.relevant = true;
+            this.messageRequest("Hahahahha dit ontvangen we allebei");
+            Thread.Sleep(sleep / 2);
+            this.relevant = false;
+            Thread.Sleep((int)(sleep * 1.5));
+            this.pinRequest(0, 1);
+            Thread.Sleep(sleep * 2);
+            this.pinRequest(1, 2);
+            Thread.Sleep(sleep * 2);
+            this.startRequest(false);
+        }
+
+        public override void receiveRequest(Request request)
+        {
+
+            if (relevant)
+                base.receiveRequest(request);
+        }
+    }
+
+    public class TestPlayer : Connection
+    {
+
+        public int sleep = 1000;
 
         public void loginRequest(string name, string password, bool register)
         {
@@ -57,20 +87,14 @@ namespace BKnE2Server
             request.add("name", name);
             request.add("password", password);
             request.add("register", register);
-
-            Console.WriteLine("\n" + request + " :: SEND");
-
-            this.writeRequest(request);
+            this.printRequest(request);
         }
 
         public void lobbyRequest()
         {
 
             Request request = Request.newRequest(Config.lobbyType);
-
-            Console.WriteLine("\n" + request + " :: SEND");
-
-            this.writeRequest(request);
+            this.printRequest(request);
         }
 
         public void messageRequest(string message)
@@ -78,10 +102,7 @@ namespace BKnE2Server
 
             Request request = Request.newRequest(Config.messageType);
             request.add("message", message);
-
-            Console.WriteLine("\n" + request + " :: SEND");
-
-            this.writeRequest(request);
+            this.printRequest(request);
         }
 
         public void pinRequest(int x, int y)
@@ -90,6 +111,19 @@ namespace BKnE2Server
             Request request = Request.newRequest(Config.pinType);
             request.add("x", x);
             request.add("y", y);
+            this.printRequest(request);
+        }
+
+        public void startRequest(bool start)
+        {
+
+            Request request = Request.newRequest(Config.startType);
+            request.add("start", start);
+            this.printRequest(request);
+        }
+
+        private void printRequest(Request request)
+        {
 
             Console.WriteLine("\n" + request + " :: SEND");
 
@@ -100,56 +134,6 @@ namespace BKnE2Server
         {
 
             Console.WriteLine(request + " :: RECEIVED");
-        }
-    }
-
-    public class Test2 : Test
-    {
-
-        public bool relevant = true;
-
-        public void start2()
-        {
-
-            Console.WriteLine();
-
-            this.startConnection();
-
-            Thread.Sleep(sleep);
-
-            this.loginRequest("kees konders", "keesbeest", true);
-
-            Thread.Sleep(sleep);
-
-            this.relevant = false;
-
-            this.lobbyRequest();
-
-            Thread.Sleep(sleep);
-
-            this.relevant = true;
-
-            this.messageRequest("Hahahahha dit ontvangen we allebei");
-
-            Thread.Sleep(sleep * 2);
-
-            this.relevant = false;
-
-            this.pinRequest(0, 1);
-
-            Thread.Sleep(sleep * 2);
-
-            this.pinRequest(1, 2);
-        }
-
-        public override void receiveRequest(Request request)
-        {
-
-            if (relevant)
-            {
-
-                base.receiveRequest(request);
-            }
         }
     }
 

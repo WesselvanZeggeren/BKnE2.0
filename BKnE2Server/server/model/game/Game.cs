@@ -186,7 +186,7 @@ namespace BKnE2Server.server.model.game
                 Client player = this.players.ElementAt(i);
 
                 player.data.plays += 1;
-                player.data.score += (Config.maxScorePerGame - (i + 1 * scorePerPlayer));
+                player.data.score += Config.maxScorePerGame - (scorePerPlayer * (i + 2));
             }
 
             AccountManager.save();

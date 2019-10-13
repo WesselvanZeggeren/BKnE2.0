@@ -30,7 +30,7 @@ namespace BKnE2Server.server.model.game
         public void startGame()
         {
 
-            this.game = new Game(this.clients);
+            this.game = new Game(new List<Client>(this.clients));
             this.game.init();
 
             Request request = Request.newRequest(Config.startType);
@@ -42,9 +42,9 @@ namespace BKnE2Server.server.model.game
         public void receiveStart(Client client, Request request)
         {
 
-            if (request.get("start"))
+            if (request.get("start") && this.clients.Count() > 1)
                 this.startGame();
-            else
+            else if (this.game.ended) 
                 this.removeClient(client);
         }
 
@@ -76,7 +76,7 @@ namespace BKnE2Server.server.model.game
             this.clients.Add(client);
             client.setLobby(this);
 
-            this.sendClientsToClients();
+            this.sendPlayersToClients();
 
             if (this.clients.Count() >= Config.maxPlayersInGame)
                 this.startGame();
@@ -88,37 +88,40 @@ namespace BKnE2Server.server.model.game
             this.clients.Remove(client);
             client.setLobby(null);
 
-            this.sendClientsToClients();
+            this.sendPlayersToClients();
 
             if (this.clients.Count() == 0)
                 this.server.stopLobby(this);
         }
 
-        private void sendClientsToClients()
+        private void sendPlayersToClients()
         {
 
-            Request request = Request.newRequest(Config.accountType);
-            request.add("clients", this.getRequestClients());
+            Request request = Request.newRequest(Config.playerType);
+            request.add("players", this.getPlayers());
 
             this.writeRequestToAll(request);
         }
 
-        private List<Tuple<string, int[]>> getRequestClients()
+        private List<Player> getPlayers()
         {
 
-            List<Tuple<string, int[]>> clients = new List<Tuple<string, int[]>>();
+            List<Player> players = new List<Player>();
 
             foreach (Client client in this.clients)
             {
 
-                ClientColor color = client.data.color;
-                clients.Add(new Tuple<string, int[]>(
-                    client.data.name, 
-                    new int[5] { color.r, color.g, color.b, client.data.score, client.data.wins }
+                players.Add(Player.newPlayer(
+                    client.data.name,
+                    client.data.color.r,
+                    client.data.color.g,
+                    client.data.color.b,
+                    client.data.score,
+                    client.data.wins
                 ));
             }
 
-            return clients;
+            return players;
         }
 
         // request
