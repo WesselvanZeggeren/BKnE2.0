@@ -37,7 +37,7 @@ namespace BKnE2Server
 
             new Thread(new ThreadStart(new Test2().start2)).Start();
 
-            Thread.Sleep(sleep * 5);
+            Thread.Sleep(sleep * 4);
 
             this.pinRequest(0, 0);
 

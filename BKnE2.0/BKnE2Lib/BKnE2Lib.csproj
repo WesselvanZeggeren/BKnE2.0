@@ -44,7 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientDebugger.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="helper\ExceptionHelper.cs" />
     <Compile Include="helper\SSLHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="data\Request.cs" />

@@ -1,40 +1,92 @@
 ﻿using BKnE2Client.client.model;
+using BKnE2Client.client.view;
+using BKnE2Lib;
+using BKnE2Lib.data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BKnE2Client.client.controller
 {
     public class Controller
     {
-        private MessageHandler messageHandler;
-        private NetworkConnection networkConnection;
+        
+        private ConnectionHandler connectionHandler;
+                
+        public LoginForm loginForm { get; set; }
+        public LobbyForm lobbyForm { get; set; }
+        public GameForm gameForm { get; set; }
+        public ConnectionHandler ConnectionHandler { get => connectionHandler; set => connectionHandler = value; }
+        public List<string> players;
+        public ListBox.ObjectCollection messages;
 
         public Controller()
         {
-            this.messageHandler = new MessageHandler(this);
-            this.networkConnection = new NetworkConnection(this);
+            this.connectionHandler = new ConnectionHandler(this);
+            connectionHandler.startConnection();
+            players = new List<string>();
         }
 
-        public void HandleMessage(string message)
+        //Login to the server
+        public void Login(string name, string password, bool register)
         {
-            messageHandler.Invoke(message);
+            loginForm.loginName = name;
+            Request login = Request.newRequest(Config.loginType);
+            login.add("name", name);
+            login.add("password", password);
+            login.add("register", register);
+            connectionHandler.writeRequest(login);
         }
 
-        //Connect and login
-        public void Login(string username, string password)
+        //Send a message to the server
+        public void SendMessage(string msg)
         {
-            this.networkConnection.Connect(ClientConfig.host, ClientConfig.port);
-            //Login
+            int maxCharacters = 100;
+
+            if (msg.Length > maxCharacters)
+            {
+                Stack<string> messages = new Stack<string>();
+
+                for (int i = 0; i < msg.Length; i += maxCharacters)
+                {
+                    if (msg.Length - maxCharacters - i >= 0)
+                    {
+                        messages.Push(msg.Substring(i, maxCharacters) + "-");
+                    }
+                    else
+                    {
+                        messages.Push(msg.Substring(i, msg.Length - i));
+                    }
+                }
+
+                int msgLength = messages.Count();
+                for (int i = 0; i < msgLength; i++)
+                {
+                    WriteRequest(messages.Pop());
+                }
+            } else
+            {
+                WriteRequest(msg);
+            }
         }
 
-        //Connect and register
-        public void Register(string username, string password)
+        //Send a pin to the server
+        public void SendPin(int x, int y)
         {
-            this.networkConnection.Connect(ClientConfig.host, ClientConfig.port);
-            //Register
+            Request pinRequest = Request.newRequest(Config.pinType);
+            pinRequest.add("x", x);
+            pinRequest.add("y", y);
+            connectionHandler.writeRequest(pinRequest);
+        }
+
+        private void WriteRequest(string msg)
+        {
+            Request message = Request.newRequest(Config.messageType);
+            message.add(Config.messageType, msg);
+            connectionHandler.writeRequest(message);
         }
     }
 }

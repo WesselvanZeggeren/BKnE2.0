@@ -44,7 +44,8 @@ namespace BKnE2Lib.helper
             catch (Exception e)
             {
 
-                throw e;
+                ExceptionHelper.print(e);
+                return null;
             }
         }
 
@@ -72,11 +73,12 @@ namespace BKnE2Lib.helper
                     bytes[i + 1] = messageBytes[i];
 
                 stream.Write(bytes, 0, bytes.Length);
+                stream.Flush();
             }
-            catch (Exception e)
+            catch (IOException e)
             {
 
-                throw e;
+                ExceptionHelper.print(e);
             }
         }
     }

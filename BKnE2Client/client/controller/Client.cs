@@ -12,7 +12,7 @@ namespace BKnE2Client.client.controller
     class Client : ClientConnection
     {
 
-        public override void startClient()
+        public void startClient()
         {
 
             this.startConnection();

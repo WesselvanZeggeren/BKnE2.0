@@ -84,9 +84,7 @@ namespace BKnE2Server.server.model.game
         public bool receivePin(Client player, Request request)
         {
 
-            Console.WriteLine("Pin: x:{0} y:{1}", request.get("x"), request.get("y"));
-
-            Pin pin = this.getPin(request.get("x"), request.get("y"));
+            Pin pin = this.getPin((int) request.get("x"), (int) request.get("y"));
 
             if (player.data.id == this.currentPlayer().data.id && !pin.isAssigned)
             {
@@ -107,13 +105,8 @@ namespace BKnE2Server.server.model.game
         {
 
             foreach (Pin pin in this.pins)
-            {
-
-                Console.WriteLine(pin);
-
                 if (pin.x == x && pin.y == y)
                     return pin;
-            }
 
             return null;
         }
@@ -123,11 +116,7 @@ namespace BKnE2Server.server.model.game
 
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                {
-
-                    Console.WriteLine("Pin: x:{0} y:{1}", x, y);
                     this.pins.Add(new Pin(x, y));
-                }
         }
 
         // player

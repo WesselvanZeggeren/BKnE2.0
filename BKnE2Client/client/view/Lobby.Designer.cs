@@ -1,6 +1,6 @@
 ﻿namespace BKnE2Client.client.view
 {
-    partial class Lobby
+    partial class LobbyForm
     {
         /// <summary>
         /// Required designer variable.
@@ -44,7 +44,9 @@
             // playerListBox
             // 
             this.playerListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playerListBox.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playerListBox.FormattingEnabled = true;
+            this.playerListBox.ItemHeight = 23;
             this.playerListBox.Location = new System.Drawing.Point(0, 0);
             this.playerListBox.Name = "playerListBox";
             this.playerListBox.Size = new System.Drawing.Size(300, 681);
@@ -53,18 +55,21 @@
             // chatTextBox
             // 
             this.chatTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.chatTextBox.Location = new System.Drawing.Point(0, 661);
+            this.chatTextBox.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chatTextBox.Location = new System.Drawing.Point(0, 651);
             this.chatTextBox.Name = "chatTextBox";
-            this.chatTextBox.Size = new System.Drawing.Size(300, 20);
+            this.chatTextBox.Size = new System.Drawing.Size(300, 30);
             this.chatTextBox.TabIndex = 0;
             // 
             // chatListBox
             // 
             this.chatListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chatListBox.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chatListBox.FormattingEnabled = true;
+            this.chatListBox.ItemHeight = 23;
             this.chatListBox.Location = new System.Drawing.Point(0, 0);
             this.chatListBox.Name = "chatListBox";
-            this.chatListBox.Size = new System.Drawing.Size(300, 661);
+            this.chatListBox.Size = new System.Drawing.Size(300, 651);
             this.chatListBox.TabIndex = 1;
             // 
             // playButton
@@ -108,11 +113,13 @@
             // serverListBox
             // 
             this.serverListBox.Enabled = false;
+            this.serverListBox.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.serverListBox.FormattingEnabled = true;
+            this.serverListBox.ItemHeight = 23;
             this.serverListBox.Location = new System.Drawing.Point(200, 209);
             this.serverListBox.Margin = new System.Windows.Forms.Padding(200);
             this.serverListBox.Name = "serverListBox";
-            this.serverListBox.Size = new System.Drawing.Size(264, 264);
+            this.serverListBox.Size = new System.Drawing.Size(264, 257);
             this.serverListBox.TabIndex = 4;
             // 
             // Lobby
