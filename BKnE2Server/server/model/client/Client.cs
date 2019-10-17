@@ -77,7 +77,7 @@ namespace BKnE2Server.server.model.client
             catch (Exception e)
             {
 
-                ExceptionHelper.print(e);
+                ExceptionHelper.print("Client::handleClientConnection", e);
             }
             finally
             {

@@ -39,7 +39,7 @@ namespace BKnE2Server.server.controller
             catch (Exception e)
             {
 
-                ExceptionHelper.print(e);
+                ExceptionHelper.print("Server::startServer", e);
             }
         }
 
@@ -69,7 +69,7 @@ namespace BKnE2Server.server.controller
             catch (Exception e)
             {
 
-                ExceptionHelper.print(e);
+                ExceptionHelper.print("Server::catchClients", e);
                 Thread.Sleep(10000);
                 this.catchClients();
             }
@@ -104,8 +104,6 @@ namespace BKnE2Server.server.controller
 
         public void stopLobby(Lobby lobby)
         {
-
-            Console.WriteLine("Lobby removed");
 
             this.lobbys.Remove(lobby);
         }

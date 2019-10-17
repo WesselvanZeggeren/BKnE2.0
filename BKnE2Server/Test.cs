@@ -47,7 +47,6 @@ namespace BKnE2Server
         public void start()
         {
 
-            Console.WriteLine();
             this.startConnection();
             Thread.Sleep(sleep);
             this.loginRequest("2", "2", true);
@@ -125,7 +124,7 @@ namespace BKnE2Server
         private void printRequest(Request request)
         {
 
-            Console.WriteLine("\n" + request + " :: SEND");
+            //Console.WriteLine("\n" + request + " :: SEND");
 
             this.writeRequest(request);
         }
@@ -133,7 +132,7 @@ namespace BKnE2Server
         public override void receiveRequest(Request request)
         {
 
-            Console.WriteLine(request + " :: RECEIVED");
+            //Console.WriteLine(request + " :: RECEIVED");
         }
     }
 

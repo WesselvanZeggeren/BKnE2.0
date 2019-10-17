@@ -44,7 +44,7 @@ namespace BKnE2Lib.helper
             catch (Exception e)
             {
 
-                ExceptionHelper.print(e);
+                ExceptionHelper.print("TCPHelper::read", e);
                 return null;
             }
         }
@@ -78,7 +78,7 @@ namespace BKnE2Lib.helper
             catch (IOException e)
             {
 
-                ExceptionHelper.print(e);
+                ExceptionHelper.print("TCPHelper::write", e);
             }
         }
     }

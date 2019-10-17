@@ -9,17 +9,18 @@ namespace BKnE2Lib.helper
     public static class ExceptionHelper
     {
 
-        public static void print(Exception e)
+        public static void print(string location, Exception e)
         {
 
-            Console.WriteLine(getMessage(e));
+            Console.WriteLine(getMessage(location, e));
         }
 
-        public static string getMessage(Exception e)
+        public static string getMessage(string location, Exception e)
         {
 
             string message = String.Format(
-                "Message: {0}\n name: {1}\nStacktrace: {2}",
+                "Location: {0}\n\tMessage: {1}\n\tName: {2}\n\tStacktrace: {3}",
+                location,
                 e.Message,
                 e.GetType().Name,
                 e.StackTrace
