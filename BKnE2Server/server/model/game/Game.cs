@@ -86,7 +86,7 @@ namespace BKnE2Server.server.model.game
 
             Pin pin = this.getPin((int) request.get("x"), (int) request.get("y"));
 
-            if (player.data.id == this.currentPlayer().data.id && !pin.isAssigned)
+            if (player.data.id == this.currentPlayer().data.id && !pin.isAssigned && !this.ended)
             {
 
                 pin.isAssigned = true;
