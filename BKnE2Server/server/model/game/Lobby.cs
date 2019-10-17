@@ -114,11 +114,9 @@ namespace BKnE2Server.server.model.game
 
                 players.Add(Player.newPlayer(
                     client.data.name,
-                    client.data.color.r,
-                    client.data.color.g,
-                    client.data.color.b,
                     client.data.score,
-                    client.data.wins
+                    client.data.wins,
+                    client.data.color
                 ));
             }
 
