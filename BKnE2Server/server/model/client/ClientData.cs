@@ -24,7 +24,7 @@ namespace BKnE2Server.server.model.client
             client.id = id;
             client.name = name;
             client.password = password;
-            client.player = new Player();
+            client.player = Player.newPlayer(name);
 
             return client;
         }

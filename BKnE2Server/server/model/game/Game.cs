@@ -55,7 +55,12 @@ namespace BKnE2Server.server.model.game
                 this.iterator = 0;
 
                 if (this.nextRoundPlayers.Count() == 1)
+                {
+
+                    Console.WriteLine("GAME ENDED MOTHERFUCKER!1111!111!11!!!!111!11!!11111!!111!!!");
+
                     this.ended = true;
+                }
                 else
                 {
 
@@ -149,13 +154,17 @@ namespace BKnE2Server.server.model.game
         public void nextPlayer()
         {
 
-            this.iterator += 1;
+            if (!this.ended)
+            {
 
-            if (this.iterator == this.players.Count())
-                this.iterator = 0;
+                this.iterator += 1;
 
-            if (!this.currentPlayer().isPlaying)
-                this.nextPlayer();
+                if (this.iterator == this.players.Count())
+                    this.iterator = 0;
+
+                if (!this.currentPlayer().isPlaying)
+                    this.nextPlayer();
+            }
         }
 
         private Client currentPlayer()

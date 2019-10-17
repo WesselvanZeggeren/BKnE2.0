@@ -56,12 +56,12 @@ namespace BKnE2Server.server.model.game
             if (this.game.receivePin(client, request))
             {
 
-                request.add("color", client.data.player.color);
+                request.add("color", client.data.player.color.ToString());
 
                 this.writeRequestToAll(request);
 
-                this.game.nextPlayer();
                 this.game.nextRound();
+                this.game.nextPlayer();
 
                 if (this.game.ended)
                     this.game.giveScore();

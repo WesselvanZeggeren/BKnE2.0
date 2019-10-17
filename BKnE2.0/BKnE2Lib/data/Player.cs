@@ -22,7 +22,7 @@ namespace BKnE2Lib.data
 
             Player player = new Player();
             player.name = name;
-            player.score = 0;
+            player.score = Config.startScore;
             player.wins = 0;
             player.color = Color.generateColor();
             player.pins = new List<Pin>();

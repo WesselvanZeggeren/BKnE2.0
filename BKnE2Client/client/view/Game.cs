@@ -1,5 +1,6 @@
 ﻿using BKnE2Client.client.controller;
 using BKnE2Lib.data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,17 +56,16 @@ namespace BKnE2Client.client.view
         //Set the specified pin to the specified color
         public void SetPin(Request obj)
         {
+
             int x = (int) obj.get("x");
             int y = (int) obj.get("y");
-            int red = (int) obj.get("r");
-            int green = (int) obj.get("g");
-            int blue = (int) obj.get("b");
 
+            Color color = JsonConvert.DeserializeObject<Color>(obj.get("color"));
             Button b = GetButton(x, y);
 
             if(b != null)
             {
-                b.ForeColor = System.Drawing.Color.FromArgb(red, green, blue);
+                b.ForeColor = System.Drawing.Color.FromArgb(color.r, color.g, color.b);
                 b.Text = "X";
             }
         }
