@@ -56,9 +56,7 @@ namespace BKnE2Server.server.model.game
             if (this.game.receivePin(client, request))
             {
 
-                request.add("r", client.data.color.r);
-                request.add("g", client.data.color.g);
-                request.add("b", client.data.color.b);
+                request.add("color", client.data.color.ToString());
 
                 this.writeRequestToAll(request);
 
