@@ -1,11 +1,14 @@
-﻿using BKnE2Server.server.model.client;
+﻿using BKnE2Lib;
+using BKnE2Lib.data;
+using BKnE2Lib.helper;
+using BKnE2Server.server.model.client;
 using BKnE2Server.server.model.game;
-using BKnE2Server.server.model.helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,17 +20,27 @@ namespace BKnE2Server.server.controller
     {
 
         // attributes
-        private List<Game> games;
+        public X509Certificate2 certificate;
+
+        private List<Lobby> lobbys;
         
         // constructor
         public void startServer()
         {
 
-            this.games = new List<Game>();
+            try
+            {
 
-            new Thread(new ThreadStart(catchClients)).Start();
+                this.certificate = new X509Certificate2(Config.certificatePath, Config.certificateKey);
+                this.lobbys = new List<Lobby>();
 
-            Console.Read();
+                new Thread(new ThreadStart(catchClients)).Start();
+            }
+            catch (Exception e)
+            {
+
+                ExceptionHelper.print(e);
+            }
         }
 
         // connection
@@ -43,61 +56,58 @@ namespace BKnE2Server.server.controller
                     throw new Exception();
 
                 TcpListener listener = new TcpListener(ip, Config.port);
+                listener.Start();
 
                 while (true)
                 {
 
-                    TcpClient tcpClient = listener.AcceptTcpClient();
+                    Client client = new Client(this, listener.AcceptTcpClient());
 
-                    Client client = new Client(this, tcpClient);
-                    Game game = this.findGame();
-
-                    game.addClient(client);
-                    client.game = game;
+                    Thread.Sleep(10);
                 }
             }
             catch (Exception e)
             {
 
-                Console.WriteLine(String.Format("Client Catcher chrashed.\n{0}.\nIt will restart in 10 seconds!", e.StackTrace));
+                ExceptionHelper.print(e);
                 Thread.Sleep(10000);
                 this.catchClients();
             }
         }
 
         // messaging
-        public void receiveMessage(Client client, string receivedMessage)
+        public void receiveRequest(Client client, Request request)
         {
-
-            string preset = receivedMessage.Substring(0, 1);
-            string message = receivedMessage.Substring(1);
-
-            switch (preset)
+            Console.WriteLine("CLIENT: " + request.ToString());
+            switch (request.type)
             {
 
-                case Config.loginPreset:   client.login(message);             break;
-                case Config.startPreset:   client.game.startGame();           break;
-                case Config.pinPreset:     client.game.receivePin(message);   break;
-                case Config.messagePreset: client.game.sendAll(message);      break;
-            } 
+                case Config.loginType:   client.login(request);                      break;
+                case Config.pinType:     client.lobby.receivePin(client, request);   break;
+                case Config.messageType: client.lobby.writeRequestToAll(request);    break;
+                case Config.startType:   client.lobby.receiveStart(client, request); break;
+                case Config.lobbyType:   this.findLobby().addClient(client);         break;
+            }
         }
 
         // game
-        private Game findGame()
+        private Lobby findLobby()
         {
 
-            foreach (Game game in this.games)
-                if (!game.isRunning())
-                    return game;
+            foreach (Lobby lobby in this.lobbys)
+                if (lobby.game == null)
+                    return lobby;
 
-            this.games.Add(new Game(this));
-            return this.findGame();
+            this.lobbys.Add(new Lobby(this));
+            return this.findLobby();
         }
 
-        public void stopGame(Game game)
+        public void stopLobby(Lobby lobby)
         {
 
+            Console.WriteLine("Lobby removed");
 
+            this.lobbys.Remove(lobby);
         }
     }
 }

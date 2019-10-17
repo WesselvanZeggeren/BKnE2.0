@@ -1,0 +1,15 @@
+TODO
+
+Features client:
+- UI view
+- Model (Heeft veel losse functies: netwerkverbinding, GameLogic)
+- Controller (Een soort Main / GameManageru)
+
+Features server:
+- GameLogic (pin toe eigenen aan client)
+- Game starten (door player)
+- Messaging
+- Win/lose
+- Punten krijgen (bij win/lose)
+- Kill oneindig gaande games stoppen (TIE)
+- Clients terug sturen naar het homescreen

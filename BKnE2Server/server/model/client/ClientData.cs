@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,9 @@ namespace BKnE2Server.server.model.client
             client.id = id;
             client.name = name;
             client.password = password;
+            client.wins = 0;
+            client.plays = 0;
+            client.score = 1000;
             client.color = ClientColor.generateColor();
 
             return client;
@@ -33,10 +37,7 @@ namespace BKnE2Server.server.model.client
         public override string ToString()
         {
 
-            return String.Format(
-                "id: {0}|name: {1}|password: {2}|wins: {3}|plays: {4}|score: {5}|color: {6}",
-                this.id, this.name, this.password, this.wins, this.plays, this.score, this.color
-            );
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

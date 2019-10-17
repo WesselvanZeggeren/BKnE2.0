@@ -1,9 +1,23 @@
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Server.exe.config
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Server.exe
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Server.pdb
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Lib.dll
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Lib.pdb
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.csprojAssemblyReference.cache
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.csproj.CoreCompileInputs.cache
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.csproj.CopyComplete
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.exe
+C:\Users\Jaspe\Documents\_GitProjects\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.pdb
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.csprojAssemblyReference.cache
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.csproj.CoreCompileInputs.cache
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Server.exe.config
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Server.exe
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Server.pdb
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Lib.dll
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\BKnE2Lib.pdb
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\bin\Debug\Newtonsoft.Json.xml
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.csproj.CopyComplete
 C:\Users\wessel\Desktop\Avans\Periode 2.1\C#\BKnE2.0\BKnE2Server\obj\Debug\BKnE2Server.exe

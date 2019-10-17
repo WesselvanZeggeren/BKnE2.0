@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5D9520FE-C454-4E68-8D94-FA3575EC03AE}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>BKnE2Server</RootNamespace>
-    <AssemblyName>BKnE2Server</AssemblyName>
+    <ProjectGuid>{5AF735B5-F4F7-49F1-917D-DBB10B0E20BC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BKnE2Lib</RootNamespace>
+    <AssemblyName>BKnE2Lib</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\BKnE2.0\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,36 +44,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="ClientDebugger.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="data\Player.cs" />
+    <Compile Include="helper\ExceptionHelper.cs" />
+    <Compile Include="helper\SSLHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="server\model\client\ClientColor.cs" />
-    <Compile Include="server\model\client\ClientData.cs" />
-    <Compile Include="server\controller\Server.cs" />
-    <Compile Include="server\model\client\Client.cs" />
-    <Compile Include="server\model\game\Game.cs" />
-    <Compile Include="server\model\game\Lobby.cs" />
-    <Compile Include="server\model\game\Pin.cs" />
-    <Compile Include="server\model\account\AccountManager.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="data\Request.cs" />
+    <Compile Include="helper\TCPHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="server\certificate\cert.crt" />
-    <None Include="server\certificate\cert.csr" />
-    <None Include="server\certificate\cert.key" />
-    <None Include="server\certificate\cert.p7b" />
-    <None Include="server\certificate\cert.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="server\model\account\Account.txt" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\BKnE2.0\BKnE2Lib\BKnE2Lib.csproj">
-      <Project>{5af735b5-f4f7-49f1-917d-dbb10b0e20bc}</Project>
-      <Name>BKnE2Lib</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -49,16 +49,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientConfig.cs" />
+    <Compile Include="client\controller\ConnectionHandler.cs" />
+    <Compile Include="client\controller\Controller.cs" />
     <Compile Include="client\controller\Client.cs" />
-    <Compile Include="client\model\ServerFinder.cs" />
-    <Compile Include="client\view\Form1.cs">
+    <Compile Include="client\model\ClientConnection.cs" />
+    <Compile Include="client\view\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="client\view\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="client\view\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="client\view\Game.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="client\view\Game.Designer.cs">
+      <DependentUpon>Game.cs</DependentUpon>
+    </Compile>
+    <Compile Include="client\view\Lobby.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="client\view\Lobby.Designer.cs">
+      <DependentUpon>Lobby.cs</DependentUpon>
+    </Compile>
+    <Compile Include="client\view\SharedUIupdate.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="client\view\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="client\view\Game.resx">
+      <DependentUpon>Game.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="client\view\Lobby.resx">
+      <DependentUpon>Lobby.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -81,6 +106,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BKnE2.0\BKnE2Lib\BKnE2Lib.csproj">
+      <Project>{5af735b5-f4f7-49f1-917d-dbb10b0e20bc}</Project>
+      <Name>BKnE2Lib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
