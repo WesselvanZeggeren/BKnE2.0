@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="server\model\client\ClientColor.cs" />
     <Compile Include="server\model\client\ClientData.cs" />
     <Compile Include="server\controller\Server.cs" />
     <Compile Include="server\model\client\Client.cs" />

@@ -62,6 +62,7 @@ namespace BKnE2Lib
         public const int maxPinsPerPlayer = 4;
         public const int maxPlayersInGame = 2;
         public const int maxScorePerGame = 50;
+        public const int startScore = 1000;
         public const int minBoardSize = 3;
 
         // account
