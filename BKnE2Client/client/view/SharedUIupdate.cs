@@ -22,7 +22,7 @@ namespace BKnE2Client.client.view
             if (e.KeyChar == (char)Keys.Return)
                 if (!(chatTextBox.Text == ""))
                 {
-                    controller.SendMessage(controller.loginForm.loginName + ": " + chatTextBox.Text);
+                    controller.SendMessage(controller.loginForm.loginName, chatTextBox.Text);
                     chatTextBox.Text = string.Empty;
                 }
         }

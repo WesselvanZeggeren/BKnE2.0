@@ -118,10 +118,7 @@ namespace BKnE2Server.server.model.game
         {
 
             foreach (Client client in this.clients)
-            {
-
                 client.writeRequest(request);
-            }
         }
     }
 }

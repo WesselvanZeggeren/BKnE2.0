@@ -57,21 +57,22 @@ namespace BKnE2Client.client.controller
         }
 
         //Send a message to the server
-        public void SendMessage(string msg)
+        public void SendMessage(string name, string msg)
         {
 
             int maxCharacters = 100;
+            string namedMsg = name + ": " + msg;
 
-            if (msg.Length > maxCharacters)
+            if (namedMsg.Length > maxCharacters)
             {
 
                 Stack<string> messages = new Stack<string>();
 
-                for (int i = 0; i < msg.Length; i += maxCharacters)
-                    if (msg.Length - maxCharacters - i >= 0)
-                        messages.Push(msg.Substring(i, maxCharacters) + "-");
+                for (int i = 0; i < namedMsg.Length; i += maxCharacters)
+                    if (namedMsg.Length - maxCharacters - i >= 0)
+                        messages.Push(namedMsg.Substring(i, maxCharacters) + "-");
                     else
-                        messages.Push(msg.Substring(i, msg.Length - i));
+                        messages.Push(namedMsg.Substring(i, namedMsg.Length - i));
 
                 int msgLength = messages.Count();
 
@@ -79,7 +80,16 @@ namespace BKnE2Client.client.controller
                     WriteRequest(messages.Pop());
             }
             else
-                WriteRequest(msg);
+                WriteRequest(namedMsg);
+
+            if (msg == "quit")
+            {
+
+                Request request = Request.newRequest(Config.startType);
+                request.add("start", false);
+
+                this.connectionHandler.writeRequest(request);
+            }
         }
 
         //Send a pin to the server
