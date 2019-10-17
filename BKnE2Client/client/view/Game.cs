@@ -1,5 +1,7 @@
 ﻿using BKnE2Client.client.controller;
+using BKnE2Lib;
 using BKnE2Lib.data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,38 +16,45 @@ namespace BKnE2Client.client.view
 
         public GameForm(Controller controller)
         {
+
             InitializeComponent();
+
             this.controller = controller;
             controller.gameForm = this;
+
             InitButtons();
             UpdatePlayerList();
+
             chatTextBox.KeyPress += ChatTextBox_KeyPress;
+
             SetMessages();
         }
 
         //Places the buttons in a Pin struct and list
         private void InitButtons()
         {
+
             this.buttons = new List<Pin>();
 
             Panel gamePanel = (Panel)Controls["gamePanel"];
             Panel buttonPanel = (Panel)gamePanel.Controls["buttonPanel"];
 
             foreach (Button button in buttonPanel.Controls.OfType<Button>())
-            {
                 if (button.Name[0] == 'x' && button.Name[2] == 'y')
                 {
+
                     int x = int.Parse(button.Name.Substring(1, 1));
                     int y = int.Parse(button.Name.Substring(3, 1));
+
                     buttons.Add(new Pin(x, y, button));
                     button.Click += OnButtonPressed;
                 }
-            }
         }
 
         //Send the coordinates to the controller
         private void OnButtonPressed(object sender, EventArgs e)
         {
+
             Button b = sender as Button;
             int x = int.Parse(b.Name.Substring(1, 1));
             int y = int.Parse(b.Name.Substring(3, 1));
@@ -55,18 +64,17 @@ namespace BKnE2Client.client.view
         //Set the specified pin to the specified color
         public void SetPin(Request obj)
         {
+
             int x = (int) obj.get("x");
             int y = (int) obj.get("y");
-            int red = (int) obj.get("r");
-            int green = (int) obj.get("g");
-            int blue = (int) obj.get("b");
 
+            Color color = JsonConvert.DeserializeObject<Color>(obj.get("color"));
             Button b = GetButton(x, y);
 
             if(b != null)
             {
-                b.ForeColor = System.Drawing.Color.FromArgb(red, green, blue);
-                b.Text = "X";
+                b.ForeColor = System.Drawing.Color.FromArgb(color.r, color.b, color.g);
+                b.Text = Config.pinCharacter;
             }
         }
 

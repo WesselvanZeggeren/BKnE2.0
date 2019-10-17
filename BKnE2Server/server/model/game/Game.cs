@@ -174,9 +174,9 @@ namespace BKnE2Server.server.model.game
             Client winner = this.nextRoundPlayers.ElementAt(0);
             this.players.Remove(winner);
 
-            winner.data.wins += 1;
-            winner.data.plays += 1;
-            winner.data.score += Config.maxScorePerGame;
+            winner.data.player.wins += 1;
+            winner.data.player.plays += 1;
+            winner.data.player.score += Config.maxScorePerGame;
 
             int scorePerPlayer = Config.maxScorePerGame / ((this.players.Count() + 1) / 2);
 
@@ -185,8 +185,8 @@ namespace BKnE2Server.server.model.game
 
                 Client player = this.players.ElementAt(i);
 
-                player.data.plays += 1;
-                player.data.score += Config.maxScorePerGame - (scorePerPlayer * (i + 2));
+                player.data.player.plays += 1;
+                player.data.player.score += Config.maxScorePerGame - (scorePerPlayer * (i + 2));
             }
 
             AccountManager.save();
