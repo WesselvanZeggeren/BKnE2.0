@@ -18,25 +18,32 @@ namespace BKnE2Client.client.controller
 
         public ConnectionHandler(Controller controller)
         {
+
             this.controller = controller;
-            functions = new Dictionary<string, Action<Request>>();
-            functions[Config.loginType] = OnLogin;
-            functions[Config.messageType] = OnMessage;
-            functions[Config.pinType] = OnPin;
-            functions[Config.playerType] = OnPlayer;
-            functions[Config.startType] = OnStart;
-            invokeFunction = new InvokeDelegate(InvokeFunction);
+
+            this.functions = new Dictionary<string, Action<Request>>();
+            this.functions[Config.loginType] = OnLogin;
+            this.functions[Config.messageType] = OnMessage;
+            this.functions[Config.pinType] = OnPin;
+            this.functions[Config.playerType] = OnPlayer;
+            this.functions[Config.startType] = OnStart;
+
+            this.invokeFunction = new InvokeDelegate(InvokeFunction);
         }
         
         //Load the lobby when logged in
         private void OnLogin(Request obj)
         {
+
             if (obj.get("successful"))
             {
+
                 LobbyForm lobby = new LobbyForm(controller);
                 lobby.Show();
-                controller.loginForm.Hide();
-                controller.lobbyForm = lobby;
+
+                this.controller.loginForm.Hide();
+                this.controller.lobbyForm = lobby;
+
                 this.writeRequest(Request.newRequest(Config.lobbyType));
             }
         }
@@ -44,73 +51,77 @@ namespace BKnE2Client.client.controller
         //Adds a chat to the UI list
         private void OnMessage(Request obj)
         {
-            if(controller.lobbyForm != null)
-                controller.lobbyForm.AddChat(obj.get(Config.messageType));
 
-            if (controller.gameForm != null)
-                controller.gameForm.AddChat(obj.get(Config.messageType));
+            if (this.controller.lobbyForm != null)
+                this.controller.lobbyForm.AddChat(obj.get(Config.messageType));
+
+            if (this.controller.gameForm != null)
+                this.controller.gameForm.AddChat(obj.get(Config.messageType));
         }
 
         private void OnPin(Request obj)
         {
-            controller.gameForm.SetPin(obj);
+
+            this.controller.gameForm.SetPin(obj);
         }
 
         //Updates the list with players
         private void OnPlayer(Request obj)
         {
+
             List<Player> players = JsonConvert.DeserializeObject<List<Player>>(obj.get("players"));
 
             if (players != null)
             {
-                controller.players = players;
 
-                if (controller.lobbyForm != null)
-                {
-                    controller.lobbyForm.UpdatePlayerList();
-                }
-                if(controller.gameForm != null)
-                {
-                    controller.gameForm.UpdatePlayerList();
-                }
+                this.controller.players = players;
+
+                if (this.controller.lobbyForm != null)
+                    this.controller.lobbyForm.UpdatePlayerList();
+
+                if (this.controller.gameForm != null)
+                    this.controller.gameForm.UpdatePlayerList();
             }
         }
 
         private void OnStart(Request obj)
         {
+
             if (obj.get("size") != null)
             {
+
                 GameForm gameForm = new GameForm(controller);
                 gameForm.Show();
-                controller.lobbyForm.Hide();
-                controller.gameForm = gameForm;
+
+                this.controller.lobbyForm.Hide();
+                this.controller.gameForm = gameForm;
             }
             else
             {
-                controller.gameForm.Hide();
-                controller.lobbyForm.Show();
+
+                this.controller.gameForm.Hide();
+                this.controller.lobbyForm.Show();
             }
         }
 
         //Call the request.type function
         private void InvokeFunction(Request request)
         {
+
             try
             {
-                if(request != null)
-                {
-                    functions[request.type].Invoke(request);
-                }
-            } catch (Exception e)
+
+                if (request != null)
+                    this.functions[request.type].Invoke(request);
+            }
+            catch (Exception e)
             {
-                if (controller.lobbyForm != null)
-                {
-                    controller.lobbyForm.SetServerMessage(DateTime.Now.Millisecond + " " + e.ToString());
-                }
-                if (controller.gameForm != null)
-                {
-                    controller.gameForm.SetServerMessage(DateTime.Now.Millisecond + " " + e.ToString());
-                }
+
+                if (this.controller.lobbyForm != null)
+                    this.controller.lobbyForm.SetServerMessage(DateTime.Now.Millisecond + " " + e.ToString());
+
+                if (this.controller.gameForm != null)
+                    this.controller.gameForm.SetServerMessage(DateTime.Now.Millisecond + " " + e.ToString());
             }
         }
 
@@ -118,7 +129,8 @@ namespace BKnE2Client.client.controller
         //Nessecairy to call the funciton on the application thread
         public override void receiveRequest(Request request)
         {
-            controller.loginForm.Invoke(invokeFunction, request);
+
+            this.controller.loginForm.Invoke(invokeFunction, request);
         }
     }
 }

@@ -14,26 +14,32 @@ namespace BKnE2Client
 {
     public partial class LoginForm : Form
     {
+
         private Controller controller;
         public string loginName;
 
         public LoginForm()
         {
+
             InitializeComponent();
+
             loginButton.Click += OnLoginButtonPressed;
             registerButton.Click += OnRegisterButtonPressed;
+
             this.controller = new Controller();
             this.controller.loginForm = this;
         }
 
         private void OnLoginButtonPressed(object sender, EventArgs e)
         {
-            controller.Login(loginNameTB.Text, passwordTB.Text, false);
+
+            this.controller.Login(loginNameTB.Text, passwordTB.Text, false);
         }
 
         private void OnRegisterButtonPressed(object sender, EventArgs e)
         {
-            controller.Login(loginNameTB.Text, passwordTB.Text, true);
+
+            this.controller.Login(loginNameTB.Text, passwordTB.Text, true);
         }
     }
 }

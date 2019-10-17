@@ -40,7 +40,7 @@ namespace BKnE2Lib
         /**
          * Pin type. This type is used to let players click pins and receive one if it is successfully selected.
          * Server params:   "x":1, "y":3
-         * Client params:   "x":1, "y":3, "r":255, "g":0, "b":0
+         * Client params:   "x":1, "y":3, "color":Color
          */
         public const string pinType = "pin";
 
@@ -59,6 +59,7 @@ namespace BKnE2Lib
         public const int connectionTimeout = 3600000;
 
         // game
+        public const string pinCharacter = "■";
         public const int maxPinsPerPlayer = 4;
         public const int maxPlayersInGame = 2;
         public const int maxScorePerGame = 50;
