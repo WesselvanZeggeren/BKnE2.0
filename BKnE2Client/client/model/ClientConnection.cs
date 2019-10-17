@@ -18,6 +18,7 @@ namespace BKnE2Client.client.model
 
         private SslStream stream;
         private Thread thread;
+        private AsyncConnection conn;
 
         // connection
         public void startConnection()
@@ -26,12 +27,15 @@ namespace BKnE2Client.client.model
             TcpClient client = new TcpClient(Config.host, Config.port);
             this.stream = new SslStream(client.GetStream(), false, new RemoteCertificateValidationCallback(validateCertificate), null);
 
+            this.stream.AuthenticateAsClient(Config.machineName);
+            this.conn = new AsyncConnection(this.stream, this);
+            //TCPHelper.write(this.stream, Request.newRequest());
+            this.conn.Write(Request.newRequest());
+
             try
             {
 
-                this.stream.AuthenticateAsClient(Config.machineName);
-
-                TCPHelper.write(this.stream, Request.newRequest());
+                
             }
             catch (Exception e)
             {
@@ -45,8 +49,8 @@ namespace BKnE2Client.client.model
                 return;
             }
 
-            this.thread = new Thread(new ThreadStart(readRequest));
-            this.thread.Start();
+            //this.thread = new Thread(new ThreadStart(readRequest));
+            //this.thread.Start();
         }
 
         private bool validateCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
@@ -63,7 +67,8 @@ namespace BKnE2Client.client.model
         // messaging
         public void writeRequest(Request request)
         {
-            TCPHelper.write(this.stream, request);
+            //TCPHelper.write(this.stream, request);
+            this.conn.Write(request);
         }
 
         private void readRequest()

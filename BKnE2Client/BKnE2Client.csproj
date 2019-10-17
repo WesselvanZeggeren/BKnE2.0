@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="client\controller\ConnectionHandler.cs" />
     <Compile Include="client\controller\Controller.cs" />
+    <Compile Include="client\model\AsyncConnection.cs" />
     <Compile Include="client\model\ClientConnection.cs" />
     <Compile Include="client\view\Login.cs">
       <SubType>Form</SubType>
