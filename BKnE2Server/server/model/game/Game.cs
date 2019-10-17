@@ -47,25 +47,22 @@ namespace BKnE2Server.server.model.game
         public void nextRound()
         {
 
-            if (this.playingPlayers() == 1 && !this.ended)
+            if (this.playingPlayers().Count() == 1 && !this.ended)
             {
 
                 this.currentPlayer().isPlaying = false;
                 this.resetNextRoundPlayers();
                 this.iterator = 0;
 
-                if (this.nextRoundPlayers.Count() != 1)
+                if (this.nextRoundPlayers.Count() == 1)
+                    this.ended = true;
+                else
                 {
 
                     this.init();
 
                     this.players = new List<Client>(this.newPlayerList());
                     this.nextRoundPlayers = new List<Client>();
-                }
-                else
-                {
-
-                    this.ended = true;
                 }
             }
         }
@@ -74,7 +71,7 @@ namespace BKnE2Server.server.model.game
         private int getSize(int size)
         {
 
-            if ((size * size) > (this.playingPlayers() * Config.maxPinsPerPlayer))
+            if ((size * size) > (this.playingPlayers().Count() * Config.maxPinsPerPlayer))
                 return size;
 
             return this.getSize(size + 1);
@@ -86,7 +83,7 @@ namespace BKnE2Server.server.model.game
 
             Pin pin = this.getPin((int) request.get("x"), (int) request.get("y"));
 
-            if (player.data.id == this.currentPlayer().data.id && !pin.isAssigned)
+            if (player.data.id == this.currentPlayer().data.id && !pin.isAssigned && !this.ended)
             {
 
                 pin.isAssigned = true;
@@ -116,7 +113,7 @@ namespace BKnE2Server.server.model.game
 
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    this.pins.Add(new Pin(x, y));
+                    this.pins.Add(Pin.newPin(x, y));
         }
 
         // player
@@ -127,16 +124,16 @@ namespace BKnE2Server.server.model.game
                 player.resetClient();
         }
 
-        private int playingPlayers()
+        private List<Client> playingPlayers()
         {
 
-            int playersPlaying = 0;
+            List<Client> playingPlayers = new List<Client>();
 
             foreach (Client player in this.players)
                 if (player.isPlaying)
-                    playersPlaying += 1;
+                    playingPlayers.Add(player) ;
 
-            return playersPlaying;
+            return playingPlayers;
         }
 
         private List<Client> newPlayerList()
@@ -174,19 +171,19 @@ namespace BKnE2Server.server.model.game
             Client winner = this.nextRoundPlayers.ElementAt(0);
             this.players.Remove(winner);
 
-            winner.data.wins += 1;
-            winner.data.plays += 1;
-            winner.data.score += Config.maxScorePerGame;
+            winner.data.player.wins += 1;
+            winner.data.player.plays += 1;
+            winner.data.player.score += Config.maxScorePerGame;
 
-            int scorePerPlayer = Config.maxScorePerGame / ((this.players.Count() + 1) / 2);
+            int scorePerPlayer = Config.maxScorePerGame / ((this.players.Count()) / 2);
 
             for (int i = 0; i < this.players.Count(); i++)
             {
 
                 Client player = this.players.ElementAt(i);
 
-                player.data.plays += 1;
-                player.data.score += Config.maxScorePerGame - (scorePerPlayer * (i + 2));
+                player.data.player.plays += 1;
+                player.data.player.score += Config.maxScorePerGame - (scorePerPlayer * (i + 1));
             }
 
             AccountManager.save();

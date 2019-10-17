@@ -5,19 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BKnE2Server.server.model.client
+namespace BKnE2Lib.data
 {
-    class ClientColor
+    public class Color
     {
 
         public int r { get; set; }
         public int g { get; set; }
         public int b { get; set; }
 
-        public static ClientColor newColor(int r, int g, int b)
+        public static Color newColor(int r, int g, int b)
         {
 
-            ClientColor color = new ClientColor();
+            Color color = new Color();
 
             color.r = r;
             color.g = g;
@@ -26,12 +26,12 @@ namespace BKnE2Server.server.model.client
             return color;
         }
 
-        public static ClientColor generateColor()
+        public static Color generateColor()
         {
 
             Random random = new Random();
 
-            return ClientColor.newColor(random.Next(256), random.Next(256), random.Next(256));
+            return Color.newColor(random.Next(256), random.Next(256), random.Next(256));
         }
 
         public override string ToString()

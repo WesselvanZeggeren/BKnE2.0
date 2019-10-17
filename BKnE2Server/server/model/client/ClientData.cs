@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BKnE2Lib.data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,7 @@ namespace BKnE2Server.server.model.client
         public int id { get; set;  }
         public string name { get; set; }
         public string password { get; set; }
-        public int wins { get; set; }
-        public int plays { get; set; }
-        public int score { get; set; }
-        public ClientColor color { get; set; }
+        public Player player { get; set; }
 
         public static ClientData newClient(int id, string name, string password)
         {
@@ -26,10 +24,7 @@ namespace BKnE2Server.server.model.client
             client.id = id;
             client.name = name;
             client.password = password;
-            client.wins = 0;
-            client.plays = 0;
-            client.score = 1000;
-            client.color = ClientColor.generateColor();
+            client.player = new Player();
 
             return client;
         }

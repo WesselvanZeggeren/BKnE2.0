@@ -56,9 +56,7 @@ namespace BKnE2Server.server.model.game
             if (this.game.receivePin(client, request))
             {
 
-                request.add("r", client.data.color.r);
-                request.add("g", client.data.color.g);
-                request.add("b", client.data.color.b);
+                request.add("color", client.data.player.color);
 
                 this.writeRequestToAll(request);
 
@@ -110,17 +108,7 @@ namespace BKnE2Server.server.model.game
             List<Player> players = new List<Player>();
 
             foreach (Client client in this.clients)
-            {
-
-                players.Add(Player.newPlayer(
-                    client.data.name,
-                    client.data.color.r,
-                    client.data.color.g,
-                    client.data.color.b,
-                    client.data.score,
-                    client.data.wins
-                ));
-            }
+                players.Add(client.data.player);
 
             return players;
         }

@@ -14,7 +14,7 @@ namespace BKnE2Lib
         /**
          * Start type. This type starts the game. It is used to start and quit a game or to recieve its size
          * Server params:   "start":true
-         * Client params:   "size":3
+         * Client params:   "start":true, "size":3
          */
         public const string startType = "start";
 
@@ -40,7 +40,7 @@ namespace BKnE2Lib
         /**
          * Pin type. This type is used to let players click pins and receive one if it is successfully selected.
          * Server params:   "x":1, "y":3
-         * Client params:   "x":1, "y":3, "r":255, "g":0, "b":0
+         * Client params:   "x":1, "y":3, "color":Color
          */
         public const string pinType = "pin";
 
