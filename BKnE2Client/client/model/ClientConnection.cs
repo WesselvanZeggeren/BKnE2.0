@@ -31,7 +31,9 @@ namespace BKnE2Client.client.model
 
                 this.stream.AuthenticateAsClient(Config.machineName);
 
-                TCPHelper.write(this.stream, Request.newRequest());
+                //TCPHelper.write(this.stream, Request.newRequest());
+                AsyncConnection.Connect(this.stream, this);
+                AsyncConnection.Write(Request.newRequest());
             }
             catch (Exception e)
             {
@@ -45,8 +47,8 @@ namespace BKnE2Client.client.model
                 return;
             }
 
-            this.thread = new Thread(new ThreadStart(readRequest));
-            this.thread.Start();
+            //this.thread = new Thread(new ThreadStart(readRequest));
+            //this.thread.Start();
         }
 
         private bool validateCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
@@ -63,7 +65,8 @@ namespace BKnE2Client.client.model
         // messaging
         public void writeRequest(Request request)
         {
-            TCPHelper.write(this.stream, request);
+            //TCPHelper.write(this.stream, request);
+            AsyncConnection.Write(request);
         }
 
         private void readRequest()
