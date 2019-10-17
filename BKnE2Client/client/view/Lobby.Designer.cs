@@ -74,6 +74,7 @@
             // 
             // playButton
             // 
+            this.playButton.Enabled = false;
             this.playButton.Location = new System.Drawing.Point(200, 600);
             this.playButton.Name = "playButton";
             this.playButton.Size = new System.Drawing.Size(264, 61);
@@ -122,7 +123,7 @@
             this.serverListBox.Size = new System.Drawing.Size(264, 257);
             this.serverListBox.TabIndex = 4;
             // 
-            // Lobby
+            // LobbyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -132,7 +133,7 @@
             this.Controls.Add(this.playerPanel);
             this.MaximumSize = new System.Drawing.Size(1280, 720);
             this.MinimumSize = new System.Drawing.Size(1280, 720);
-            this.Name = "Lobby";
+            this.Name = "LobbyForm";
             this.Text = "Lobby";
             this.playerPanel.ResumeLayout(false);
             this.chatPanel.ResumeLayout(false);
