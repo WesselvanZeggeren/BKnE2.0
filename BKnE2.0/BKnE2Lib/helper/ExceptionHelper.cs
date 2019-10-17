@@ -19,7 +19,7 @@ namespace BKnE2Lib.helper
         {
 
             string message = String.Format(
-                "Location: {0}\n\tMessage: {1}\n\tName: {2}\n\tStacktrace: {3}",
+                "Location: {0}\nMessage: {1}\nName: {2}\nStacktrace:\n{3}",
                 location,
                 e.Message,
                 e.GetType().Name,
@@ -27,7 +27,7 @@ namespace BKnE2Lib.helper
             );
 
             if (e.InnerException != null)
-                message += String.Format("Inner exception: {0}", e.InnerException.Message);
+                message += String.Format("\nInner exception: {0}", getMessage(e.GetType().Name, e.InnerException));
 
             return message;
         }

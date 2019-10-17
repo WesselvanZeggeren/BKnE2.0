@@ -59,9 +59,8 @@ namespace BKnE2Lib
         public const int connectionTimeout = 3600000;
 
         // game
-        public const string pinCharacter = "■";
         public const int maxPinsPerPlayer = 4;
-        public const int maxPlayersInGame = 2;
+        public const int maxPlayersInGame = 2; // when Battle Royale this should become 20
         public const int maxScorePerGame = 50;
         public const int startScore = 1000;
         public const int minBoardSize = 3;

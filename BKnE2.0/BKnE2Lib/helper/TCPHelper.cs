@@ -45,8 +45,10 @@ namespace BKnE2Lib.helper
             {
 
                 ExceptionHelper.print("TCPHelper::read", e);
-                return null;
+                stream.Close();
             }
+
+            return null;
         }
 
         // write
@@ -79,6 +81,7 @@ namespace BKnE2Lib.helper
             {
 
                 ExceptionHelper.print("TCPHelper::write", e);
+                stream.Close();
             }
         }
     }

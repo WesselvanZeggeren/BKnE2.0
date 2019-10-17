@@ -27,8 +27,10 @@ namespace BKnE2Server
             Thread.Sleep(sleep);
             this.lobbyRequest();
             Thread.Sleep(sleep);
+            this.startRequest(true);
+            Thread.Sleep(sleep);
             new Thread(new ThreadStart(new Player2().start)).Start();
-            Thread.Sleep(sleep * 4);
+            Thread.Sleep(sleep * 5);
             this.pinRequest(0, 0);
             Thread.Sleep(sleep * 2);
             this.pinRequest(1, 0);
@@ -42,8 +44,6 @@ namespace BKnE2Server
     public class Player2 : TestPlayer
     {
 
-        public bool relevant = true;
-
         public void start()
         {
 
@@ -51,14 +51,12 @@ namespace BKnE2Server
             Thread.Sleep(sleep);
             this.loginRequest("2", "2", true);
             Thread.Sleep(sleep);
-            this.relevant = false;
             this.lobbyRequest();
             Thread.Sleep(sleep);
-            this.relevant = true;
             this.messageRequest("Hahahahha dit ontvangen we allebei");
-            Thread.Sleep(sleep / 2);
-            this.relevant = false;
-            Thread.Sleep((int)(sleep * 1.5));
+            Thread.Sleep(sleep);
+            this.startRequest(true);
+            Thread.Sleep(sleep * 2);
             this.pinRequest(0, 1);
             Thread.Sleep(sleep * 2);
             this.pinRequest(1, 2);
@@ -69,8 +67,6 @@ namespace BKnE2Server
         public override void receiveRequest(Request request)
         {
 
-            if (relevant)
-                base.receiveRequest(request);
         }
     }
 

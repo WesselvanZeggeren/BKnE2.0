@@ -99,7 +99,7 @@ namespace BKnE2Server.server.model.client
 
             this.data = AccountManager.login(request.get("name"), request.get("password"), request.get("register"));
 
-            Console.WriteLine("DATA: " + this.data);
+            Console.WriteLine("DATA:   " + this.data);
 
             request.clear();
             request.add("successful", (this.data != null));
