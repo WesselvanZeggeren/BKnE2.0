@@ -196,6 +196,11 @@ namespace BKnE2Server.server.model.game
             }
 
             AccountManager.save();
+
+            Request request = Request.newRequest(Config.messageType);
+            request.add("message", $"Congragulations {winner.data.name}");
+
+            winner.lobby.writeRequestToAll(request);
         }
     }
 }
