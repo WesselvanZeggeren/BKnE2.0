@@ -84,12 +84,14 @@ namespace BKnE2Server.server.model.game
         public bool receivePin(Client player, Request request)
         {
 
-            Pin pin = this.getPin((int) request.get("x"), (int) request.get("y"));
+            Pin pin = this.getPin((int)request.get("x"), (int)request.get("y"));
 
             if (player.data.id == this.currentPlayer().data.id && !pin.isAssigned && !this.ended)
             {
 
+                pin.color = player.data.player.color;
                 pin.isAssigned = true;
+
                 player.assignPin(pin);
 
                 if (player.hasThreeInARow())
@@ -116,7 +118,7 @@ namespace BKnE2Server.server.model.game
 
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    this.pins.Add(new Pin(x, y));
+                    this.pins.Add(Pin.newPin(x, y));
         }
 
         // player

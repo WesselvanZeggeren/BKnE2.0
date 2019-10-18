@@ -86,6 +86,7 @@ namespace BKnE2Server.server.model.game
 
             this.clients.Remove(client);
             client.setLobby(null);
+            client.resetClient();
 
             this.sendPlayersToClients();
 
@@ -118,10 +119,7 @@ namespace BKnE2Server.server.model.game
         {
 
             foreach (Client client in this.clients)
-            {
-
                 client.writeRequest(request);
-            }
         }
     }
 }

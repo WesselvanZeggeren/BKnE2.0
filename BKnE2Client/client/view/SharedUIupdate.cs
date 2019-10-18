@@ -1,5 +1,6 @@
 ﻿using BKnE2Client.client.controller;
 using BKnE2Lib.data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,7 +23,7 @@ namespace BKnE2Client.client.view
             if (e.KeyChar == (char)Keys.Return)
                 if (!(chatTextBox.Text == ""))
                 {
-                    controller.SendMessage(controller.loginForm.loginName + ": " + chatTextBox.Text);
+                    controller.SendMessage(controller.loginForm.loginName, chatTextBox.Text);
                     chatTextBox.Text = string.Empty;
                 }
         }
@@ -58,7 +59,7 @@ namespace BKnE2Client.client.view
             playerListBox.Items.Clear();
 
             foreach (Player player in controller.players)
-                playerListBox.Items.Insert(0, player.name);
+                playerListBox.Items.Insert(0, $"{player.name}\t{player.percentage()}% {player.score}");
         }
 
         //Set the messages back after reloading form

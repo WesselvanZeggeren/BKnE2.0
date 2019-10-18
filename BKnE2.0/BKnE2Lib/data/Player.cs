@@ -11,9 +11,9 @@ namespace BKnE2Lib.data
     {
 
         public string name { get; set; }
-        public int plays { get; set; }
-        public int wins { get; set; }
-        public int score { get; set; } 
+        public double plays { get; set; }
+        public double wins { get; set; }
+        public double score { get; set; } 
         public Color color { get; set; }
 
         public static Player newPlayer(string name)
@@ -27,6 +27,15 @@ namespace BKnE2Lib.data
             player.color = Color.generateColor();
 
             return player;
+        }
+
+        public double percentage()
+        {
+
+            if (this.plays == 0 && this.wins == 0)
+                return 0;
+
+            return 100 * (this.wins / this.plays);
         }
 
         public override string ToString()
