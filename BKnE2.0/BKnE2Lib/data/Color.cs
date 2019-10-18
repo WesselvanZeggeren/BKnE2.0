@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace BKnE2Lib.data
 {
+
     public class Color
     {
 

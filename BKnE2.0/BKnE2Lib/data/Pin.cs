@@ -5,21 +5,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BKnE2Server.server.model.game
+namespace BKnE2Lib.data
 {
-    class Pin
+
+    public class Pin
     {
 
-        public int x { get; }
-        public int y { get; }
+        public int x { get; set; }
+        public int y { get; set; }
         public bool isAssigned { get; set; }
+        public Color color { get; set; }
 
-        public Pin (int x, int y)
+        public static Pin newPin(int x, int y)
         {
 
-            this.x = x;
-            this.y = y;
-            this.isAssigned = false;
+            Pin pin = new Pin();
+            pin.x = x;
+            pin.y = y;
+            pin.isAssigned = false;
+
+            return pin;
         }
 
         public override string ToString()

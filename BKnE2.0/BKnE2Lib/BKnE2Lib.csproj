@@ -47,6 +47,7 @@
     <Compile Include="ClientDebugger.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="data\Color.cs" />
+    <Compile Include="data\Pin.cs" />
     <Compile Include="data\Player.cs" />
     <Compile Include="helper\ExceptionHelper.cs" />
     <Compile Include="helper\SSLHelper.cs" />

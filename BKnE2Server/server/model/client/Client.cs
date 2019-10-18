@@ -26,8 +26,8 @@ namespace BKnE2Server.server.model.client
         // attributes
         public ClientData data = null;
         public bool isPlaying = true;
-
         public Lobby lobby;
+
         private List<Pin> pins;
 
         private Server server;
@@ -112,7 +112,11 @@ namespace BKnE2Server.server.model.client
         {
 
             if (this.pins.Count() == 4)
+            {
+
+                this.pins.ElementAt(0).isAssigned = false;
                 this.pins.RemoveAt(0);
+            }
 
             this.pins.Add(pin);
         }
@@ -132,11 +136,11 @@ namespace BKnE2Server.server.model.client
         {
 
             if (this.isPlaying)
-                foreach (Pin p in this.pins)
-                    if (this.containsPin(p.x    , p.y + 1) && this.containsPin(p.x    , p.y + 2) ||
-                        this.containsPin(p.x + 1, p.y + 1) && this.containsPin(p.x + 2, p.y + 2) ||
-                        this.containsPin(p.x + 1, p.y    ) && this.containsPin(p.x + 2, p.y    ) ||
-                        this.containsPin(p.x + 1, p.y - 1) && this.containsPin(p.x + 2, p.y - 2))
+                foreach (Pin pin in this.pins)
+                    if (this.containsPin(pin.x    , pin.y + 1) && this.containsPin(pin.x    , pin.y + 2) ||
+                        this.containsPin(pin.x + 1, pin.y + 1) && this.containsPin(pin.x + 2, pin.y + 2) ||
+                        this.containsPin(pin.x + 1, pin.y    ) && this.containsPin(pin.x + 2, pin.y    ) ||
+                        this.containsPin(pin.x + 1, pin.y - 1) && this.containsPin(pin.x + 2, pin.y - 2))
                         this.isPlaying = false;
 
             return !this.isPlaying;

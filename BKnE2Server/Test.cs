@@ -23,7 +23,7 @@ namespace BKnE2Server
             Thread.Sleep(sleep);
             this.startConnection();
             Thread.Sleep(sleep);
-            this.loginRequest("1", "1", true);
+            this.loginRequest("2", "2", true);
             Thread.Sleep(sleep);
             this.lobbyRequest();
             Thread.Sleep(sleep);
@@ -49,7 +49,7 @@ namespace BKnE2Server
 
             this.startConnection();
             Thread.Sleep(sleep);
-            this.loginRequest("2", "2", true);
+            this.loginRequest("1", "1", true);
             Thread.Sleep(sleep);
             this.lobbyRequest();
             Thread.Sleep(sleep);

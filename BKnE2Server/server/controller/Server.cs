@@ -78,7 +78,12 @@ namespace BKnE2Server.server.controller
         // messaging
         public void receiveRequest(Client client, Request request)
         {
-            Console.WriteLine("CLIENT: " + request.ToString());
+
+            if (client.data != null)
+                Console.WriteLine("CLIENT: " + request.ToString() + " :: " + client.data.name);
+            else
+                Console.WriteLine("CLIENT: " + request.ToString() + " :: NotLoggedIn");
+
             switch (request.type)
             {
 
@@ -93,6 +98,8 @@ namespace BKnE2Server.server.controller
         // game
         private Lobby findLobby()
         {
+
+            Console.WriteLine("Ammount of lobbies: " + this.lobbys.Count());
 
             foreach (Lobby lobby in this.lobbys)
                 if (lobby.game == null)

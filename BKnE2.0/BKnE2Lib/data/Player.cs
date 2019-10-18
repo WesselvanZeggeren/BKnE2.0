@@ -11,9 +11,9 @@ namespace BKnE2Lib.data
     {
 
         public string name { get; set; }
-        public int plays { get; set; }
-        public int wins { get; set; }
-        public int score { get; set; } 
+        public double plays { get; set; }
+        public double wins { get; set; }
+        public double score { get; set; } 
         public Color color { get; set; }
 
         public static Player newPlayer(string name)
