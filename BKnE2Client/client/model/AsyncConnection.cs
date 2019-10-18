@@ -1,4 +1,5 @@
-﻿using BKnE2Lib.data;
+﻿using BKnE2Lib;
+using BKnE2Lib.data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace BKnE2Client.client.model
     {
         private SslStream stream;
         private ClientConnection conn;
-        private byte[] buffer = new byte[1];
+        private byte[] buffer;
         Encoding encoding = Encoding.UTF8;
 
 
@@ -22,56 +23,62 @@ namespace BKnE2Client.client.model
         {
             this.stream = stream;
             this.conn = conn;
+            this.buffer = new byte[Config.maxMsgBytes];
             this.stream.BeginRead(buffer, 0, buffer.Length, new AsyncCallback(OnRead), null);
         }
 
-        private void OnRead(IAsyncResult ar)
+        private void OnRead(IAsyncResult result)
         {
-            try
+            int receivedBytes = this.stream.EndRead(result);
+
+            int offset = (int)Math.Ceiling((decimal)receivedBytes / 255);
+            
+            int messageLength = BitConverter.ToInt32(buffer, 0);
+            byte[] totalBuffer = new byte[messageLength + Config.maxMsgBytes - offset];
+
+            int totalRead = 0;
+
+            while (totalRead < messageLength)
             {
-                int receivedBytes = this.stream.EndRead(ar);
-                int packetLength = (int)buffer[0]; //BitConverter.ToInt32(buffer, 0);
-                byte[] totalBuffer = new byte[packetLength];
-                int readPos = 1;
-
-                while (readPos < packetLength)
-                {
-                    receivedBytes = stream.Read(totalBuffer, readPos, packetLength - readPos);
-                    readPos += receivedBytes;
-                }
-
-                string message = Encoding.UTF8.GetString(totalBuffer);
-
-                Request request = JsonConvert.DeserializeObject<Request>(message);
-
-                this.conn.receiveRequest(request);
-                this.stream.BeginRead(this.buffer, 0, buffer.Length, OnRead, null);
+                int read = stream.Read(totalBuffer, totalRead, totalBuffer.Length - totalRead);
+                totalRead += read;
             }
-            catch (IOException)
+
+            byte[] toReturn = new byte[messageLength];
+
+            for (int i = 0; i < messageLength; i++)
             {
-                stream.Close();
+                toReturn[i] = totalBuffer[i + Config.maxMsgBytes - offset];
             }
+
+            string message = Encoding.UTF8.GetString(toReturn);
+
+            Request request = JsonConvert.DeserializeObject<Request>(message);
+
+            this.conn.receiveRequest(request);
+            this.stream.BeginRead(this.buffer, 0, buffer.Length, OnRead, null);
         }
 
         public void Write(Request request)
         {
-            try
+            //The data to send
+            byte[] serialisedData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(request));
+            //The length of the message
+            byte[] length = BitConverter.GetBytes(serialisedData.Length);
+            byte[] toSend = new byte[Config.maxMsgBytes + serialisedData.Length];
+
+            for (int i = 0; i < length.Length; i++)
             {
-                byte[] messageBytes = encoding.GetBytes(JsonConvert.SerializeObject(request));
-                byte[] bytes = new byte[messageBytes.Length + 1];
-
-                bytes[0] = (byte)bytes.Length;
-
-                for (int i = 0; i < messageBytes.Length; i++)
-                    bytes[i + 1] = messageBytes[i];
-
-                stream.Write(bytes, 0, bytes.Length);
-                stream.Flush();
+                toSend[i] = length[i];
             }
-            catch (ObjectDisposedException)
+            //Write the data
+            for (int i = 0; i < serialisedData.Length; i++)
             {
-                
+                toSend[i + Config.maxMsgBytes] = serialisedData[i];
             }
+
+            stream.WriteAsync(toSend, 0, toSend.Length);
+            stream.Flush();
         }
     }
 }

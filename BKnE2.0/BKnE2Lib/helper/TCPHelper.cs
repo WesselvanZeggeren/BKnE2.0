@@ -27,28 +27,30 @@ namespace BKnE2Lib.helper
         public static Request read(SslStream stream)
         {
 
-            try
+            //Read the first EncryptionLayer.maxMsgLength bytes for the message length and convert it to an integer
+            byte[] length = new byte[Config.maxMsgBytes];
+            int amountRead = stream.Read(length, 0, Config.maxMsgBytes);
+            int totalRead = 0;
+            //Zet de length (Byte array) om naar een integer getal
+            int messageLength = BitConverter.ToInt32(length, 0);
+            //Maak een nieuwe buffer aan met de waarde van de message length
+            byte[] buffer = new byte[messageLength + Config.maxMsgBytes - amountRead];
+
+            //Zolang het ontvangen bericht kleiner is dan de buffer lengte
+            while (totalRead < messageLength)
             {
-
-                byte[] length = new byte[1];
-                stream.Read(length, 0, 1);
-
-                byte[] bytes = new byte[(int)length[0]];
-                int readBytes = 1;
-
-                while (readBytes < bytes.Length)
-                    readBytes += stream.Read(bytes, readBytes, (bytes.Length - readBytes));
-
-                return JsonConvert.DeserializeObject<Request>(encoding.GetString(bytes, 0, bytes.Length));
-            }
-            catch (Exception e)
-            {
-
-                ExceptionHelper.print("TCPHelper::read", e);
-                stream.Close();
+                int read = stream.Read(buffer, totalRead, buffer.Length);
+                totalRead += read;
             }
 
-            return null;
+            byte[] toReturn = new byte[messageLength];
+
+            for (int i = 0; i < messageLength; i++)
+            {
+                toReturn[i] = buffer[i + Config.maxMsgBytes - amountRead];
+            }
+
+            return JsonConvert.DeserializeObject<Request>(encoding.GetString(buffer, 0, totalRead));
         }
 
         // write
@@ -63,26 +65,25 @@ namespace BKnE2Lib.helper
         public static void write(SslStream stream, Request request)
         {
 
-            try
+            //The data to send
+            byte[] serialisedData = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(request));
+            
+            //The length of the message
+            byte[] length = BitConverter.GetBytes(serialisedData.Length);
+            byte[] toSend = new byte[Config.maxMsgBytes + serialisedData.Length];
+
+            for (int i = 0; i < length.Length; i++)
             {
-
-                byte[] messageBytes = encoding.GetBytes(JsonConvert.SerializeObject(request));
-                byte[] bytes = new byte[messageBytes.Length + 1];
-
-                bytes[0] = (byte) bytes.Length;
-
-                for (int i = 0; i < messageBytes.Length; i++)
-                    bytes[i + 1] = messageBytes[i];
-
-                stream.Write(bytes, 0, bytes.Length);
-                stream.Flush();
+                toSend[i] = length[i];
             }
-            catch (IOException e)
+            //Write the data
+            for (int i = 0; i < serialisedData.Length; i++)
             {
-
-                ExceptionHelper.print("TCPHelper::write", e);
-                stream.Close();
+                toSend[i + Config.maxMsgBytes] = serialisedData[i];
             }
+
+            stream.Write(toSend, 0, toSend.Length);
+            stream.Flush();
         }
     }
 }

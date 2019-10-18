@@ -78,5 +78,7 @@ namespace BKnE2Lib
 
             return Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
         }
+
+        public const int maxMsgBytes = 4;
     }
 }
