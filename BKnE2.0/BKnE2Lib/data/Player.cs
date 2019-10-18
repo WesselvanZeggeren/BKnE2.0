@@ -29,6 +29,15 @@ namespace BKnE2Lib.data
             return player;
         }
 
+        public double percentage()
+        {
+
+            if (this.plays == 0 && this.wins == 0)
+                return 0;
+
+            return 100 * (this.wins / this.plays);
+        }
+
         public override string ToString()
         {
 

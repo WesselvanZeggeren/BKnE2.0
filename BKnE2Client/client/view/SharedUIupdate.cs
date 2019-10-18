@@ -59,12 +59,7 @@ namespace BKnE2Client.client.view
             playerListBox.Items.Clear();
 
             foreach (Player player in controller.players)
-                playerListBox.Items.Insert(0, String.Format(
-                    "{0}\t{1}% > {2}", 
-                    player.name, 
-                    100.0 * (player.wins / player.plays), 
-                    player.score
-                ));
+                playerListBox.Items.Insert(0, $"{player.name}\t{player.percentage()}% {player.score}");
         }
 
         //Set the messages back after reloading form

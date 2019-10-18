@@ -1,1 +1,1 @@
-[{"id":1,"name":"1","password":"1","player":{"name":"1","plays":2.0,"wins":1.0,"score":1000.0,"color":{"r":222,"g":107,"b":141}}},{"id":2,"name":"2","password":"2","player":{"name":"2","plays":2.0,"wins":1.0,"score":1000.0,"color":{"r":175,"g":238,"b":130}}}]
+[{"id":1,"name":"1","password":"1","player":{"name":"1","plays":0.0,"wins":0.0,"score":1000.0,"color":{"r":49,"g":28,"b":147}}}]
