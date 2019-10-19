@@ -89,6 +89,14 @@ namespace BKnE2Client.client.controller
                 request.add("start", false);
 
                 this.connectionHandler.writeRequest(request);
+
+                LobbyForm lobby = new LobbyForm(this);
+                lobby.Show();
+
+                this.gameForm.Hide();
+                this.lobbyForm = lobby;
+
+                this.connectionHandler.writeRequest(Request.newRequest(Config.lobbyType));
             }
         }
 
