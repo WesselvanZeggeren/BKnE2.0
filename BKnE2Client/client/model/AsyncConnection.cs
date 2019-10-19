@@ -40,7 +40,14 @@ namespace BKnE2Client.client.model
                     readPos += receivedBytes;
                 }
 
-                string message = Encoding.UTF8.GetString(totalBuffer);
+                byte[] toReturn = new byte[totalBuffer.Length - 1];
+
+                for(int i = 0; i < toReturn.Length; i++)
+                {
+                    toReturn[i] = totalBuffer[i + 1];
+                }
+
+                string message = Encoding.UTF8.GetString(toReturn);
 
                 Request request = JsonConvert.DeserializeObject<Request>(message);
 
